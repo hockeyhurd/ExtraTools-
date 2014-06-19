@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -16,21 +17,24 @@ public class EventHookContainer {
 	private final Item chest = ExtraTools.glowChestplate;
 	private final Item leg = ExtraTools.glowLegging;
 	private final Item boot = ExtraTools.glowBoot;
+	
+	private boolean bootCheck = false;
+	private boolean legCheck = false;
+	private boolean chestCheck = false;
+	private boolean helmCheck = false;
 
-	@ForgeSubscribe
+	// Removed as unused.
+	/*@ForgeSubscribe
 	public void onPlayerDamage(LivingHurtEvent event) {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			if (player.isAirBorne && !player.capabilities.isFlying) player.capabilities.isFlying = true;
 		}
-	}
+	}*/
 
-	/*
-	 * New approach to adding effects and preventing player damage when necessary.
-	 */
 	@ForgeSubscribe
 	public void onPlayerUpdate(LivingUpdateEvent event) {
+		
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
@@ -69,6 +73,7 @@ public class EventHookContainer {
 			 * Checks if the user removes any part(s) of the armor set and if already airborne revove flying ability and make them fall! Ouch!
 			 */
 			else {
+				bootCheck = legCheck = chestCheck = helmCheck = false;
 				if (player.isAirBorne) {
 					player.capabilities.allowFlying = false;
 					player.capabilities.isFlying = false;
@@ -77,22 +82,29 @@ public class EventHookContainer {
 			}
 
 			if (currentBoot == boot) {
+				bootCheck = true;
 				if (!player.isCollidedVertically) player.fallDistance = 0f;
 			}
 
 			if (currentLeg == leg) {
+				legCheck = true;
 				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 2, 0));
 			}
 
 			if (currentChest == chest) {
+				chestCheck = true;
 				if (!player.isBurning()) player.removePotionEffect(Potion.fireResistance.id);
 				else player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 5, 0));
 			}
 
 			if (currentHelm == helm) {
+				helmCheck = true;
 				if (player.isInWater()) player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0));
 				else player.removePotionEffect(Potion.waterBreathing.id);
 			}
+			
+			if (bootCheck && legCheck && chestCheck && helmCheck) player.capabilities.allowFlying = true;			
+			else player.capabilities.allowFlying = false;
 
 		}
 

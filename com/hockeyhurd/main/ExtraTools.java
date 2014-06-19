@@ -22,7 +22,6 @@ import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.handler.DefaultIDHandler;
-import com.hockeyhurd.handler.ServerTickHandler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
@@ -44,10 +43,8 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.01")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ExtraTools {
 
@@ -125,13 +122,7 @@ public class ExtraTools {
 		registerTileEntities();
 	}
 
-	// NOTE: Also includes tick based handlers
 	private void registerEventHandlers() {
-		ServerTickHandler tickHandler = new ServerTickHandler();
-
-		MinecraftForge.EVENT_BUS.register(tickHandler);
-		TickRegistry.registerTickHandler(tickHandler, Side.CLIENT);
-
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
 	}
 
