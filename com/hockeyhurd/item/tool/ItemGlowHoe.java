@@ -1,5 +1,7 @@
 package com.hockeyhurd.item.tool;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
@@ -55,6 +57,10 @@ public class ItemGlowHoe extends ItemHoe {
 			return true;
 		}
 		
+	}
+	
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		// list.add("Tooltip stuff goes here");
 	}
 
 }

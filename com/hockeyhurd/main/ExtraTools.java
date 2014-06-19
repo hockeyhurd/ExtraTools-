@@ -27,7 +27,7 @@ import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
 import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
-import com.hockeyhurd.item.tool.GlowShovelUnbreakble;
+import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
 import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
@@ -81,7 +81,7 @@ public class ExtraTools {
 	public static Item glowHoeUnbreakable = new ItemGlowHoe(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
 	public static Item glowSwordUnbreakable = new ItemGlowSword(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
 	public static Item glowAxeUnbreakable = new ItemGlowAxe(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowShovelUnbreakable = new GlowShovelUnbreakble(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowShovelUnbreakable = new ItemGlowShovel(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
