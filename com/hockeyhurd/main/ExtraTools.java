@@ -17,20 +17,23 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import com.hockeyhurd.block.BlockGlowIngot;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.handler.DefaultIDHandler;
+import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
 import com.hockeyhurd.item.ItemNetherSoulCollector;
+import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
-import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
 import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
+import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowSword;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
@@ -40,11 +43,12 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ExtraTools {
 
@@ -55,33 +59,37 @@ public class ExtraTools {
 	public static ExtraTools instance;
 
 	public static String modPrefix = "extratools:";
+	
+	public static DefaultIDHandler dh = new DefaultIDHandler();
 
 	// Blocks
-	public static Block glowRock = new BlockGlowRock(DefaultIDHandler.getNextAvailableID(), Material.glass);
-	public static Block glowTorch = new BlockGlowTorch(DefaultIDHandler.getNextAvailableID());
+	public static Block glowRock = new BlockGlowRock(dh.getNextAvailableID(), Material.glass);
+	public static Block glowTorch = new BlockGlowTorch(dh.getNextAvailableID());
+	public static Block glowIngotBlock = new BlockGlowIngot(dh.getNextAvailableID(), Material.rock);
 
 	// Ores
-	public static Block glowOre = new BlockGlowOre(DefaultIDHandler.getNextAvailableID(), Material.rock);
+	public static Block glowOre = new BlockGlowOre(dh.getNextAvailableID(), Material.rock);
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
 
 	// Items
-	public static Item glowDust = new ItemGlowDust(DefaultIDHandler.getNextAvailableID());
-	public static Item glowIngot = new ItemGlowIngot(DefaultIDHandler.getNextAvailableID());
-	public static Item diamondFusedNetherStar = new ItemDiamondFusedNetherStar(DefaultIDHandler.getNextAvailableID());
-	public static Item netherSoulCollector = new ItemNetherSoulCollector(DefaultIDHandler.getNextAvailableID(), false);
+	public static Item glowDust = new ItemGlowDust(dh.getNextAvailableID());
+	public static Item glowIngot = new ItemGlowIngot(dh.getNextAvailableID());
+	public static Item diamondFusedNetherStar = new ItemDiamondFusedNetherStar(dh.getNextAvailableID());
+	public static Item netherSoulCollector = new ItemNetherSoulCollector(dh.getNextAvailableID(), false);
+	public static Item fireryNetherStar = new ItemNetherStarFirery(dh.getNextAvailableID());
 
 	// Tool materials.
 	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
 	public static EnumToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
 
 	// Tool sets
-	public static Item glowPickaxeUnbreakable = new ItemGlowPickaxe(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowHoeUnbreakable = new ItemGlowHoe(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowSwordUnbreakable = new ItemGlowSword(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowAxeUnbreakable = new ItemGlowAxe(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowShovelUnbreakable = new ItemGlowShovel(DefaultIDHandler.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowPickaxeUnbreakable = new ItemGlowPickaxe(dh.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowHoeUnbreakable = new ItemGlowHoe(dh.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowSwordUnbreakable = new ItemGlowSword(dh.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowAxeUnbreakable = new ItemGlowAxe(dh.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowShovelUnbreakable = new ItemGlowShovel(dh.getNextAvailableID(), toolGlowUnbreakable);
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -89,14 +97,19 @@ public class ExtraTools {
 	}, 25);
 
 	// Armor sets.
-	public static Item glowHelmet = new ArmorSetGlow(DefaultIDHandler.getNextAvailableID(), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
-	public static Item glowChestplate = new ArmorSetGlow(DefaultIDHandler.getNextAvailableID(), glowArmorMat, 0, 1, "Glow").setUnlocalizedName("GlowChestplate");
-	public static Item glowLegging = new ArmorSetGlow(DefaultIDHandler.getNextAvailableID(), glowArmorMat, 0, 2, "Glow").setUnlocalizedName("GlowLeggings");
-	public static Item glowBoot = new ArmorSetGlow(DefaultIDHandler.getNextAvailableID(), glowArmorMat, 0, 3, "Glow").setUnlocalizedName("GlowBoots");
+	public static Item glowHelmet = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
+	public static Item glowChestplate = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 1, "Glow").setUnlocalizedName("GlowChestplate");
+	public static Item glowLegging = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 2, "Glow").setUnlocalizedName("GlowLeggings");
+	public static Item glowBoot = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 3, "Glow").setUnlocalizedName("GlowBoots");
 
 	// Creative Tabs
 	public static CreativeTabs myCreativeTab = new MyCreativeTab(CreativeTabs.getNextID(), "ExtraTools+");
 
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		
+	}
+	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		proxy.registerRenderInformation();
@@ -134,6 +147,7 @@ public class ExtraTools {
 		GameRegistry.registerBlock(glowRock, "GlowRock");
 		GameRegistry.registerBlock(glowOre, "GlowOre");
 		GameRegistry.registerBlock(glowTorch, "GlowTorchOn");
+		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
 	}
 
 	private void addOreDict() {
@@ -147,6 +161,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowRock, "Glow Rock");
 		LanguageRegistry.addName(glowOre, "Ore Glow");
 		LanguageRegistry.addName(glowTorch, "Glow Torch");
+		LanguageRegistry.addName(glowIngotBlock, "Block of Glow'");
 
 		// Items
 		LanguageRegistry.addName(glowDust, "Glow Dust");
@@ -180,6 +195,17 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngot, 1), new Object[] {
 				"xyy", "yyy", "yyy", 'x', glowDust, 'y', "ingotIron"
 		}));
+		GameRegistry.addRecipe(new ItemStack(glowIngot, 9), "x", 'x', glowIngotBlock);
+		
+		// Crafting the GlowIngotBlock
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngotBlock, 1), new Object[] {
+			"xxx", "xxx", "xxx", 'x', "ingotGlow"
+		}));
+		
+		// Nether Start Firery
+		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
+			"xyx", "yzy", "xyx", 'x', Block.netherBrick, 'y', glowIngot, 'z', Item.netherStar
+		});
 
 		// DiamondNetherStarIngot recipe
 		GameRegistry.addRecipe(new ItemStack(diamondFusedNetherStar, 1), new Object[] {
