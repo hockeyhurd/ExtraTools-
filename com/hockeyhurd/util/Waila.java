@@ -195,7 +195,13 @@ public class Waila {
 		 * If said block is something and the player can reach the block they
 		 * are looking at, place the said block.
 		 */
-		if (block != null && xCheck && yCheck && zCheck) world.setBlock(x, y, z, block.blockID);
+		if (block != null && xCheck && yCheck && zCheck) {
+			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
+			else {
+				world.destroyBlock(x, y, z, true);
+				world.setBlock(x, y, z, block.blockID);
+			}
+		}
 		else return;
 	}
 
