@@ -24,6 +24,10 @@ public class Waila {
 	private Block block;
 	private boolean placeBlock;
 	private boolean shiftClick;
+	
+	// Tools/items used.
+	private final int pickID;
+	private final int hoeID;
 
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
 		this.stack = itemStack;
@@ -33,9 +37,13 @@ public class Waila {
 		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
 										// = false, return block looking at.
 		this.shiftClick = shiftClick;
+		
+		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
+		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 	}
 
-	public ItemStack getBlockLookingAt() {
+	// We return stack to avoid any remote possible item damaging. 
+	public ItemStack finder() {
 		if (stack.getItemDamage() >= 0) {
 			float f = 1.0F;
 
@@ -112,61 +120,80 @@ public class Waila {
 
 				// Get the side of which the vector ray intersects with.
 				int sideHit = movingObjectPos.sideHit;
-				// System.out.println("Side: " + sideHit);
+				// print("Side: " + sideHit);
 
-				if (placeBlock) {
-					/*
-					 * Place block (torch) accordingly to the player
-					 * perspective. Makes sure the torch is place directly
-					 * in-front of them. SIDE NOTE: sideHit = 0 means they are
-					 * looking at the under side of a block and therefore make
-					 * sure the torch cannot be placed.
-					 */
-					if (sideHit == 0) return stack;
-					else if (sideHit == 1) setBlock(xx, yy + 1, zz);
-					else if (sideHit == 2) setBlock(xx, yy, zz - 1);
-					else if (sideHit == 3) setBlock(xx, yy, zz + 1);
-					else if (sideHit == 4) setBlock(xx - 1, yy, zz);
-					else if (sideHit == 5) setBlock(xx + 1, yy, zz);
-
-				}
-				
-				else if (!placeBlock) {
-					// Check if item used == glowHoe
-					if ( (stack.itemID == new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID) && sideHit == 1 ) {
-
-						// Get Block and block ids'
-						Block tilDirt = Block.tilledField;
-						int dirtID = Block.dirt.blockID;
-						int grassID = Block.grass.blockID;
-						int tilDirtID = tilDirt.blockID;
-						int currentID = world.getBlockId(xx, yy, zz);
-						
-						// Get the block the player is currently looking at
-						if (currentID == dirtID || currentID == grassID || currentID == tilDirtID) {
-							
-							/* if they shift click, till a 9 * 9 area
-							 * else, hoe the block they are looking at
-							 */
-							if (shiftClick) tillLand(xx, yy, zz);
-							else world.setBlock(xx, yy, zz, tilDirtID);
-							
-							// Play world sound for all to hear :)
-							world.playSoundEffect( (double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getStepSound(), 
-									(tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f );
-						}
-						
-						/* If the block the user is looking at cannot be tilled,
-						 * don't do anything! (yet)
-						 */
-						else System.out.println("Block could not be tilled!");
-					}
-				}
+				placeBlockHandler(world, xx, yy, zz, sideHit);
 			}
 
 			stack.setItemDamage(0);
 		}
 		return stack;
+	}
+	
+	private void placeBlockHandler(World world, int xx, int yy, int zz, int sideHit) {
+		if (placeBlock) {
+			/*
+			 * Place block (torch) accordingly to the player
+			 * perspective. Makes sure the torch is place directly
+			 * in-front of them. SIDE NOTE: sideHit = 0 means they are
+			 * looking at the under side of a block and therefore make
+			 * sure the torch cannot be placed.
+			 */
+			if (sideHit == 0) return;
+			else if (sideHit == 1) setBlock(xx, yy + 1, zz);
+			else if (sideHit == 2) setBlock(xx, yy, zz - 1);
+			else if (sideHit == 3) setBlock(xx, yy, zz + 1);
+			else if (sideHit == 4) setBlock(xx - 1, yy, zz);
+			else if (sideHit == 5) setBlock(xx + 1, yy, zz);
+
+		}
+		
+		else if (!placeBlock) {
+			// Check if item used == glowHoe
+			if ( (stack.itemID == hoeID) && sideHit == 1 ) {
+
+				// Get Block and block ids'
+				Block tilDirt = Block.tilledField;
+				int dirtID = Block.dirt.blockID;
+				int grassID = Block.grass.blockID;
+				int tilDirtID = tilDirt.blockID;
+				int currentID = world.getBlockId(xx, yy, zz);
+				
+				// Get the block the player is currently looking at
+				if (currentID == dirtID || currentID == grassID || currentID == tilDirtID) {
+					
+					/* if they shift click, till a 9 * 9 area
+					 * else, hoe the block they are looking at
+					 */
+					if (shiftClick) tillLand(xx, yy, zz);
+					else world.setBlock(xx, yy, zz, tilDirtID);
+					
+					// Play world sound for all to hear :)
+					world.playSoundEffect( (double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getStepSound(), 
+							(tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f );
+				}
+				
+				/* If the block the user is looking at cannot be tilled,
+				 * don't do anything! (yet)
+				 */
+				else print("Block could not be tilled!");
+			}
+			
+			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
+			else {
+				String blockName = getLocalized(getBlock(world, xx, yy, zz));
+				print(blockName);
+			}
+			
+		}
+	}
+	
+	public Block getBlock(World world, int x, int y, int z) {
+		return Block.blocksList[world.getBlockId(x, y, z)];
+	}
+	
+	public String getLocalized(Block block) {
+		return block.getLocalizedName();
 	}
 	
 	public void setShiftClick(boolean state) {
@@ -198,6 +225,7 @@ public class Waila {
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
 			else {
+				// Set true for par4 if destroyed block should drop, item-drops.
 				world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
 			}
@@ -212,7 +240,7 @@ public class Waila {
 		int dirtID = Block.dirt.blockID;
 		int grassID = Block.grass.blockID;
 		
-		/* Scan through blocks on the x and y axis,
+		/* Scan through blocks on the x and z axis,
 		 * check if they can be tilled, 
 		 * till the land!
 		 */
@@ -226,6 +254,10 @@ public class Waila {
 				}
 			}
 		}
+	}
+	
+	private void print(Object msg) {
+		System.out.println("" + msg + ".");
 	}
 	
 }

@@ -29,7 +29,7 @@ public class ItemGlowPickaxe extends ItemPickaxe {
 	}
 	
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		new Waila(itemStack, world, entityPlayer, torch, true, false).getBlockLookingAt();
+		new Waila(itemStack, world, entityPlayer, torch, true, false).finder();
 		return itemStack;
 	}
 

@@ -40,13 +40,13 @@ public class ItemGlowHoe extends ItemHoe {
 				
 				// Make sure the shiftClick paramater is set to true before performing said action!
 				waila.setShiftClick(true);
-				waila.getBlockLookingAt();
+				waila.finder();
 			}
 			
 			else {
 				// Make sure the shiftClick paramater is set to false before performing said action!
 				waila.setShiftClick(false);
-				waila.getBlockLookingAt();
+				waila.finder();
 			}
 			
 			UseHoeEvent event = new UseHoeEvent(entityPlayer, itemStack, world, x, y, z);
