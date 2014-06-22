@@ -206,7 +206,7 @@ public class ExtraTools {
 	private void addLocalizedNames() {
 		// Blocks
 		LanguageRegistry.addName(glowRock, "Glow Rock");
-		LanguageRegistry.addName(glowOre, "Ore Glow");
+		LanguageRegistry.addName(glowOre, "Glow Ore");
 		LanguageRegistry.addName(glowTorch, "Glow Torch");
 		LanguageRegistry.addName(glowIngotBlock, "Block of Glow'");
 
@@ -264,6 +264,11 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ItemStack(netherSoulCollector, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Item.ingotGold, 'z', diamondFusedNetherStar
 		});
+		
+		// Crafting the glow coal
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowCoal, 1), new Object[] {
+			" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
+		}));
 
 		// Craft the pick
 		ItemStack pick = new ItemStack(glowPickaxeUnbreakable, 1);

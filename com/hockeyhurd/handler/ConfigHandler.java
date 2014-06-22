@@ -23,7 +23,6 @@ public class ConfigHandler {
 		config.load();
 		
 		loadID(config);
-		verifyID(config);
 		
 		config.save();
 	}
@@ -85,10 +84,6 @@ public class ConfigHandler {
 		
 		int glowBootID = config.getItem("GlowBootID", dh.getNextAvailableID()).getInt();
 		add("glowBootID", glowBootID);
-	}
-	
-	private void verifyID(Configuration config) {
-
 	}
 	
 	public int getID(String name) {

@@ -24,7 +24,7 @@ public class BlockGlowOre extends Block {
 	}
 	
 	public int idDropped(int par1, Random rand, int par3) {
-		return ExtraTools.glowOre.blockID;
+		return this.blockID;
 	}
 	
 	public int quantityDropped(Random rand) {

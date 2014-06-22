@@ -1,13 +1,18 @@
 package com.hockeyhurd.handler;
 
+import java.util.Random;
+
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 import com.hockeyhurd.main.ExtraTools;
 
@@ -31,6 +36,21 @@ public class EventHookContainer {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 		}
 	}*/
+	
+	@ForgeSubscribe 
+	public void onOreBreak(BreakEvent event) {
+		if (event.block.blockID == ExtraTools.glowOre.blockID) {
+			World world = event.getPlayer().worldObj;
+			Random random = new Random();
+			int chance = 15;
+			
+			int val = 1 + random.nextInt(99);
+			System.out.println("Chance was: " + val);
+			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.glowDust)));
+		}
+		
+		else return;
+	}
 
 	@ForgeSubscribe
 	public void onPlayerUpdate(LivingUpdateEvent event) {
