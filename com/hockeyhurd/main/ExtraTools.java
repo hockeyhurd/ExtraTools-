@@ -22,9 +22,12 @@ import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
+import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.DefaultIDHandler;
 import com.hockeyhurd.handler.EventHookContainer;
+import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
+import com.hockeyhurd.item.ItemGlowCoal;
 import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
 import com.hockeyhurd.item.ItemNetherSoulCollector;
@@ -61,35 +64,37 @@ public class ExtraTools {
 	public static String modPrefix = "extratools:";
 	
 	public static DefaultIDHandler dh = new DefaultIDHandler();
+	public static ConfigHandler ch;
 
 	// Blocks
-	public static Block glowRock = new BlockGlowRock(dh.getNextAvailableID(), Material.glass);
-	public static Block glowTorch = new BlockGlowTorch(dh.getNextAvailableID());
-	public static Block glowIngotBlock = new BlockGlowIngot(dh.getNextAvailableID(), Material.rock);
+	public static Block glowRock;
+	public static Block glowTorch;
+	public static Block glowIngotBlock;
 
 	// Ores
-	public static Block glowOre = new BlockGlowOre(dh.getNextAvailableID(), Material.rock);
+	public static Block glowOre;
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
 
 	// Items
-	public static Item glowDust = new ItemGlowDust(dh.getNextAvailableID());
-	public static Item glowIngot = new ItemGlowIngot(dh.getNextAvailableID());
-	public static Item diamondFusedNetherStar = new ItemDiamondFusedNetherStar(dh.getNextAvailableID());
-	public static Item netherSoulCollector = new ItemNetherSoulCollector(dh.getNextAvailableID(), false);
-	public static Item fireryNetherStar = new ItemNetherStarFirery(dh.getNextAvailableID());
+	public static Item glowDust;
+	public static Item glowIngot;
+	public static Item diamondFusedNetherStar;
+	public static Item netherSoulCollector;
+	public static Item fireryNetherStar;
+	public static Item glowCoal;
 
 	// Tool materials.
 	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
 	public static EnumToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
 
 	// Tool sets
-	public static Item glowPickaxeUnbreakable = new ItemGlowPickaxe(dh.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowHoeUnbreakable = new ItemGlowHoe(dh.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowSwordUnbreakable = new ItemGlowSword(dh.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowAxeUnbreakable = new ItemGlowAxe(dh.getNextAvailableID(), toolGlowUnbreakable);
-	public static Item glowShovelUnbreakable = new ItemGlowShovel(dh.getNextAvailableID(), toolGlowUnbreakable);
+	public static Item glowPickaxeUnbreakable;
+	public static Item glowHoeUnbreakable;
+	public static Item glowSwordUnbreakable;
+	public static Item glowAxeUnbreakable;
+	public static Item glowShovelUnbreakable;
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -97,28 +102,64 @@ public class ExtraTools {
 	}, 25);
 
 	// Armor sets.
-	public static Item glowHelmet = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
-	public static Item glowChestplate = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 1, "Glow").setUnlocalizedName("GlowChestplate");
-	public static Item glowLegging = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 2, "Glow").setUnlocalizedName("GlowLeggings");
-	public static Item glowBoot = new ArmorSetGlow(dh.getNextAvailableID(), glowArmorMat, 0, 3, "Glow").setUnlocalizedName("GlowBoots");
+	public static Item glowHelmet;
+	public static Item glowChestplate;
+	public static Item glowLegging;
+	public static Item glowBoot;
 
 	// Creative Tabs
 	public static CreativeTabs myCreativeTab = new MyCreativeTab(CreativeTabs.getNextID(), "ExtraTools+");
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		ch = new ConfigHandler(event);
+		ch.handleConfiguration();
+		LogWrapper.log(Level.INFO, "ExtraTools+ config loaded succesfully!");
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		proxy.registerRenderInformation();
-	}
 
-	public ExtraTools() {
+		loadObj();
 		init();
 
 		LogWrapper.log(Level.INFO, "ExtraTools+ loaded succesfully!");
+	}
+	
+	private void loadObj() {
+		// Blocks
+		glowRock = new BlockGlowRock(ch.getID("glowRock"), Material.glass);
+		glowTorch = new BlockGlowTorch(ch.getID("glowTorch"));
+		glowIngotBlock = new BlockGlowIngot(ch.getID("glowIngotBlock"), Material.rock);
+		
+		// Ores
+		glowOre = new BlockGlowOre(ch.getID("glowOre"), Material.rock);
+		
+		// Items
+		glowDust = new ItemGlowDust(ch.getID("glowDust"));
+		glowIngot = new ItemGlowIngot(ch.getID("glowIngot"));
+		diamondFusedNetherStar = new ItemDiamondFusedNetherStar(ch.getID("diamondFusedNetherStar"));
+		netherSoulCollector = new ItemNetherSoulCollector(ch.getID("netherSoulCollector"), false);
+		fireryNetherStar = new ItemNetherStarFirery(ch.getID("fireryNetherStar"));
+		glowCoal = new ItemGlowCoal(ch.getID("glowCoal"));
+		
+		// Tool sets
+		glowPickaxeUnbreakable = new ItemGlowPickaxe(ch.getID("glowPickaxeUnbreakable"), toolGlowUnbreakable);
+		glowHoeUnbreakable = new ItemGlowHoe(ch.getID("glowHoeUnbreakable"), toolGlowUnbreakable);
+		glowSwordUnbreakable = new ItemGlowSword(ch.getID("glowSwordUnbreakable"), toolGlowUnbreakable);
+		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
+		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
+		
+		// Armor sets.
+		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
+		glowChestplate = new ArmorSetGlow(ch.getID("glowChestplate"), glowArmorMat, 0, 1, "Glow").setUnlocalizedName("GlowChestplate");
+		glowLegging = new ArmorSetGlow(ch.getID("glowLegging"), glowArmorMat, 0, 2, "Glow").setUnlocalizedName("GlowLeggings");
+		glowBoot = new ArmorSetGlow(ch.getID("glowBoot"), glowArmorMat, 0, 3, "Glow").setUnlocalizedName("GlowBoots");
+	}
+
+	public ExtraTools() {
+		
 	}
 
 	// Handlers all init of blocks, items, etc.
@@ -128,6 +169,7 @@ public class ExtraTools {
 		registerWorldgen();
 		registerBlocks();
 		addOreDict();
+		addFuelRegister();
 		addLocalizedNames();
 		addCraftingRecipes();
 		addFurnaceRecipes();
@@ -154,6 +196,11 @@ public class ExtraTools {
 		OreDictionary.registerOre("oreGlow", glowOre);
 		OreDictionary.registerOre("dustGlow", glowDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
+		OreDictionary.registerOre("oreGlowCoal", glowCoal);
+	}
+	
+	private void addFuelRegister() {
+		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 
 	private void addLocalizedNames() {
@@ -168,6 +215,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(diamondFusedNetherStar, "Encaptured Soul of The Nether");
 		LanguageRegistry.addName(glowIngot, "Glow Ingot");
 		LanguageRegistry.addName(netherSoulCollector, "Soul Collector of The Nether");
+		LanguageRegistry.addName(glowCoal, "Glow Coal");
 
 		// Glow Toolset
 		LanguageRegistry.addName(glowPickaxeUnbreakable, "Pickaxe of The Lost Souls");

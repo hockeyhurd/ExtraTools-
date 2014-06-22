@@ -9,4 +9,8 @@ public class DefaultIDHandler {
 	public int getNextAvailableID() {
 		return count++;
 	}
+	
+	public int getLength() {
+		return count;
+	}
 }
