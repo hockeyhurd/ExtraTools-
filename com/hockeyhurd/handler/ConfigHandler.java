@@ -84,6 +84,9 @@ public class ConfigHandler {
 		
 		int glowBootID = config.getItem("GlowBootID", dh.getNextAvailableID()).getInt();
 		add("glowBootID", glowBootID);
+		
+		int hockeyStickID = config.getItem("HockeStickID", dh.getNextAvailableID()).getInt();
+		add("hockeyStickID", hockeyStickID);
 	}
 	
 	public int getID(String name) {

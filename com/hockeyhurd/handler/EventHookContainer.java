@@ -45,7 +45,6 @@ public class EventHookContainer {
 			int chance = 15;
 			
 			int val = 1 + random.nextInt(99);
-			System.out.println("Chance was: " + val);
 			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.glowDust)));
 		}
 		

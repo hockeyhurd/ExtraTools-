@@ -38,6 +38,7 @@ import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
 import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowSword;
+import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -51,7 +52,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.1")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.3")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ExtraTools {
 
@@ -88,6 +89,7 @@ public class ExtraTools {
 	// Tool materials.
 	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
 	public static EnumToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
+	public static EnumToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 5.0f, 30);
 
 	// Tool sets
 	public static Item glowPickaxeUnbreakable;
@@ -95,6 +97,7 @@ public class ExtraTools {
 	public static Item glowSwordUnbreakable;
 	public static Item glowAxeUnbreakable;
 	public static Item glowShovelUnbreakable;
+	public static Item hockeyStick;
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -150,6 +153,7 @@ public class ExtraTools {
 		glowSwordUnbreakable = new ItemGlowSword(ch.getID("glowSwordUnbreakable"), toolGlowUnbreakable);
 		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
 		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
+		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
 		
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
