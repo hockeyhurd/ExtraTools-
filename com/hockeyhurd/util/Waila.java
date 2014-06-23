@@ -5,6 +5,9 @@
 
 package com.hockeyhurd.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,6 +27,7 @@ public class Waila {
 	private Block block;
 	private boolean placeBlock;
 	private boolean shiftClick;
+	private List<Block> blockBlackList;
 	
 	// Tools/items used.
 	private final int pickID;
@@ -40,6 +44,17 @@ public class Waila {
 		
 		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
+		blockBlackList = new ArrayList<Block>();
+		addBlockBlackList();
+	}
+	
+	private void addBlockBlackList() {
+		blockBlackList.add(ExtraTools.glowTorch);
+		blockBlackList.add(Block.torchWood);
+		blockBlackList.add(Block.rail);
+		blockBlackList.add(Block.railActivator);
+		blockBlackList.add(Block.railDetector);
+		blockBlackList.add(Block.railPowered);
 	}
 
 	// We return stack to avoid any remote possible item damaging. 
@@ -224,11 +239,13 @@ public class Waila {
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
-			else {
+			else if (world.blockExists(x, y, z) && !blockBlackList.contains(getBlock(world, x, y, z))) {
 				// Set true for par4 if destroyed block should drop, item-drops.
 				world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
 			}
+			
+			else return;
 		}
 		else return;
 	}
