@@ -95,7 +95,7 @@ public class ItemNetherSoulCollector extends Item {
 		player.getLookVec();
 		double speed = 0.1d;
 		double x = player.posX + player.getLookVec().xCoord * speed;
-		double y = player.posY - player.height / 2f;
+		double y = player.posY - player.height / 4f;
 		double z = player.posZ + player.getLookVec().zCoord * speed;
 		item.setPosition(x, y, z);
 	}

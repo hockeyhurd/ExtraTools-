@@ -63,29 +63,20 @@ public class EventHookContainer {
 			Item currentLeg = null;
 			Item currentBoot = null;
 
-			// int preHelm = 0;
-			// int preChest = 0;
-			// int preLeg = 0;
-			// int preBoot = 0;
-
 			if (player.getCurrentArmor(0) != null) {
 				currentBoot = player.getCurrentArmor(0).getItem();
-				// preBoot = player.getCurrentArmor(0).getItemDamage();
 			}
 
 			if (player.getCurrentArmor(1) != null) {
 				currentLeg = player.getCurrentArmor(1).getItem();
-				// preLeg = player.getCurrentArmor(1).getItemDamage();
 			}
 
 			if (player.getCurrentArmor(2) != null) {
 				currentChest = player.getCurrentArmor(2).getItem();
-				// preChest = player.getCurrentArmor(2).getItemDamage();
 			}
 
 			if (player.getCurrentArmor(3) != null) {
 				currentHelm = player.getCurrentArmor(3).getItem();
-				// preHelm = player.getCurrentArmor(3).getItemDamage();
 			}
 
 			/*
@@ -118,7 +109,7 @@ public class EventHookContainer {
 
 			if (currentHelm == helm) {
 				helmCheck = true;
-				if (player.isInWater()) player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0));
+				if (player.isInWater()) player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 5, 0));
 				else player.removePotionEffect(Potion.waterBreathing.id);
 			}
 			
@@ -130,7 +121,7 @@ public class EventHookContainer {
 	}
 
 	/*
-	 * Event called when user hovers over my items.
+	 * Event called when user hovers over my items at the end of the <List>.
 	 */
 	@ForgeSubscribe
 	public void onItemHover(ItemTooltipEvent event) {
@@ -145,10 +136,8 @@ public class EventHookContainer {
 		if (currentID == pickID || currentID == swordID || currentID == axeID || currentID == hoeID || currentID == shovelID) {
 			event.toolTip.add("Unbreakable!");
 			if (currentID == pickID) event.toolTip.add("Right click to place torches");
-			if (currentID == hoeID) event.toolTip.add("Shift + click to hoe 3x3 area");
 		}
 		
-		// else if (event.itemStack.itemID == netherSoulCollectorID) event.toolTip.add("Activate for magnet mode!");
 		else return;
 	}
 

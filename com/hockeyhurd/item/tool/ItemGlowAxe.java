@@ -23,7 +23,7 @@ public class ItemGlowAxe extends ItemAxe {
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		// list.add("Tooltip stuff goes here");
+		
 	}
 
 }
