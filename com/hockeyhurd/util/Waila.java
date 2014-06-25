@@ -196,19 +196,12 @@ public class Waila {
 			
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
-				String blockName = getLocalized(getBlock(world, xx, yy, zz));
+				BlockHelper blockHelper = new BlockHelper(world, player);
+				String blockName = blockHelper.getBlock(xx, yy, zz).getLocalizedName();
 				print(blockName);
 			}
 			
 		}
-	}
-	
-	public Block getBlock(World world, int x, int y, int z) {
-		return Block.blocksList[world.getBlockId(x, y, z)];
-	}
-	
-	public String getLocalized(Block block) {
-		return block.getLocalizedName();
 	}
 	
 	public void setShiftClick(boolean state) {
@@ -239,7 +232,7 @@ public class Waila {
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
-			else if (world.blockExists(x, y, z) && !blockBlackList.contains(getBlock(world, x, y, z))) {
+			else if (world.blockExists(x, y, z) && !blockBlackList.contains(new BlockHelper(world, player).getBlock(x, y, z))) {
 				// Set true for par4 if destroyed block should drop, item-drops.
 				world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);

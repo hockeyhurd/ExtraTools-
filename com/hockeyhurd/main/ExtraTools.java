@@ -30,9 +30,11 @@ import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemGlowCoal;
 import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
+import com.hockeyhurd.item.ItemHockeyPuck;
 import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
 import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
@@ -85,6 +87,7 @@ public class ExtraTools {
 	public static Item netherSoulCollector;
 	public static Item fireryNetherStar;
 	public static Item glowCoal;
+	public static Item hockeyPuck;
 
 	// Tool materials.
 	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
@@ -98,6 +101,7 @@ public class ExtraTools {
 	public static Item glowAxeUnbreakable;
 	public static Item glowShovelUnbreakable;
 	public static Item hockeyStick;
+	public static Item diamondDetector;
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -146,6 +150,7 @@ public class ExtraTools {
 		netherSoulCollector = new ItemNetherSoulCollector(ch.getID("netherSoulCollector"), false);
 		fireryNetherStar = new ItemNetherStarFirery(ch.getID("fireryNetherStar"));
 		glowCoal = new ItemGlowCoal(ch.getID("glowCoal"));
+		hockeyPuck = new ItemHockeyPuck(ch.getID("hockeyPuck"));
 		
 		// Tool sets
 		glowPickaxeUnbreakable = new ItemGlowPickaxe(ch.getID("glowPickaxeUnbreakable"), toolGlowUnbreakable);
@@ -154,6 +159,7 @@ public class ExtraTools {
 		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
 		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
 		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
+		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
 		
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");

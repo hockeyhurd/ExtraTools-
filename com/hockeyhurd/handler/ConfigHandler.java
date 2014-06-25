@@ -87,6 +87,12 @@ public class ConfigHandler {
 		
 		int hockeyStickID = config.getItem("HockeStickID", dh.getNextAvailableID()).getInt();
 		add("hockeyStickID", hockeyStickID);
+		
+		int hockeyPuckID = config.getItem("HockeyPuckID", dh.getNextAvailableID()).getInt();
+		add("hockeyPuckID", hockeyPuckID);
+		
+		int diamondDetectorID = config.getItem("DiamondDetector", dh.getNextAvailableID()).getInt();
+		add("diamondDetectorID", diamondDetectorID);
 	}
 	
 	public int getID(String name) {
