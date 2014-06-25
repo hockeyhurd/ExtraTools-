@@ -15,6 +15,7 @@ import com.hockeyhurd.util.Waila;
 public class ItemDiamondDetector extends Item {
 
 	private boolean inUse = false;
+	private int time = 20;
 	
 	public ItemDiamondDetector(int id) {
 		super(id);
@@ -26,7 +27,7 @@ public class ItemDiamondDetector extends Item {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "DiamondDetector");
 	}
 	
-	int time = 20;
+	// Makes sure the player can't press it more than once per second.
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		if (!inUse) return;
 		if (time > 0 && inUse) time--;

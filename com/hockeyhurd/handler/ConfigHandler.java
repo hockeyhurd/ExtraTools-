@@ -93,6 +93,9 @@ public class ConfigHandler {
 		
 		int diamondDetectorID = config.getItem("DiamondDetector", dh.getNextAvailableID()).getInt();
 		add("diamondDetectorID", diamondDetectorID);
+		
+		int rubberID = config.getItem("Rubber", dh.getNextAvailableID()).getInt();
+		add("rubberID", rubberID);
 	}
 	
 	public int getID(String name) {

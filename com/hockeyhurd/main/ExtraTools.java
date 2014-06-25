@@ -33,6 +33,7 @@ import com.hockeyhurd.item.ItemGlowIngot;
 import com.hockeyhurd.item.ItemHockeyPuck;
 import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
+import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
@@ -88,11 +89,12 @@ public class ExtraTools {
 	public static Item fireryNetherStar;
 	public static Item glowCoal;
 	public static Item hockeyPuck;
+	public static Item rubber;
 
 	// Tool materials.
 	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
 	public static EnumToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
-	public static EnumToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 5.0f, 30);
+	public static EnumToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
 
 	// Tool sets
 	public static Item glowPickaxeUnbreakable;
@@ -150,6 +152,7 @@ public class ExtraTools {
 		netherSoulCollector = new ItemNetherSoulCollector(ch.getID("netherSoulCollector"), false);
 		fireryNetherStar = new ItemNetherStarFirery(ch.getID("fireryNetherStar"));
 		glowCoal = new ItemGlowCoal(ch.getID("glowCoal"));
+		rubber = new ItemRubber(ch.getID("rubber"));
 		hockeyPuck = new ItemHockeyPuck(ch.getID("hockeyPuck"));
 		
 		// Tool sets
@@ -207,6 +210,7 @@ public class ExtraTools {
 		OreDictionary.registerOre("dustGlow", glowDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
+		OreDictionary.registerOre("itemRubber", rubber);
 	}
 	
 	private void addFuelRegister() {
@@ -226,7 +230,12 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowIngot, "Glow Ingot");
 		LanguageRegistry.addName(netherSoulCollector, "Soul Collector of The Nether");
 		LanguageRegistry.addName(glowCoal, "Glow Coal");
+		LanguageRegistry.addName(rubber, "Rubber");
+		LanguageRegistry.addName(hockeyPuck, "Hockey Puck");
 
+		// Other tools
+		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
+		
 		// Glow Toolset
 		LanguageRegistry.addName(glowPickaxeUnbreakable, "Pickaxe of The Lost Souls");
 		LanguageRegistry.addName(glowShovelUnbreakable, "Glow Shovel");
@@ -280,6 +289,21 @@ public class ExtraTools {
 			" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
 		}));
 
+		// Crafting the hockey stick
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hockeyStick, 1), new Object[] {
+			" wx", " wx", "yxw", 'w', "itemRubber", 'x', STICK, 'y', Item.silk
+		}));
+		
+		// Crafting the hockey puck.
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hockeyPuck, 4), new Object[] {
+			"xy", 'x', "itemRubber", 'y', "coal"
+		}));
+		
+		// Crafting the DiamondDetector
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diamondDetector, 1), new Object[] {
+			" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Item.diamond
+		}));
+		
 		// Craft the pick
 		ItemStack pick = new ItemStack(glowPickaxeUnbreakable, 1);
 		pick.addEnchantment(Enchantment.efficiency, 5);
