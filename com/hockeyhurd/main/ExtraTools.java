@@ -22,6 +22,8 @@ import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
+import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.DefaultIDHandler;
 import com.hockeyhurd.handler.EventHookContainer;
@@ -52,16 +54,19 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.3")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.4")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.client.ClientProxy", serverSide = "com.hockeyhurd.main.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static GuiHandlerGlowFurnace guiHandler;
+	
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
 
@@ -74,7 +79,14 @@ public class ExtraTools {
 	public static Block glowRock;
 	public static Block glowTorch;
 	public static Block glowIngotBlock;
-
+	
+	// Machines
+	public static Block glowFurnaceOff;
+	public static Block glowFurnaceOn;
+	
+	// Gui stuff
+	public static final int guiIDGlowFurnace = 0;
+	
 	// Ores
 	public static Block glowOre;
 
@@ -142,6 +154,10 @@ public class ExtraTools {
 		glowTorch = new BlockGlowTorch(ch.getID("glowTorch"));
 		glowIngotBlock = new BlockGlowIngot(ch.getID("glowIngotBlock"), Material.rock);
 		
+		// Machines
+		glowFurnaceOff = new BlockGlowFurnace(ch.getID("glowFurnaceOff"), Material.rock, false);
+		glowFurnaceOn = new BlockGlowFurnace(ch.getID("glowFurnaceOn"), Material.rock, true);
+		
 		// Ores
 		glowOre = new BlockGlowOre(ch.getID("glowOre"), Material.rock);
 		
@@ -188,6 +204,7 @@ public class ExtraTools {
 		addFurnaceRecipes();
 		pulverizeRecipes();
 		registerTileEntities();
+		registerGuiHandler();
 	}
 
 	private void registerEventHandlers() {
@@ -203,6 +220,8 @@ public class ExtraTools {
 		GameRegistry.registerBlock(glowOre, "GlowOre");
 		GameRegistry.registerBlock(glowTorch, "GlowTorchOn");
 		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
+		GameRegistry.registerBlock(glowFurnaceOff, "GlowFurnaceOff");
+		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
 	}
 
 	private void addOreDict() {
@@ -223,6 +242,10 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowOre, "Glow Ore");
 		LanguageRegistry.addName(glowTorch, "Glow Torch");
 		LanguageRegistry.addName(glowIngotBlock, "Block of Glow'");
+		
+		// Machines
+		LanguageRegistry.addName(glowFurnaceOff, "Glow Furnace");
+		LanguageRegistry.addName(glowFurnaceOn, "Glow Furnace");
 
 		// Items
 		LanguageRegistry.addName(glowDust, "Glow Dust");
@@ -267,6 +290,11 @@ public class ExtraTools {
 		// Crafting the GlowIngotBlock
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngotBlock, 1), new Object[] {
 			"xxx", "xxx", "xxx", 'x', "ingotGlow"
+		}));
+		
+		// Crafting the glow furnace
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
+			" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Block.furnaceIdle
 		}));
 		
 		// Nether Start Firery
@@ -390,7 +418,15 @@ public class ExtraTools {
 	}
 
 	private void registerTileEntities() {
-
+		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
+	}
+	
+	private void registerGuiHandler() {
+		if (guiHandler != null) NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+		else {
+			guiHandler = new GuiHandlerGlowFurnace();
+			NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+		}
 	}
 
 }

@@ -20,7 +20,7 @@ public class BlockHelper {
 	
 	// Returns the block from world coordinate.
 	public Block getBlock(int x, int y, int z) {
-		return Block.blocksList[world.getBlockId(x, y, z)];
+		return Block.blocksList[world.getBlockId(x, y, z)];  
 	}
 	
 	public String getLocalized(Block block) {

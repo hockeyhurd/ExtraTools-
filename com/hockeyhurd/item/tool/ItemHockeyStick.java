@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 
+import com.hockeyhurd.entity.throwable.EntityPuck;
 import com.hockeyhurd.main.ExtraTools;
 
 public class ItemHockeyStick extends ItemSword {
@@ -36,10 +37,11 @@ public class ItemHockeyStick extends ItemSword {
 
 	// TODO: Change the throwing object to a custom made hockey puck! Ouch!
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityPlayer player, int itemInUseCount) {
-		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(Item.snowball.itemID)) {
+		final int _itemID = ExtraTools.hockeyPuck.itemID;
+		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(_itemID)) {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 			if (!world.isRemote) {
-				world.spawnEntityInWorld(new EntitySnowball(world, player));
+				world.spawnEntityInWorld(new EntityPuck(world, player));
 			}
 		}
 		

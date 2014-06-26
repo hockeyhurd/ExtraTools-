@@ -96,6 +96,12 @@ public class ConfigHandler {
 		
 		int rubberID = config.getItem("Rubber", dh.getNextAvailableID()).getInt();
 		add("rubberID", rubberID);
+		
+		int glowFurnaceOffID = config.getBlock("GlowFurnaceOffID", dh.getNextAvailableID()).getInt();
+		add("glowFurnaceOffID", glowFurnaceOffID);
+		
+		int glowFurnaceOnID = config.getBlock("GlowFurnaceOnID", dh.getNextAvailableID()).getInt();
+		add("glowFurnaceOnID", glowFurnaceOnID);
 	}
 	
 	public int getID(String name) {
