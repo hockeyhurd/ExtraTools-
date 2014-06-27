@@ -59,7 +59,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.4")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.client.ClientProxy", serverSide = "com.hockeyhurd.main.CommonProxy")
@@ -72,7 +72,6 @@ public class ExtraTools {
 
 	public static String modPrefix = "extratools:";
 	
-	public static DefaultIDHandler dh = new DefaultIDHandler();
 	public static ConfigHandler ch;
 
 	// Blocks
@@ -255,6 +254,8 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowCoal, "Glow Coal");
 		LanguageRegistry.addName(rubber, "Rubber");
 		LanguageRegistry.addName(hockeyPuck, "Hockey Puck");
+		LanguageRegistry.addName(fireryNetherStar, "Enflamed Star of The Nether");
+		LanguageRegistry.addName(diamondDetector, "Diamond Detector");
 
 		// Other tools
 		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
@@ -304,7 +305,7 @@ public class ExtraTools {
 
 		// DiamondNetherStarIngot recipe
 		GameRegistry.addRecipe(new ItemStack(diamondFusedNetherStar, 1), new Object[] {
-				"xyx", "yzy", "xyx", 'x', Item.diamond, 'y', glowIngot, 'z', Item.netherStar
+				"xyx", "yzy", "xyx", 'x', Item.diamond, 'y', glowIngot, 'z', fireryNetherStar
 		});
 
 		// Crafting the NetherSoulCollector
