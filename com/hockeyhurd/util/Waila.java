@@ -32,6 +32,9 @@ public class Waila {
 	// Tools/items used.
 	private final int pickID;
 	private final int hoeID;
+	
+	private int offset;
+	private boolean returnBlock = false;
 
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
 		this.stack = itemStack;
@@ -46,6 +49,8 @@ public class Waila {
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
+		
+		offset = 0; // By default, don't offset anything.
 	}
 	
 	private void addBlockBlackList() {
@@ -55,6 +60,14 @@ public class Waila {
 		blockBlackList.add(Block.railActivator);
 		blockBlackList.add(Block.railDetector);
 		blockBlackList.add(Block.railPowered);
+		blockBlackList.add(Block.bedrock);
+	}
+	
+	public void setOffset(int offset) {
+		/* If the setOffsetVal > 0 set this.offSet = offset
+		 * else, set this.offset = 0, (removing offset to faulty val).
+		 */
+		this.offset = (offset > 0 ? offset : 0);
 	}
 
 	// We return stack to avoid any remote possible item damaging. 
@@ -155,11 +168,11 @@ public class Waila {
 			 * sure the torch cannot be placed.
 			 */
 			if (sideHit == 0) return;
-			else if (sideHit == 1) setBlock(xx, yy + 1, zz);
-			else if (sideHit == 2) setBlock(xx, yy, zz - 1);
-			else if (sideHit == 3) setBlock(xx, yy, zz + 1);
-			else if (sideHit == 4) setBlock(xx - 1, yy, zz);
-			else if (sideHit == 5) setBlock(xx + 1, yy, zz);
+			else if (sideHit == 1) setBlock(xx, yy + this.offset, zz);
+			else if (sideHit == 2) setBlock(xx, yy, zz - this.offset);
+			else if (sideHit == 3) setBlock(xx, yy, zz + this.offset);
+			else if (sideHit == 4) setBlock(xx - this.offset, yy, zz);
+			else if (sideHit == 5) setBlock(xx + this.offset, yy, zz);
 
 		}
 		
@@ -233,6 +246,12 @@ public class Waila {
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
 			else if (world.blockExists(x, y, z) && !blockBlackList.contains(new BlockHelper(world, player).getBlock(x, y, z))) {
+				// If the block trying to be placed is equal to block at the coordinate, return;
+				if (world.getBlockId(x, y, z) == block.blockID) {
+					setReturnBlock(true);
+					return;
+				}
+
 				// Set true for par4 if destroyed block should drop, item-drops.
 				world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
@@ -241,6 +260,14 @@ public class Waila {
 			else return;
 		}
 		else return;
+	}
+	
+	private void setReturnBlock(boolean result) {
+		this.returnBlock = result;
+	}
+	
+	public boolean getReturnBlock() {
+		return this.returnBlock;
 	}
 
 	private void tillLand(int x, int y, int z) {

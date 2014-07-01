@@ -102,6 +102,9 @@ public class ConfigHandler {
 		
 		int glowFurnaceOnID = config.getBlock("GlowFurnaceOnID", dh.getNextAvailableID()).getInt();
 		add("glowFurnaceOnID", glowFurnaceOnID);
+		
+		int itemReplacerID = config.getItem("ItemReplacerID", dh.getNextAvailableID()).getInt();
+		add("itemReplacerID", itemReplacerID);
 	}
 	
 	public int getID(String name) {

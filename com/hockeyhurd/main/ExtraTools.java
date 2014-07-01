@@ -43,6 +43,7 @@ import com.hockeyhurd.item.tool.ItemGlowPickaxe;
 import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowSword;
 import com.hockeyhurd.item.tool.ItemHockeyStick;
+import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -57,7 +58,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.4")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
@@ -114,6 +115,7 @@ public class ExtraTools {
 	public static Item glowShovelUnbreakable;
 	public static Item hockeyStick;
 	public static Item diamondDetector;
+	public static Item itemReplacer;
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -177,6 +179,7 @@ public class ExtraTools {
 		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
 		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
 		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
+		itemReplacer = new ItemItemReplacer(ch.getID("itemReplacer"));
 		
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
@@ -258,6 +261,7 @@ public class ExtraTools {
 
 		// Other tools
 		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
+		LanguageRegistry.addName(itemReplacer, "Wand of Soul Replacement");
 		
 		// Glow Toolset
 		LanguageRegistry.addName(glowPickaxeUnbreakable, "Pickaxe of The Lost Souls");
@@ -311,6 +315,11 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ItemStack(netherSoulCollector, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Item.ingotGold, 'z', diamondFusedNetherStar
 		});
+		
+		// Crafting the ItemReplacer Tool
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReplacer, 1), new Object[] {
+			" xy", " zx", "z  ", 'x', "dyeBlue", 'y', fireryNetherStar, 'z', STICK
+		}));
 		
 		// Crafting the glow coal
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowCoal, 1), new Object[] {

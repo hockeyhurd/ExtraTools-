@@ -39,8 +39,12 @@ public class TimerHelper {
 		return this.tick;
 	}
 	
+	private boolean canExcuse() {
+		return this.buffer > 0;
+	}
+	
 	public boolean excuser() {
-		return (this.tick + this.buffer > this.resetVal);
+		return canExcuse() ? (this.tick + this.buffer > this.resetVal) : false;
 	}
 	
 	public void update() {
