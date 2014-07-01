@@ -25,7 +25,6 @@ import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
 import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
 import com.hockeyhurd.handler.ConfigHandler;
-import com.hockeyhurd.handler.DefaultIDHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;

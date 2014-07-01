@@ -10,39 +10,36 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.main.ExtraTools;
 import com.hockeyhurd.util.ChunkHelper;
-import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.TimerHelper;
 
 public class ItemDiamondDetector extends Item {
 
 	private boolean inUse = false;
-	private int time = 20;
-	
+	private TimerHelper th;
+
 	public ItemDiamondDetector(int id) {
 		super(id);
 		this.setUnlocalizedName("DiamondDetector");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
+
+		th = new TimerHelper();
 	}
-	
+
 	public void registerIcons(IconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "DiamondDetector");
 	}
-	
+
 	// Makes sure the player can't press it more than once per second.
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
-		if (!inUse) return;
-		if (time > 0 && inUse) time--;
-		if (time == 0 && inUse) {
-			time = 20;
-			inUse = false;
-		}
+		th.update();
 	}
-	
+
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (!inUse) {
+		if (!th.getUse()) {
 			ChunkHelper chunkHelper = new ChunkHelper(world, player);
 			chunkHelper.searchChunk(Block.oreDiamond);
 		}
-		inUse = true;
+		th.setUse(true);
 		return stack;
 	}
 
