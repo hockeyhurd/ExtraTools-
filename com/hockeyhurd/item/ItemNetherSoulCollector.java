@@ -16,6 +16,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.util.ChatHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -141,7 +142,7 @@ public class ItemNetherSoulCollector extends Item {
 			
 			String msg = "Magnet mode activated!";
 			EnumChatFormatting color = EnumChatFormatting.GOLD;
-			player.sendChatToPlayer(getFormatMsg(new ChatMessageComponent(), msg, color));
+			player.sendChatToPlayer(new ChatHelper().comp(msg, color));
 		}
 		else {
 			if (!isActive) return itemStack;
@@ -151,16 +152,10 @@ public class ItemNetherSoulCollector extends Item {
 			
 			String msg = "Magnet mode deactivated!";
 			EnumChatFormatting color = EnumChatFormatting.GOLD;
-			player.sendChatToPlayer(getFormatMsg(new ChatMessageComponent(), msg, color));
+			player.sendChatToPlayer(new ChatHelper().comp(msg, color));
 		}
 
 		return itemStack;
-	}
-	
-	private ChatMessageComponent getFormatMsg(ChatMessageComponent comp, String msg, EnumChatFormatting color) {
-		comp.setColor(color);
-		comp.addText(msg);
-		return comp;
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.main.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
@@ -40,13 +41,19 @@ public class ItemItemReplacer extends Item {
 			
 			Block block = null;
 			int id = 0;
-			ItemStack thisStack = null;
+			ItemStack thisStack = null; 
+			BlockHelper bh = new BlockHelper(world, player);
 			
 			for (int i = 0; i < player.inventory.getHotbarSize(); i++) {
+				if (player.inventory.getStackInSlot(i) == null) continue;
 				if (player.inventory.getStackInSlot(i).getItem() == this) {
 					id = i + 1;
+					int item_id = player.inventory.getStackInSlot(id).getItem().itemID;
 					
-					if (player.inventory.getStackInSlot(id) == null) break;
+					if (player.inventory.getStackInSlot(id) == null || !bh.blockListContains(item_id)) {
+						if (!bh.blockListContains(item_id) && !th.getUse()) player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
+						break;
+					}
 					else {
 						thisStack = player.inventory.getStackInSlot(id);
 						block = Block.blocksList[thisStack.itemID];

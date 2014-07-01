@@ -31,4 +31,21 @@ public class BlockHelper {
 		return block.getUnlocalizedName();
 	}
 	
+	public boolean blockListContains(int id) {
+		Block b = Block.blocksList[Block.blocksList.length - 1];
+		
+		// Checks if the given id is > the last registered block and if so, just return false; 
+		if (b != null && id > b.blockID) return false;
+		Block block = null;
+		
+		for (int i = 0; i < Block.blocksList.length; i++) {
+			if (Block.blocksList[i] != null && Block.blocksList[i].blockID == id) {
+				block = Block.blocksList[i];
+				break;
+			}
+		}
+		
+		return block != null ? true : false;
+	}
+	
 }
