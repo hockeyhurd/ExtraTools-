@@ -27,6 +27,7 @@ public class EventHookContainer {
 	private boolean legCheck = false;
 	private boolean chestCheck = false;
 	private boolean helmCheck = false;
+	private boolean canFly = false;
 
 	// Removed as unused.
 	/*@ForgeSubscribe
@@ -36,6 +37,14 @@ public class EventHookContainer {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 		}
 	}*/
+	
+	private void setAllowedFly(boolean canFly) {
+		this.canFly = canFly;
+	}
+	
+	private boolean getAllowedFly() {
+		return this.canFly;
+	}
 	
 	@ForgeSubscribe 
 	public void onOreBreak(BreakEvent event) {
@@ -113,13 +122,21 @@ public class EventHookContainer {
 				else player.removePotionEffect(Potion.waterBreathing.id);
 			}
 			
-			if (bootCheck && legCheck && chestCheck && helmCheck) player.capabilities.allowFlying = true;			
-			else player.capabilities.allowFlying = false;
+			if (bootCheck && legCheck && chestCheck && helmCheck) {
+				player.capabilities.allowFlying = true;
+				setAllowedFly(true);
+			}
+			else {
+				player.capabilities.allowFlying = false;
+				setAllowedFly(false);
+			}
+			
+			bootCheck = legCheck = chestCheck = helmCheck = false;
 
 		}
 
 	}
-
+	
 	/*
 	 * Event called when user hovers over my items at the end of the <List>.
 	 */

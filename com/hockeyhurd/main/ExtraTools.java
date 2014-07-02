@@ -58,7 +58,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
