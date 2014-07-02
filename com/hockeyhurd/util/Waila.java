@@ -253,7 +253,8 @@ public class Waila {
 				}
 
 				// Set true for par4 if destroyed block should drop, item-drops.
-				world.destroyBlock(x, y, z, true);
+				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
+				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
 			}
 			
