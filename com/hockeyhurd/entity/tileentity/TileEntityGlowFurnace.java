@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-import com.hockeyhurd.main.BlockGlowFurnace;
+import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.main.ExtraTools;
 
 import cpw.mods.fml.common.registry.GameRegistry;

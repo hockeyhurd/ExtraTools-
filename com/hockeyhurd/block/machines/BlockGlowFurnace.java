@@ -1,4 +1,4 @@
-package com.hockeyhurd.main;
+package com.hockeyhurd.block.machines;
 
 import java.util.Random;
 
@@ -17,6 +17,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.main.ExtraTools;
 
 import cpw.mods.fml.common.network.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;

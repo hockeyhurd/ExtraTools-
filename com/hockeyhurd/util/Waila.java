@@ -32,6 +32,7 @@ public class Waila {
 	// Tools/items used.
 	private final int pickID;
 	private final int hoeID;
+	private final int hammerID;
 	
 	private int offset;
 	private boolean returnBlock = false;
@@ -47,6 +48,7 @@ public class Waila {
 		
 		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
+		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
 		
@@ -207,6 +209,10 @@ public class Waila {
 				else print("Block could not be tilled!");
 			}
 			
+			else if (stack.itemID == hammerID) {
+				mineArea(world, sideHit, xx, yy, zz);
+			}
+			
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
 				BlockHelper blockHelper = new BlockHelper(world, player);
@@ -217,6 +223,42 @@ public class Waila {
 		}
 	}
 	
+	private void mineArea(World world, int sideHit, int x, int y, int z) {
+		print("Side hit: " + sideHit);
+		
+		/*
+		 * sideHit == 0, bottom
+		 * sideHit == 1, top
+		 * sideHit == 2, front
+		 * sideHit == 3, back
+		 * sideHit == 4, left
+		 * sideHit == 5, right
+		 */
+		
+		for (int i = -offset; i <= offset; i++) {
+			for (int j = -offset; j <= offset; j++) {
+				
+				if ( (sideHit == 1 || sideHit == 0) && world.blockExists(x + i, y, z + j) ) {
+					Block block = Block.blocksList[world.getBlockId(x + i, y, z + j)];
+					if (!blockBlackList.contains(block)) world.destroyBlock(x + i, y, z + j, true);
+				}
+				
+				else if ( (sideHit == 2 || sideHit == 3) && world.blockExists(x + i,  y + j,  z) ) {
+					Block block = Block.blocksList[world.getBlockId(x + i, y + j, z)];
+					if (!blockBlackList.contains(block)) world.destroyBlock(x + i, y + j, z, true);
+				}
+				
+				else if ( (sideHit == 4 || sideHit == 5) && world.blockExists(x, y + i, z + j) ) {
+					Block block = Block.blocksList[world.getBlockId(x, y + i, z + j)];
+					if (!blockBlackList.contains(block)) world.destroyBlock(x, y + i, z + j, true);
+				}
+				
+				else continue;
+			}
+		}
+		
+	}
+
 	public void setShiftClick(boolean state) {
 		this.shiftClick = state;
 	}

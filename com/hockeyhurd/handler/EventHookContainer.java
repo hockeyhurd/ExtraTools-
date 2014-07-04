@@ -14,7 +14,9 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
+import com.hockeyhurd.item.tool.ItemGlowHammer;
 import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.util.Waila;
 
 public class EventHookContainer {
 
@@ -48,6 +50,7 @@ public class EventHookContainer {
 	
 	@ForgeSubscribe 
 	public void onOreBreak(BreakEvent event) {
+		
 		if (event.block.blockID == ExtraTools.glowOre.blockID) {
 			World world = event.getPlayer().worldObj;
 			Random random = new Random();
@@ -148,11 +151,12 @@ public class EventHookContainer {
 		int axeID = new ItemStack(ExtraTools.glowAxeUnbreakable, 1).itemID;
 		int hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 		int shovelID = new ItemStack(ExtraTools.glowShovelUnbreakable, 1).itemID;
+		int hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
 		// int netherSoulCollectorID = new ItemStack(ExtraTools.netherSoulCollector, 1).itemID;
 
-		if (currentID == pickID || currentID == swordID || currentID == axeID || currentID == hoeID || currentID == shovelID) {
+		if (currentID == pickID || currentID == swordID || currentID == axeID || currentID == hoeID || currentID == shovelID || currentID == hammerID) {
 			event.toolTip.add("Unbreakable!");
-			if (currentID == pickID) event.toolTip.add("Right click to place torches");
+			if (currentID == pickID) event.toolTip.add("Right click to place torches!");
 		}
 		
 		else return;

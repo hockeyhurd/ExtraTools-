@@ -73,6 +73,9 @@ public class ConfigHandler {
 		int glowShovelUnbreakableID = config.getItem("GlowShovelUnbreakable", dh.getNextAvailableID()).getInt();
 		add("glowShovelUnbreakableID", glowShovelUnbreakableID);
 		
+		int glowHammerUnbreakableID = config.getItem("GlowHammerUnbreakableID", dh.getNextAvailableID()).getInt();
+		add("glowHammerUnbreakableID", glowHammerUnbreakableID);
+		
 		int glowHelmetID = config.getItem("GlowHelmetID", dh.getNextAvailableID()).getInt();
 		add("glowHelmetID", glowHelmetID);
 		

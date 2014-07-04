@@ -20,6 +20,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import com.hockeyhurd.block.BlockGlowIngot;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
+import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
@@ -38,6 +39,7 @@ import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
+import com.hockeyhurd.item.tool.ItemGlowHammer;
 import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
 import com.hockeyhurd.item.tool.ItemGlowShovel;
@@ -113,6 +115,7 @@ public class ExtraTools {
 	public static Item glowSwordUnbreakable;
 	public static Item glowAxeUnbreakable;
 	public static Item glowShovelUnbreakable;
+	public static Item glowHammerUnbreakable;
 	public static Item hockeyStick;
 	public static Item diamondDetector;
 	public static Item itemReplacer;
@@ -177,6 +180,7 @@ public class ExtraTools {
 		glowSwordUnbreakable = new ItemGlowSword(ch.getID("glowSwordUnbreakable"), toolGlowUnbreakable);
 		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
 		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
+		glowHammerUnbreakable = new ItemGlowHammer(ch.getID("glowHammerUnbreakable"), toolGlowUnbreakable);
 		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
 		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
 		itemReplacer = new ItemItemReplacer(ch.getID("itemReplacer"));
@@ -269,6 +273,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowHoeUnbreakable, "Glow Hoe");
 		LanguageRegistry.addName(glowAxeUnbreakable, "Glow Axe");
 		LanguageRegistry.addName(glowSwordUnbreakable, "Glow Sword");
+		LanguageRegistry.addName(glowHammerUnbreakable, "Glow Hammer");
 
 		// Glow Armor set
 		LanguageRegistry.addName(glowHelmet, "Glow Helmet");
