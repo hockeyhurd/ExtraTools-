@@ -24,7 +24,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 		this.setUnlocalizedName("GlowHammer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
-		th = new TimerHelper(20, 1);
+		th = new TimerHelper(20, 2);
 	}
 
 	public void registerIcons(IconRegister reg) {
@@ -36,14 +36,18 @@ public class ItemGlowHammer extends ItemPickaxe {
 		th.update();
 	}
 
-	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int par4, int par5, int par6, EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
 
 		EntityPlayer player = (EntityPlayer) entityLiving;
+		int blockCount = 0;
+
 		Waila waila = new Waila(stack, world, player, null, false, false);
 		waila.setOffset(1);
 
 		if (!th.use || th.excuser()) waila.finder();
+		
 		th.setUse(true);
+
 		return true;
 	}
 

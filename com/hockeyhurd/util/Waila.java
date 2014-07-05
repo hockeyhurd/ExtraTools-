@@ -28,12 +28,13 @@ public class Waila {
 	private boolean placeBlock;
 	private boolean shiftClick;
 	private List<Block> blockBlackList;
-	
+
 	// Tools/items used.
 	private final int pickID;
 	private final int hoeID;
 	private final int hammerID;
-	
+
+	private int sideHit = 0;
 	private int offset;
 	private boolean returnBlock = false;
 
@@ -45,16 +46,16 @@ public class Waila {
 		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
 										// = false, return block looking at.
 		this.shiftClick = shiftClick;
-		
+
 		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
-		
+
 		offset = 0; // By default, don't offset anything.
 	}
-	
+
 	private void addBlockBlackList() {
 		blockBlackList.add(ExtraTools.glowTorch);
 		blockBlackList.add(Block.torchWood);
@@ -64,16 +65,20 @@ public class Waila {
 		blockBlackList.add(Block.railPowered);
 		blockBlackList.add(Block.bedrock);
 	}
-	
+
 	public void setOffset(int offset) {
-		/* If the setOffsetVal > 0 set this.offSet = offset
-		 * else, set this.offset = 0, (removing offset to faulty val).
+		/*
+		 * If the setOffsetVal > 0 set this.offSet = offset else, set this.offset = 0, (removing offset to faulty val).
 		 */
 		this.offset = (offset > 0 ? offset : 0);
 	}
 
-	// We return stack to avoid any remote possible item damaging. 
 	public ItemStack finder() {
+		return finder(true);
+	}
+
+	// We return stack to avoid any remote possible item damaging.
+	public ItemStack finder(boolean handler) {
 		if (stack.getItemDamage() >= 0) {
 			float f = 1.0F;
 
@@ -128,10 +133,7 @@ public class Waila {
 			Vec3 vec3d1 = vec3d.addVector((double) f7 * d3, (double) f8 * d3 + 1, (double) f9 * d3);
 
 			/*
-			 * Combine vector rotations and vector absolute world positions and
-			 * throw it through a vector ray to calculate the direction and
-			 * block the entity (player) is currently looking at in the given
-			 * instance.
+			 * Combine vector rotations and vector absolute world positions and throw it through a vector ray to calculate the direction and block the entity (player) is currently looking at in the given instance.
 			 */
 			MovingObjectPosition movingObjectPos = world.rayTraceBlocks_do_do(vec3d, vec3d1, false, true);
 
@@ -152,22 +154,19 @@ public class Waila {
 				int sideHit = movingObjectPos.sideHit;
 				// print("Side: " + sideHit);
 
-				placeBlockHandler(world, xx, yy, zz, sideHit);
+				if (handler) placeBlockHandler(world, xx, yy, zz, sideHit);
+				else setSideHit(sideHit);
 			}
 
 			stack.setItemDamage(0);
 		}
 		return stack;
 	}
-	
+
 	private void placeBlockHandler(World world, int xx, int yy, int zz, int sideHit) {
 		if (placeBlock) {
 			/*
-			 * Place block (torch) accordingly to the player
-			 * perspective. Makes sure the torch is place directly
-			 * in-front of them. SIDE NOTE: sideHit = 0 means they are
-			 * looking at the under side of a block and therefore make
-			 * sure the torch cannot be placed.
+			 * Place block (torch) accordingly to the player perspective. Makes sure the torch is place directly in-front of them. SIDE NOTE: sideHit = 0 means they are looking at the under side of a block and therefore make sure the torch cannot be placed.
 			 */
 			if (sideHit == 0) return;
 			else if (sideHit == 1) setBlock(xx, yy + this.offset, zz);
@@ -177,10 +176,10 @@ public class Waila {
 			else if (sideHit == 5) setBlock(xx + this.offset, yy, zz);
 
 		}
-		
+
 		else if (!placeBlock) {
 			// Check if item used == glowHoe
-			if ( (stack.itemID == hoeID) && sideHit == 1 ) {
+			if ((stack.itemID == hoeID) && sideHit == 1) {
 
 				// Get Block and block ids'
 				Block tilDirt = Block.tilledField;
@@ -188,81 +187,102 @@ public class Waila {
 				int grassID = Block.grass.blockID;
 				int tilDirtID = tilDirt.blockID;
 				int currentID = world.getBlockId(xx, yy, zz);
-				
+
 				// Get the block the player is currently looking at
 				if (currentID == dirtID || currentID == grassID || currentID == tilDirtID) {
-					
-					/* if they shift click, till a 9 * 9 area
-					 * else, hoe the block they are looking at
+
+					/*
+					 * if they shift click, till a 9 * 9 area else, hoe the block they are looking at
 					 */
 					if (shiftClick) tillLand(xx, yy, zz);
 					else world.setBlock(xx, yy, zz, tilDirtID);
-					
+
 					// Play world sound for all to hear :)
-					world.playSoundEffect( (double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getStepSound(), 
-							(tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f );
+					world.playSoundEffect((double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getStepSound(), (tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f);
 				}
-				
-				/* If the block the user is looking at cannot be tilled,
-				 * don't do anything! (yet)
+
+				/*
+				 * If the block the user is looking at cannot be tilled, don't do anything! (yet)
 				 */
 				else print("Block could not be tilled!");
 			}
-			
+
 			else if (stack.itemID == hammerID) {
 				mineArea(world, sideHit, xx, yy, zz);
 			}
-			
+
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
 				BlockHelper blockHelper = new BlockHelper(world, player);
 				String blockName = blockHelper.getBlock(xx, yy, zz).getLocalizedName();
 				print(blockName);
 			}
-			
+
 		}
 	}
-	
+
+	private void setSideHit(int sideHit) {
+		this.sideHit = sideHit;
+	}
+
+	public int getSideHit() {
+		return this.sideHit;
+	}
+
 	private void mineArea(World world, int sideHit, int x, int y, int z) {
 		print("Side hit: " + sideHit);
-		
+
 		/*
-		 * sideHit == 0, bottom
-		 * sideHit == 1, top
-		 * sideHit == 2, front
-		 * sideHit == 3, back
-		 * sideHit == 4, left
-		 * sideHit == 5, right
+		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right
 		 */
-		
+		int blockCount = 0;
+		BlockHelper bh = new BlockHelper(world, player);
+
 		for (int i = -offset; i <= offset; i++) {
 			for (int j = -offset; j <= offset; j++) {
-				
-				if ( (sideHit == 1 || sideHit == 0) && world.blockExists(x + i, y, z + j) ) {
-					Block block = Block.blocksList[world.getBlockId(x + i, y, z + j)];
-					if (!blockBlackList.contains(block)) world.destroyBlock(x + i, y, z + j, true);
+
+				if (blockCount > 9) break;
+
+				if (sideHit == 0) {
+					if (world.blockExists(x + i, y - 1, z + j) && !blockBlackList.contains(bh.getBlock(x + i, y - 1, z + j))) setBlockAir(x + i, y - 1, z + j);
+					blockCount++;
+				}
+
+				else if (sideHit == 1) {
+					if (world.blockExists(x + i, y + 1, z + j)) setBlockAir(x + i, y + 1, z + j);
+					blockCount++;
 				}
 				
-				else if ( (sideHit == 2 || sideHit == 3) && world.blockExists(x + i,  y + j,  z) ) {
-					Block block = Block.blocksList[world.getBlockId(x + i, y + j, z)];
-					if (!blockBlackList.contains(block)) world.destroyBlock(x + i, y + j, z, true);
+				else if (sideHit == 2) {
+					if (world.blockExists(x + i,  y + j,  z - 1) && !blockBlackList.contains(bh.getBlock(x + i,  y + j,  z - 1))) setBlockAir(x + i,  y + j,  z - 1);
+					blockCount++;
 				}
 				
-				else if ( (sideHit == 4 || sideHit == 5) && world.blockExists(x, y + i, z + j) ) {
-					Block block = Block.blocksList[world.getBlockId(x, y + i, z + j)];
-					if (!blockBlackList.contains(block)) world.destroyBlock(x, y + i, z + j, true);
+				else if (sideHit == 3) {
+					if (world.blockExists(x + i,  y + j,  z + 1) && !blockBlackList.contains(bh.getBlock(x + i,  y + j,  z + 1))) setBlockAir(x + i,  y + j,  z + 1);
+					blockCount++;
 				}
 				
+				else if (sideHit == 4) {
+					if (world.blockExists(x - 1, y + i, z + j) && !blockBlackList.contains(bh.getBlock(x - 1, y + i, z + j))) setBlockAir(x - 1, y + i, z + j);
+					blockCount++;
+				}
+				
+				else if (sideHit == 5) {
+					if (world.blockExists(x + 1, y + i, z + j) && !blockBlackList.contains(bh.getBlock(x + 1, y + i, z + j))) setBlockAir(x + 1, y + i, z + j);
+					blockCount++;
+				}
+
 				else continue;
 			}
 		}
-		
+
 	}
 
 	public void setShiftClick(boolean state) {
 		this.shiftClick = state;
 	}
-	
+
 	private void setBlock(int x, int y, int z) {
 		setBlock(x, y, z, this.block);
 	}
@@ -274,16 +294,14 @@ public class Waila {
 		boolean xCheck = false, yCheck = false, zCheck = false;
 
 		/*
-		 * Check the reach distance relative to the player and desired block
-		 * placement.
+		 * Check the reach distance relative to the player and desired block placement.
 		 */
 		if ((x - deltaPos) < player.posX && player.posX < (x + deltaPos)) xCheck = true;
 		if ((y - deltaPos) < player.posY && player.posY < (y + deltaPos)) yCheck = true;
 		if ((z - deltaPos) < player.posZ && player.posZ < (z + deltaPos)) zCheck = true;
 
 		/*
-		 * If said block is something and the player can reach the block they
-		 * are looking at, place the said block.
+		 * If said block is something and the player can reach the block they are looking at, place the said block.
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
@@ -299,16 +317,47 @@ public class Waila {
 				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
 			}
-			
+
 			else return;
 		}
 		else return;
 	}
-	
+
+	private void setBlockAir(int x, int y, int z) {
+		// How far should the player be able to 'reach'.
+		int deltaPos = 4;
+		boolean xCheck = false, yCheck = false, zCheck = false;
+
+		/*
+		 * Check the reach distance relative to the player and desired block placement.
+		 */
+		if ((x - deltaPos) < player.posX && player.posX < (x + deltaPos)) xCheck = true;
+		if ((y - deltaPos) < player.posY && player.posY < (y + deltaPos)) yCheck = true;
+		if ((z - deltaPos) < player.posZ && player.posZ < (z + deltaPos)) zCheck = true;
+
+		/*
+		 * If said block is something and the player can reach the block they are looking at, place the said block.
+		 */
+		if (xCheck && yCheck && zCheck) {
+			if (!world.blockExists(x, y, z)) world.setBlockToAir(x, y, z);
+			else if (world.blockExists(x, y, z) && !blockBlackList.contains(new BlockHelper(world, player).getBlock(x, y, z))) {
+				// If the block trying to be placed is equal to block at the coordinate, return;
+
+				// Set true for par4 if destroyed block should drop, item-drops.
+				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
+				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
+				world.setBlockToAir(x, y, z);
+			}
+
+			else return;
+		}
+		else return;
+	}
+
 	private void setReturnBlock(boolean result) {
 		this.returnBlock = result;
 	}
-	
+
 	public boolean getReturnBlock() {
 		return this.returnBlock;
 	}
@@ -319,25 +368,24 @@ public class Waila {
 		int tilledDirtID = tilDir.blockID;
 		int dirtID = Block.dirt.blockID;
 		int grassID = Block.grass.blockID;
-		
-		/* Scan through blocks on the x and z axis,
-		 * check if they can be tilled, 
-		 * till the land!
+
+		/*
+		 * Scan through blocks on the x and z axis, check if they can be tilled, till the land!
 		 */
-		for (int xx = x-1; xx < x+2; xx++) {
-			for (int zz = z-1; zz < z+2; zz++) {
+		for (int xx = x - 1; xx < x + 2; xx++) {
+			for (int zz = z - 1; zz < z + 2; zz++) {
 				int currentBlock = world.getBlockId(xx, y, zz);
-				
+
 				// Note: Last check below shouldn't be necessary as it should already be tilled! (in theory).
-				if (currentBlock == dirtID || currentBlock == grassID /*|| currentBlock == tilledDirtID*/) { 
+				if (currentBlock == dirtID || currentBlock == grassID /* || currentBlock == tilledDirtID */) {
 					setBlock(xx, y, zz, tilDir);
 				}
 			}
 		}
 	}
-	
+
 	private void print(Object msg) {
 		System.out.println("" + msg + ".");
 	}
-	
+
 }
