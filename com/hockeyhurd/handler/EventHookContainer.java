@@ -94,14 +94,7 @@ public class EventHookContainer {
 			/*
 			 * Checks if the user removes any part(s) of the armor set and if already airborne revove flying ability and make them fall! Ouch!
 			 */
-			else {
-				bootCheck = legCheck = chestCheck = helmCheck = false;
-				if (player.isAirBorne) {
-					player.capabilities.allowFlying = false;
-					player.capabilities.isFlying = false;
-				}
-				return;
-			}
+			else bootCheck = legCheck = chestCheck = helmCheck = false;
 
 			if (currentBoot == boot) {
 				bootCheck = true;
@@ -130,7 +123,7 @@ public class EventHookContainer {
 				setAllowedFly(true);
 			}
 			else {
-				player.capabilities.allowFlying = false;
+				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) player.capabilities.allowFlying = false;
 				setAllowedFly(false);
 			}
 			
