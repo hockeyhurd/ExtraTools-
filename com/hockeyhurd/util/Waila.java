@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
@@ -25,6 +26,7 @@ public class Waila {
 	private World world;
 	private EntityPlayer player;
 	private Block block;
+	private BlockHelper bh;
 	private boolean placeBlock;
 	private boolean shiftClick;
 	private List<Block> blockBlackList;
@@ -43,6 +45,7 @@ public class Waila {
 		this.world = world;
 		this.player = entityPlayer;
 		this.block = block;
+		this.bh = new BlockHelper(world, player);
 		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
 										// = false, return block looking at.
 		this.shiftClick = shiftClick;
@@ -57,13 +60,23 @@ public class Waila {
 	}
 
 	private void addBlockBlackList() {
-		blockBlackList.add(ExtraTools.glowTorch);
-		blockBlackList.add(Block.torchWood);
-		blockBlackList.add(Block.rail);
-		blockBlackList.add(Block.railActivator);
-		blockBlackList.add(Block.railDetector);
-		blockBlackList.add(Block.railPowered);
-		blockBlackList.add(Block.bedrock);
+		add(ExtraTools.glowTorch);
+		add(Block.torchWood);
+		add(Block.rail);
+		add(Block.railActivator);
+		add(Block.railDetector);
+		add(Block.railPowered);
+		add(Block.bedrock);
+		
+		for (int i = 0; i < Block.blocksList.length; i++) {
+			Block block = Block.blocksList[i];
+			if (block != null && block.blockHardness == -1 && !blockBlackList.contains(block)) add(block);
+			else continue;
+		}
+	}
+	
+	private void add(Block block) {
+		blockBlackList.add(block);
 	}
 
 	public void setOffset(int offset) {
@@ -211,8 +224,7 @@ public class Waila {
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
-				BlockHelper blockHelper = new BlockHelper(world, player);
-				String blockName = blockHelper.getBlock(xx, yy, zz).getLocalizedName();
+				String blockName = bh.getBlock(xx, yy, zz).getLocalizedName();
 				print(blockName);
 			}
 
@@ -231,17 +243,13 @@ public class Waila {
 		/*
 		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right
 		 */
-		BlockHelper bh = new BlockHelper(world, player);
 		final int deltaPos = 6;
 
 		for (int i = -offset; i <= offset; i++) {
 			for (int j = -offset; j <= offset; j++) {
-				if (sideHit == 0) setBlockAir(x + i, y, z + j, deltaPos);
-				else if (sideHit == 1) setBlockAir(x + i, y, z + j, deltaPos);
-				else if (sideHit == 2) setBlockAir(x + i,  y + j,  z, deltaPos);
-				else if (sideHit == 3) setBlockAir(x + i,  y + j,  z, deltaPos);
-				else if (sideHit == 4) setBlockAir(x, y + i, z + j, deltaPos);
-				else if (sideHit == 5) setBlockAir(x, y + i, z + j, deltaPos);
+				if (sideHit == 0 || sideHit == 1) setBlockAir(x + i, y, z + j, deltaPos, true);
+				else if (sideHit == 2 || sideHit == 3) setBlockAir(x + i,  y + j,  z, deltaPos, true);
+				else if (sideHit == 4 || sideHit == 5) setBlockAir(x, y + i, z + j, deltaPos, true);
 			}
 		} 
 
@@ -273,7 +281,7 @@ public class Waila {
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
-			else if (world.blockExists(x, y, z) && !blockBlackList.contains(new BlockHelper(world, player).getBlock(x, y, z))) {
+			else if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
 				if (world.getBlockId(x, y, z) == block.blockID) {
 					setReturnBlock(true);
@@ -291,11 +299,13 @@ public class Waila {
 		else return;
 	}
 	
-	private void setBlockAir(int x, int y, int z) {
-		setBlockAir(x, y, z, 4);
+	private void setBlockAir(int x, int y, int z, boolean matSp) {
+		setBlockAir(x, y, z, 4, matSp);
 	}
 
-	private void setBlockAir(int x, int y, int z, int deltaPos) {
+	// Setting material to null disregards check for like material blocks.
+	private void setBlockAir(int x, int y, int z, int deltaPos, boolean matSp) {
+		
 		// How far should the player be able to 'reach'.
 		boolean xCheck = false, yCheck = false, zCheck = false;
 
@@ -310,13 +320,18 @@ public class Waila {
 		 * If said block is something and the player can reach the block they are looking at, place the said block.
 		 */
 		if (xCheck && yCheck && zCheck) {
-			if (!world.blockExists(x, y, z)) world.setBlockToAir(x, y, z);
-			else if (world.blockExists(x, y, z) && !blockBlackList.contains(new BlockHelper(world, player).getBlock(x, y, z))) {
+			if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
-				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
+				if (!matSp) world.destroyBlock(x, y, z, true);
+				else {
+					Material currentMat = bh.getBlockMaterial(x, y, z);
+					if (stack.getItem().itemID != ExtraTools.glowHammerUnbreakable.itemID || currentMat != Material.rock) return;
+					else world.destroyBlock(x, y, z, true);
+				}
+				
 				world.setBlockToAir(x, y, z);
 			}
 

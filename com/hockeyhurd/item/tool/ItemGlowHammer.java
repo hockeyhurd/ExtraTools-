@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
@@ -39,19 +40,19 @@ public class ItemGlowHammer extends ItemPickaxe {
 	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
 		
 		EntityPlayer player = (EntityPlayer) entityLiving;
-		int blockCount = 0;
-
-		Waila waila = new Waila(stack, world, player, null, false, false);
+		
+		// If the player is sneaking void 3x3 mining,
+		if (player.isSneaking()) return true;
+		
+		Waila waila = new Waila(stack, world, player, new BlockHelper(world, player).getBlock(x, y, z), false, false);
 		waila.setOffset(1);
 
 		if (!world.isRemote && (!th.use || th.excuser())) {
 			waila.finder();
 			th.setUse(true);
-
-			return true;
 		}
-
-		else return false;
+		
+		return true;
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

@@ -5,6 +5,7 @@
 package com.hockeyhurd.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -21,6 +22,11 @@ public class BlockHelper {
 	// Returns the block from world coordinate.
 	public Block getBlock(int x, int y, int z) {
 		return Block.blocksList[world.getBlockId(x, y, z)];  
+	}
+	
+	// Returns the block's material
+	public Material getBlockMaterial(int x, int y, int z) {
+		return world.getBlockMaterial(x, y, z);
 	}
 	
 	public String getLocalized(Block block) {
