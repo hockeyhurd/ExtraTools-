@@ -24,7 +24,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 		this.setUnlocalizedName("GlowHammer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
-		th = new TimerHelper(20, 2);
+		th = new TimerHelper(5);
 	}
 
 	public void registerIcons(IconRegister reg) {

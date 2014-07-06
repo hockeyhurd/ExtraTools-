@@ -232,15 +232,16 @@ public class Waila {
 		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right
 		 */
 		BlockHelper bh = new BlockHelper(world, player);
+		final int deltaPos = 6;
 
 		for (int i = -offset; i <= offset; i++) {
 			for (int j = -offset; j <= offset; j++) {
-				if (sideHit == 0) setBlockAir(x + i, y, z + j);
-				else if (sideHit == 1) setBlockAir(x + i, y, z + j);
-				else if (sideHit == 2) setBlockAir(x + i,  y + j,  z);
-				else if (sideHit == 3) setBlockAir(x + i,  y + j,  z);
-				else if (sideHit == 4) setBlockAir(x, y + i, z + j);
-				else if (sideHit == 5) setBlockAir(x, y + i, z + j);
+				if (sideHit == 0) setBlockAir(x + i, y, z + j, deltaPos);
+				else if (sideHit == 1) setBlockAir(x + i, y, z + j, deltaPos);
+				else if (sideHit == 2) setBlockAir(x + i,  y + j,  z, deltaPos);
+				else if (sideHit == 3) setBlockAir(x + i,  y + j,  z, deltaPos);
+				else if (sideHit == 4) setBlockAir(x, y + i, z + j, deltaPos);
+				else if (sideHit == 5) setBlockAir(x, y + i, z + j, deltaPos);
 			}
 		} 
 
@@ -289,10 +290,13 @@ public class Waila {
 		}
 		else return;
 	}
-
+	
 	private void setBlockAir(int x, int y, int z) {
+		setBlockAir(x, y, z, 4);
+	}
+
+	private void setBlockAir(int x, int y, int z, int deltaPos) {
 		// How far should the player be able to 'reach'.
-		int deltaPos = 4;
 		boolean xCheck = false, yCheck = false, zCheck = false;
 
 		/*
