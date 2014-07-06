@@ -60,7 +60,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.1")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.2")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
@@ -361,7 +361,7 @@ public class ExtraTools {
 		SWORD.addEnchantment(Enchantment.sharpness, 5);
 		SWORD.addEnchantment(Enchantment.looting, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SWORD, new Object[] {
-				" w ", "yxy", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', STICK
+				" w ", " x ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'z', STICK
 		}));
 
 		// Crafting the axe
@@ -382,6 +382,13 @@ public class ExtraTools {
 		SHOVEL.addEnchantment(Enchantment.efficiency, 5);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SHOVEL, new Object[] {
 				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', STICK
+		}));
+		
+		// Crafting the glow hammer
+		ItemStack HAMMER = new ItemStack(glowHammerUnbreakable, 1);
+		HAMMER.addEnchantment(Enchantment.efficiency, 5);
+		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
+				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
 		}));
 
 		// Crafting the glow boots

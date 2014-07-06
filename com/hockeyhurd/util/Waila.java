@@ -207,9 +207,7 @@ public class Waila {
 				else print("Block could not be tilled!");
 			}
 
-			else if (stack.itemID == hammerID) {
-				mineArea(sideHit, xx, yy, zz);
-			}
+			else if (stack.itemID == hammerID) mineArea(sideHit, xx, yy, zz);
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
@@ -230,8 +228,6 @@ public class Waila {
 	}
 
 	private void mineArea(int sideHit, int x, int y, int z) {
-		// print("Side hit: " + sideHit);
-
 		/*
 		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right
 		 */
