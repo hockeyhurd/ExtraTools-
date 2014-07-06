@@ -37,18 +37,21 @@ public class ItemGlowHammer extends ItemPickaxe {
 	}
 
 	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
-
+		
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		int blockCount = 0;
 
 		Waila waila = new Waila(stack, world, player, null, false, false);
 		waila.setOffset(1);
 
-		if (!th.use || th.excuser()) waila.finder();
-		
-		th.setUse(true);
+		if (!world.isRemote && (!th.use || th.excuser())) {
+			waila.finder();
+			th.setUse(true);
 
-		return true;
+			return true;
+		}
+
+		else return false;
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

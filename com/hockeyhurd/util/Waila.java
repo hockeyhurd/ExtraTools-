@@ -126,7 +126,7 @@ public class Waila {
 			float f9 = f3 * f5;
 			// Get the distance the vector ray should extend to.
 			// double d3 = 5000D;
-			double d3 = 5000D;
+			double d3 = 5000D; 
 
 			// Get the above calculations and represent this in a vector3
 			// format.
@@ -208,7 +208,7 @@ public class Waila {
 			}
 
 			else if (stack.itemID == hammerID) {
-				mineArea(world, sideHit, xx, yy, zz);
+				mineArea(sideHit, xx, yy, zz);
 			}
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
@@ -229,53 +229,24 @@ public class Waila {
 		return this.sideHit;
 	}
 
-	private void mineArea(World world, int sideHit, int x, int y, int z) {
-		print("Side hit: " + sideHit);
+	private void mineArea(int sideHit, int x, int y, int z) {
+		// print("Side hit: " + sideHit);
 
 		/*
 		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right
 		 */
-		int blockCount = 0;
 		BlockHelper bh = new BlockHelper(world, player);
 
 		for (int i = -offset; i <= offset; i++) {
 			for (int j = -offset; j <= offset; j++) {
-
-				if (blockCount > 9) break;
-
-				if (sideHit == 0) {
-					if (world.blockExists(x + i, y - 1, z + j) && !blockBlackList.contains(bh.getBlock(x + i, y - 1, z + j))) setBlockAir(x + i, y - 1, z + j);
-					blockCount++;
-				}
-
-				else if (sideHit == 1) {
-					if (world.blockExists(x + i, y + 1, z + j)) setBlockAir(x + i, y + 1, z + j);
-					blockCount++;
-				}
-				
-				else if (sideHit == 2) {
-					if (world.blockExists(x + i,  y + j,  z - 1) && !blockBlackList.contains(bh.getBlock(x + i,  y + j,  z - 1))) setBlockAir(x + i,  y + j,  z - 1);
-					blockCount++;
-				}
-				
-				else if (sideHit == 3) {
-					if (world.blockExists(x + i,  y + j,  z + 1) && !blockBlackList.contains(bh.getBlock(x + i,  y + j,  z + 1))) setBlockAir(x + i,  y + j,  z + 1);
-					blockCount++;
-				}
-				
-				else if (sideHit == 4) {
-					if (world.blockExists(x - 1, y + i, z + j) && !blockBlackList.contains(bh.getBlock(x - 1, y + i, z + j))) setBlockAir(x - 1, y + i, z + j);
-					blockCount++;
-				}
-				
-				else if (sideHit == 5) {
-					if (world.blockExists(x + 1, y + i, z + j) && !blockBlackList.contains(bh.getBlock(x + 1, y + i, z + j))) setBlockAir(x + 1, y + i, z + j);
-					blockCount++;
-				}
-
-				else continue;
+				if (sideHit == 0) setBlockAir(x + i, y, z + j);
+				else if (sideHit == 1) setBlockAir(x + i, y, z + j);
+				else if (sideHit == 2) setBlockAir(x + i,  y + j,  z);
+				else if (sideHit == 3) setBlockAir(x + i,  y + j,  z);
+				else if (sideHit == 4) setBlockAir(x, y + i, z + j);
+				else if (sideHit == 5) setBlockAir(x, y + i, z + j);
 			}
-		}
+		} 
 
 	}
 
