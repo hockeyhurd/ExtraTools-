@@ -239,6 +239,7 @@ public class Waila {
 		return this.sideHit;
 	}
 
+	// Method used that can mine a 2-Dimensional area based off a given side hit.
 	private void mineArea(int sideHit, int x, int y, int z) {
 		/*
 		 * sideHit == 0, bottom sideHit == 1, top sideHit == 2, front sideHit == 3, back sideHit == 4, left sideHit == 5, right

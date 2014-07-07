@@ -60,7 +60,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.3")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.4")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
@@ -386,7 +386,7 @@ public class ExtraTools {
 		
 		// Crafting the glow hammer
 		ItemStack HAMMER = new ItemStack(glowHammerUnbreakable, 1);
-		HAMMER.addEnchantment(Enchantment.efficiency, 5);
+		HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
 				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
 		}));

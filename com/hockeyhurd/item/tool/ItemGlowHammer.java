@@ -2,6 +2,8 @@ package com.hockeyhurd.item.tool;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +20,8 @@ import com.hockeyhurd.util.Waila;
 
 public class ItemGlowHammer extends ItemPickaxe {
 
+	private final Block torch = ExtraTools.glowTorch;
+	private final int torchID = torch.blockID;
 	private TimerHelper th;
 
 	public ItemGlowHammer(int id, EnumToolMaterial material) {
@@ -25,7 +29,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 		this.setUnlocalizedName("GlowHammer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
-		th = new TimerHelper(5);
+		th = new TimerHelper(10, 2);
 	}
 
 	public void registerIcons(IconRegister reg) {
@@ -37,14 +41,17 @@ public class ItemGlowHammer extends ItemPickaxe {
 		th.update();
 	}
 
+	// When player mines a block, mine a 3x3 area.
 	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
 		
 		EntityPlayer player = (EntityPlayer) entityLiving;
+		BlockHelper bh = new BlockHelper(world, player);
+		Block block = bh.getBlock(x, y, z);
 		
 		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking()) return true;
+		if (player.isSneaking() || bh.getBlockMaterial(x, y, z) != Material.rock) return true;
 		
-		Waila waila = new Waila(stack, world, player, new BlockHelper(world, player).getBlock(x, y, z), false, false);
+		Waila waila = new Waila(stack, world, player, block, false, false);
 		waila.setOffset(1);
 
 		if (!world.isRemote && (!th.use || th.excuser())) {
@@ -54,9 +61,19 @@ public class ItemGlowHammer extends ItemPickaxe {
 		
 		return true;
 	}
+	
+	// When player right click's, places a GlowTorch on given location.
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+		Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
+		waila.setOffset(1);
+		if (!th.getUse() || th.excuser()) waila.finder();
+		th.setUse(true);
+		return itemStack;
+	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		list.add("Mines a 3x3 area");
+		list.add("Right click to place GlowTorch");
 	}
 
 }
