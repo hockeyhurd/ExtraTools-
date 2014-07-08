@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -78,15 +79,25 @@ public class ItemNetherSoulCollector extends Item {
 	}
 
 	private void scanForEntities(World world, EntityPlayer player, double dist) {
-		List list = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(player.posX - dist, player.posY - dist, player.posZ - dist, player.posX + dist, player.posY + dist, player.posZ + dist));
-		Iterator iter = list.iterator();
-		while (iter.hasNext()) {
-			EntityItem item = (EntityItem) iter.next();
+		List itemList = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(player.posX - dist, player.posY - dist, player.posZ - dist, player.posX + dist, player.posY + dist, player.posZ + dist));
+		Iterator iterItems = itemList.iterator();
+		while (iterItems.hasNext()) {
+			EntityItem item = (EntityItem) iterItems.next();
 			if (!checkInvForRoom(item.getEntityItem(), player)) continue;
 			// if (item.isAirBorne || !item.onGround) continue;
 			if (item.delayBeforeCanPickup > 0) item.delayBeforeCanPickup = 1;
 			if (player.getDistanceToEntity(item) < 1.5d) continue;
 			teleportEntityToPlayer(item, player);
+			break;
+		}
+		
+		List xpList = world.getEntitiesWithinAABB(EntityXPOrb.class, AxisAlignedBB.getBoundingBox(player.posX - dist, player.posY - dist, player.posZ - dist, player.posX + dist, player.posY + dist, player.posZ + dist));
+		Iterator iterXP = xpList.iterator();
+		while(iterXP.hasNext()) {
+			EntityXPOrb xp = (EntityXPOrb) iterXP.next();
+			if (player.experienceLevel + xp.getXpValue() > player.experienceTotal) break;
+			if (player.getDistanceToEntity(xp) < 1.5d) continue;
+			teleportEntityToPlayer(xp, player);
 			break;
 		}
 	}
