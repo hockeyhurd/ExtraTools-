@@ -33,10 +33,10 @@ public class ItemGlowHammer extends ItemPickaxe {
 
 		mineAble = new ArrayList<Material>();
 		loadMats();
-		
+
 		th = new TimerHelper(10, 2);
 	}
-	
+
 	private void loadMats() {
 		mineAble.add(Material.rock);
 		mineAble.add(Material.iron);
@@ -53,23 +53,23 @@ public class ItemGlowHammer extends ItemPickaxe {
 
 	// When player mines a block, mine a 3x3 area.
 	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
-		
+
 		// If for some reason this instance of event is called and the entity is not a player, just return true and mine a single block.
 		if (!(entityLiving instanceof EntityPlayer)) return true;
-		
+
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		BlockHelper bh = new BlockHelper(world, player);
 		Block block = bh.getBlock(x, y, z);
 		Material mat = bh.getBlockMaterial(x, y, z);
-		
+
 		// If the player is sneaking void 3x3 mining,
 		if (player.isSneaking() || !mineAble.contains(mat)) return true;
-		
+
 		Waila waila = new Waila(stack, world, player, block, false, false);
-		
+
 		// Sets offset or number of blocks in all directions that are possible to mine.
 		waila.setOffset(1);
-		
+
 		// Makes sure the matwhitelist is in sync.
 		waila.setMatWhiteList(mineAble);
 
@@ -77,16 +77,18 @@ public class ItemGlowHammer extends ItemPickaxe {
 			waila.finder();
 			th.setUse(true);
 		}
-		
+
 		return true;
 	}
-	
+
 	// When player right click's, places a GlowTorch on given location.
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
-		waila.setOffset(1);
-		if (!th.getUse() || th.excuser()) waila.finder();
-		th.setUse(true);
+		if (!world.isRemote) {
+			Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
+			waila.setOffset(1);
+			if (!th.getUse() || th.excuser()) waila.finder();
+			th.setUse(true);
+		}
 		return itemStack;
 	}
 

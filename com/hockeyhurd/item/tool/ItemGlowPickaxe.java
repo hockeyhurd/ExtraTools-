@@ -37,10 +37,12 @@ public class ItemGlowPickaxe extends ItemPickaxe {
 	}
 
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-		Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
-		waila.setOffset(1);
-		if (!th.getUse() || th.excuser()) waila.finder();
-		th.setUse(true);
+		if (!world.isRemote) {
+			Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
+			waila.setOffset(1);
+			if (!th.getUse() || th.excuser()) waila.finder();
+			th.setUse(true);
+		}
 		return itemStack;
 	}
 

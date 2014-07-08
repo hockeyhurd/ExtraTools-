@@ -17,40 +17,41 @@ import com.hockeyhurd.util.Waila;
 public class ItemItemReplacer extends Item {
 
 	private TimerHelper th;
-	
+
 	public ItemItemReplacer(int id) {
 		super(id);
 		this.setUnlocalizedName("ItemReplacer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 		this.setMaxStackSize(1);
-		
+
 		th = new TimerHelper(20, 2);
 	}
-	
+
 	public void registerIcons(IconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "ItemReplacer");
 	}
-	
-	// Makes sure the player can't press it more than once per second.
-		public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
-			th.update();
-		}
 
-		public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-			if (th.getUse() && !th.excuser()) return stack;
-			
+	// Makes sure the player can't press it more than once per second.
+	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
+		th.update();
+	}
+
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if (th.getUse() && !th.excuser()) return stack;
+
+		if (!world.isRemote) {
 			Block block = null;
 			int id = 0;
-			ItemStack thisStack = null; 
+			ItemStack thisStack = null;
 			BlockHelper bh = new BlockHelper(world, player);
-			
+
 			for (int i = 0; i < player.inventory.getHotbarSize(); i++) {
 				if (player.inventory.getStackInSlot(i) == null) continue;
 				if (player.inventory.getStackInSlot(i).getItem() == this) {
 					id = i + 1;
 					if (player.inventory.getStackInSlot(id) == null) break;
 					int item_id = player.inventory.getStackInSlot(id).getItem().itemID;
-					
+
 					if (!bh.blockListContains(item_id) && !th.getUse()) {
 						player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
 						break;
@@ -63,32 +64,33 @@ public class ItemItemReplacer extends Item {
 						break;
 					}
 				}
-				
+
 			}
-			
+
 			// If the desired block == null quit all opperation.
 			if (block == null) {
 				th.setUse(true);
 				return stack;
 			}
-			
+
 			// Desired Block musn't be null, therefore we can proceed.
 			Waila waila = new Waila(stack, world, player, block, true, false);
 			// if (!th.getUse() || th.excuser()) waila.finder();
 			waila.finder();
 			th.setUse(true);
-			
+
 			if (waila.getReturnBlock()) {
 				if (thisStack.stackSize > 0) thisStack.stackSize++;
 				else player.inventory.setInventorySlotContents(id, new ItemStack(block, 1));
 			}
-			return stack;
 		}
+		return stack;
+	}
 
-		/*
-		 * public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		 * 
-		 * }
-		 */
+	/*
+	 * public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+	 * 
+	 * }
+	 */
 
 }
