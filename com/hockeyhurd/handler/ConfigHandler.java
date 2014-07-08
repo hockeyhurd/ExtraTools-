@@ -35,10 +35,10 @@ public class ConfigHandler {
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		
 		loadID(config);
-		
 		config.save();
+		
+		initLists();
 	}
 	
 	private void loadID(Configuration config) {
@@ -138,19 +138,18 @@ public class ConfigHandler {
 		map.put(name, id);
 	}
 	
-	public List<Block> getRegisteredBlocks() {
+	private void initLists() {
 		for (int i = (Integer) map.values().toArray()[0]; i < map.values().size(); i++) {
-			if (bh.blockListContains(i)) this.blocks.add(bh.getBlock(i));
+			if (bh.blockListContains(i) && !ih.itemListContains(i)) this.blocks.add(bh.getBlock(i));
+			else if (!bh.blockListContains(i) && ih.itemListContains(i)) this.items.add(ih.getItem(i));
 		}
-		
+	}
+	
+	public List<Block> getRegisteredBlocks() {
 		return this.blocks;
 	}
 	
 	public List<Item> getRegisteredItems() {
-		for (int i = (Integer) map.values().toArray()[0]; i < map.values().size(); i++) {
-			if (ih.itemListContains(i)) this.items.add(ih.getItem(i));
-		}
-		
 		return this.items;
 	}
 	
