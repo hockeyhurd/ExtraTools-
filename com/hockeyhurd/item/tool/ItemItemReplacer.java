@@ -48,10 +48,11 @@ public class ItemItemReplacer extends Item {
 				if (player.inventory.getStackInSlot(i) == null) continue;
 				if (player.inventory.getStackInSlot(i).getItem() == this) {
 					id = i + 1;
+					if (player.inventory.getStackInSlot(id) == null) break;
 					int item_id = player.inventory.getStackInSlot(id).getItem().itemID;
 					
-					if (player.inventory.getStackInSlot(id) == null || !bh.blockListContains(item_id)) {
-						if (!bh.blockListContains(item_id) && !th.getUse()) player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
+					if (!bh.blockListContains(item_id) && !th.getUse()) {
+						player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
 						break;
 					}
 					else {
