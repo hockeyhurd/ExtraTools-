@@ -19,9 +19,18 @@ public class BlockHelper {
 		this.player = player;
 	}
 	
+	// Only use this constructor is there is no need with world or player interaction!
+	public BlockHelper() {
+		
+	}
+	
 	// Returns the block from world coordinate.
 	public Block getBlock(int x, int y, int z) {
 		return Block.blocksList[world.getBlockId(x, y, z)];  
+	}
+	
+	public Block getBlock(int id) {
+		return id > 0 ? Block.blocksList[id] : null;
 	}
 	
 	// Returns the block's material
@@ -34,7 +43,7 @@ public class BlockHelper {
 	}
 	
 	public String getUnlocalizedName(Block block) {
-		return block.getUnlocalizedName();
+		return block != null ? block.getUnlocalizedName() : "This is not a block!";
 	}
 	
 	public boolean blockListContains(int id) {
@@ -52,6 +61,10 @@ public class BlockHelper {
 		}
 		
 		return block != null ? true : false;
+	}
+	
+	public boolean isABlock(Block block) {
+		return blockListContains(block.blockID);
 	}
 	
 }

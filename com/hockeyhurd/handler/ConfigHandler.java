@@ -1,7 +1,13 @@
 package com.hockeyhurd.handler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import com.hockeyhurd.util.BlockHelper;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -9,11 +15,19 @@ public class ConfigHandler {
 
 	private FMLPreInitializationEvent event;
 	private HashMap<String, Integer> map;
+	private List<Block> blocks;
+	private List<Item> items;
 	private DefaultIDHandler dh;
+	private BlockHelper bh;
+	private ItemHelper ih;
 	
 	public ConfigHandler(FMLPreInitializationEvent event) {
 		this.event = event;
+		blocks = new ArrayList<Block>();
+		items = new ArrayList<Item>();
 		dh = new DefaultIDHandler();
+		bh = new BlockHelper();
+		ih = new ItemHelper();
 	}
 	
 	public void handleConfiguration() {
@@ -122,6 +136,22 @@ public class ConfigHandler {
 	
 	private void add(String name, int id) {
 		map.put(name, id);
+	}
+	
+	public List<Block> getRegisteredBlocks() {
+		for (int i = (Integer) map.values().toArray()[0]; i < map.values().size(); i++) {
+			if (bh.blockListContains(i)) this.blocks.add(bh.getBlock(i));
+		}
+		
+		return this.blocks;
+	}
+	
+	public List<Item> getRegisteredItems() {
+		for (int i = (Integer) map.values().toArray()[0]; i < map.values().size(); i++) {
+			if (ih.itemListContains(i)) this.items.add(ih.getItem(i));
+		}
+		
+		return this.items;
 	}
 	
 }

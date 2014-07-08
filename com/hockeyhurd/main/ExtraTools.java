@@ -386,7 +386,8 @@ public class ExtraTools {
 		
 		// Crafting the glow hammer
 		ItemStack HAMMER = new ItemStack(glowHammerUnbreakable, 1);
-		HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
+		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
+		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
 				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
 		}));
