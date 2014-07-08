@@ -1,5 +1,6 @@
 package com.hockeyhurd.item.tool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -22,6 +23,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 
 	private final Block torch = ExtraTools.glowTorch;
 	private final int torchID = torch.blockID;
+	private List<Material> mineAble;
 	private TimerHelper th;
 
 	public ItemGlowHammer(int id, EnumToolMaterial material) {
@@ -29,7 +31,15 @@ public class ItemGlowHammer extends ItemPickaxe {
 		this.setUnlocalizedName("GlowHammer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
+		mineAble = new ArrayList<Material>();
+		loadMats();
+		
 		th = new TimerHelper(10, 2);
+	}
+	
+	private void loadMats() {
+		mineAble.add(Material.rock);
+		mineAble.add(Material.iron);
 	}
 
 	public void registerIcons(IconRegister reg) {
@@ -44,15 +54,24 @@ public class ItemGlowHammer extends ItemPickaxe {
 	// When player mines a block, mine a 3x3 area.
 	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
 		
+		// If for some reason this instance of event is called and the entity is not a player, just return true and mine a single block.
+		if (!(entityLiving instanceof EntityPlayer)) return true;
+		
 		EntityPlayer player = (EntityPlayer) entityLiving;
 		BlockHelper bh = new BlockHelper(world, player);
 		Block block = bh.getBlock(x, y, z);
+		Material mat = bh.getBlockMaterial(x, y, z);
 		
 		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking() || bh.getBlockMaterial(x, y, z) != Material.rock) return true;
+		if (player.isSneaking() || !mineAble.contains(mat)) return true;
 		
 		Waila waila = new Waila(stack, world, player, block, false, false);
+		
+		// Sets offset or number of blocks in all directions that are possible to mine.
 		waila.setOffset(1);
+		
+		// Makes sure the matwhitelist is in sync.
+		waila.setMatWhiteList(mineAble);
 
 		if (!world.isRemote && (!th.use || th.excuser())) {
 			waila.finder();

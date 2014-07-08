@@ -30,6 +30,7 @@ public class Waila {
 	private boolean placeBlock;
 	private boolean shiftClick;
 	private List<Block> blockBlackList;
+	private List<Material> matWhiteList;
 
 	// Tools/items used.
 	private final int pickID;
@@ -55,6 +56,9 @@ public class Waila {
 		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
+		
+		matWhiteList = new ArrayList<Material>();
+		addMatWhiteList();
 
 		offset = 0; // By default, don't offset anything.
 	}
@@ -73,6 +77,15 @@ public class Waila {
 			if (block != null && block.blockHardness == -1 && !blockBlackList.contains(block)) add(block);
 			else continue;
 		}
+	}
+	
+	private void addMatWhiteList() {
+		matWhiteList.add(Material.rock);
+		matWhiteList.add(Material.iron);
+	}
+	
+	public void setMatWhiteList(List<Material> mats) {
+		this.matWhiteList = mats;
 	}
 	
 	private void add(Block block) {
@@ -329,7 +342,7 @@ public class Waila {
 				if (!matSp) world.destroyBlock(x, y, z, true);
 				else {
 					Material currentMat = bh.getBlockMaterial(x, y, z);
-					if (stack.getItem().itemID != ExtraTools.glowHammerUnbreakable.itemID || currentMat != Material.rock) return;
+					if (stack.getItem().itemID != ExtraTools.glowHammerUnbreakable.itemID || !matWhiteList.contains(currentMat)) return;
 					else world.destroyBlock(x, y, z, true);
 				}
 				
