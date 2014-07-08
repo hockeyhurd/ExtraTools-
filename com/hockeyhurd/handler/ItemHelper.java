@@ -22,7 +22,7 @@ public class ItemHelper {
 	}
 
 	public Item getItem(int id) {
-		return id > 0 ? Item.itemsList[id] : null;
+		return id > 0 && id < Item.itemsList.length ? Item.itemsList[id] : null;
 	}
 
 	public String getUnlocalizedName(Item item) {
@@ -32,7 +32,7 @@ public class ItemHelper {
 	public boolean itemListContains(int id) {
 		Item item_ = Item.itemsList[Item.itemsList.length - 1];
 
-		// Checks if the given id is > the last registered block and if so, just return false;
+		// Checks if the given id is > the last registered item and if so, just return false;
 		if (item_ != null && id > item_.itemID) return false;
 		Item item = null;
 

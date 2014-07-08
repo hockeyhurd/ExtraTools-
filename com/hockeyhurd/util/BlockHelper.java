@@ -30,7 +30,7 @@ public class BlockHelper {
 	}
 	
 	public Block getBlock(int id) {
-		return id > 0 ? Block.blocksList[id] : null;
+		return id > 0 && id < Block.blocksList.length ? Block.blocksList[id] : null;
 	}
 	
 	// Returns the block's material
@@ -39,7 +39,7 @@ public class BlockHelper {
 	}
 	
 	public String getLocalized(Block block) {
-		return block.getLocalizedName();
+		return block != null ? block.getLocalizedName() : "This is not a block!";
 	}
 	
 	public String getUnlocalizedName(Block block) {
