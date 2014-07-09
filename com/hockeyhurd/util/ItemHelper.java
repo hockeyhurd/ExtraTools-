@@ -1,4 +1,4 @@
-package com.hockeyhurd.handler;
+package com.hockeyhurd.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

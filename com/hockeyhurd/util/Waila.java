@@ -27,6 +27,7 @@ public class Waila {
 	private EntityPlayer player;
 	private Block block;
 	private BlockHelper bh;
+	private ItemHelper ih;
 	private boolean placeBlock;
 	private boolean shiftClick;
 	private List<Block> blockBlackList;
@@ -36,6 +37,7 @@ public class Waila {
 	private final int pickID;
 	private final int hoeID;
 	private final int hammerID;
+	private final int excavatorID;
 
 	private int sideHit = 0;
 	private int offset;
@@ -47,6 +49,7 @@ public class Waila {
 		this.player = entityPlayer;
 		this.block = block;
 		this.bh = new BlockHelper(world, player);
+		this.ih = new ItemHelper(world, player);
 		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
 										// = false, return block looking at.
 		this.shiftClick = shiftClick;
@@ -54,6 +57,8 @@ public class Waila {
 		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
+		excavatorID = new ItemStack(ExtraTools.glowExcavatorUnbreakable, 1).itemID;
+		
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
 		
@@ -234,6 +239,7 @@ public class Waila {
 			}
 
 			else if (stack.itemID == hammerID) mineArea(sideHit, xx, yy, zz);
+			else if (stack.itemID == excavatorID) mineArea(sideHit, xx, yy, zz);
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
@@ -338,11 +344,10 @@ public class Waila {
 				// If the block trying to be placed is equal to block at the coordinate, return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
-				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
 				if (!matSp) world.destroyBlock(x, y, z, true);
 				else {
 					Material currentMat = bh.getBlockMaterial(x, y, z);
-					if (stack.getItem().itemID != ExtraTools.glowHammerUnbreakable.itemID || !matWhiteList.contains(currentMat)) return;
+					if ( (stack.getItem().itemID != hammerID && stack.getItem().itemID != excavatorID) || !matWhiteList.contains(currentMat) ) return;
 					else world.destroyBlock(x, y, z, true);
 				}
 				

@@ -39,6 +39,7 @@ import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
+import com.hockeyhurd.item.tool.ItemGlowExcavator;
 import com.hockeyhurd.item.tool.ItemGlowHammer;
 import com.hockeyhurd.item.tool.ItemGlowHoe;
 import com.hockeyhurd.item.tool.ItemGlowPickaxe;
@@ -60,7 +61,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.5")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.6")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
@@ -116,6 +117,7 @@ public class ExtraTools {
 	public static Item glowAxeUnbreakable;
 	public static Item glowShovelUnbreakable;
 	public static Item glowHammerUnbreakable;
+	public static Item glowExcavatorUnbreakable;
 	public static Item hockeyStick;
 	public static Item diamondDetector;
 	public static Item itemReplacer;
@@ -181,6 +183,7 @@ public class ExtraTools {
 		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
 		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
 		glowHammerUnbreakable = new ItemGlowHammer(ch.getID("glowHammerUnbreakable"), toolGlowUnbreakable);
+		glowExcavatorUnbreakable = new ItemGlowExcavator(ch.getID("glowExcavatorUnbreakable"), toolGlowUnbreakable);
 		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
 		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
 		itemReplacer = new ItemItemReplacer(ch.getID("itemReplacer"));
@@ -274,6 +277,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowAxeUnbreakable, "Glow Axe");
 		LanguageRegistry.addName(glowSwordUnbreakable, "Glow Sword");
 		LanguageRegistry.addName(glowHammerUnbreakable, "Glow Hammer");
+		LanguageRegistry.addName(glowExcavatorUnbreakable, "Glow Excavator");
 
 		// Glow Armor set
 		LanguageRegistry.addName(glowHelmet, "Glow Helmet");
@@ -390,6 +394,12 @@ public class ExtraTools {
 		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
 				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
+		}));
+		
+		// Crafting the glow excavator
+		ItemStack EXCAVATOR = new ItemStack(glowExcavatorUnbreakable, 1);
+		GameRegistry.addRecipe(new ShapedOreRecipe(EXCAVATOR, new Object[] {
+			" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', STICK	
 		}));
 
 		// Crafting the glow boots

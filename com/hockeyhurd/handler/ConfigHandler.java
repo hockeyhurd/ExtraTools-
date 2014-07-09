@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.hockeyhurd.util.BlockHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
+
+import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.ItemHelper;
+
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigHandler {
@@ -89,6 +91,9 @@ public class ConfigHandler {
 		
 		int glowHammerUnbreakableID = config.getItem("GlowHammerUnbreakableID", dh.getNextAvailableID()).getInt();
 		add("glowHammerUnbreakableID", glowHammerUnbreakableID);
+		
+		int glowExcavatorUnbreakableID = config.getItem("GlowExcavatorUnbreakableID", dh.getNextAvailableID()).getInt();
+		add("glowExcavatorUnbreakableID", glowExcavatorUnbreakableID);
 		
 		int glowHelmetID = config.getItem("GlowHelmetID", dh.getNextAvailableID()).getInt();
 		add("glowHelmetID", glowHelmetID);
