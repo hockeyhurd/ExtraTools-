@@ -41,13 +41,19 @@ public class Waila {
 
 	private int sideHit = 0;
 	private int offset;
+	private int metaData;
 	private boolean returnState = false;
-
+	
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
+		this(itemStack, world, entityPlayer, block, 0, placeBlock, shiftClick);
+	}
+
+	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, int metaData, boolean placeBlock, boolean shiftClick) {
 		this.stack = itemStack;
 		this.world = world;
 		this.player = entityPlayer;
 		this.block = block;
+		this.metaData = metaData;
 		this.bh = new BlockHelper(world, player);
 		this.ih = new ItemHelper(world, player);
 		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
@@ -303,12 +309,14 @@ public class Waila {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
 			else if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
-				if (world.getBlockId(x, y, z) == block.blockID) return;
+				if (world.getBlockId(x, y, z) == block.blockID && bh.getBlockMetaData(x, y, z) == this.metaData) return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
 				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
-				world.setBlock(x, y, z, block.blockID);
+				
+				// Args: x, y, z, blockID, blockMetadata, 
+				world.setBlock(x, y, z, block.blockID, this.metaData, 3);
 				
 				setResult(true);
 			}

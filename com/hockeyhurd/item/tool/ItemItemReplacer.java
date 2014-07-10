@@ -72,21 +72,19 @@ public class ItemItemReplacer extends Item {
 			return stack;
 		}
 
-		if (!world.isRemote) {
-			Waila waila = new Waila(stack, world, player, block, true, false);
-			waila.finder();
-			th.setUse(true);
+		Waila waila = new Waila(stack, world, player, block, thisStack.getItemDamage(), true, false);
+		if (!world.isRemote) waila.finder();
+		th.setUse(true);
 
-			// If the result of destroying and setting of a block was successful, do something.
-			if (waila.getResult()) {
-				// While there is still items left in the given slot, decrease the stack by 1.
-				if (thisStack.stackSize > 0) thisStack.stackSize--;
+		// If the result of destroying and setting of a block was successful, do something.
+		if (waila.getResult()) {
+			// While there is still items left in the given slot, decrease the stack by 1.
+			if (thisStack.stackSize > 0) thisStack.stackSize--;
 
-				// If there are no items left, make sure the slot becomes empty!
-				if (thisStack.stackSize < 1) player.inventory.setInventorySlotContents(id, null);
-			}
-
+			// If there are no items left, make sure the slot becomes empty!
+			if (thisStack.stackSize < 1) player.inventory.setInventorySlotContents(id, (ItemStack) null);
 		}
+
 		return stack;
 	}
 

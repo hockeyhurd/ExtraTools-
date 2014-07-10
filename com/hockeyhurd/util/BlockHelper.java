@@ -33,6 +33,10 @@ public class BlockHelper {
 		return id > 0 && id < Block.blocksList.length ? Block.blocksList[id] : null;
 	}
 	
+	public int getBlockMetaData(int x, int y, int z) {
+		return world.getBlockMetadata(x, y, z);
+	}
+	
 	// Returns the block's material
 	public Material getBlockMaterial(int x, int y, int z) {
 		return world.getBlockMaterial(x, y, z);
