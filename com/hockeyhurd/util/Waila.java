@@ -41,7 +41,7 @@ public class Waila {
 
 	private int sideHit = 0;
 	private int offset;
-	private boolean returnBlock = false;
+	private boolean returnState = false;
 
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
 		this.stack = itemStack;
@@ -303,15 +303,14 @@ public class Waila {
 			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
 			else if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
-				if (world.getBlockId(x, y, z) == block.blockID) {
-					setReturnBlock(true);
-					return;
-				}
+				if (world.getBlockId(x, y, z) == block.blockID) return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
 				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
 				world.setBlock(x, y, z, block.blockID);
+				
+				setResult(true);
 			}
 
 			else return;
@@ -359,12 +358,12 @@ public class Waila {
 		else return;
 	}
 
-	private void setReturnBlock(boolean result) {
-		this.returnBlock = result;
+	private void setResult(boolean result) {
+		this.returnState = result;
 	}
 
-	public boolean getReturnBlock() {
-		return this.returnBlock;
+	public boolean getResult() {
+		return this.returnState;
 	}
 
 	private void tillLand(int x, int y, int z) {
