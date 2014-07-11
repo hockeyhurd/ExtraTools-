@@ -16,6 +16,8 @@ import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+
 public class ItemItemReplacer extends Item {
 
 	private TimerHelper th;
@@ -78,6 +80,8 @@ public class ItemItemReplacer extends Item {
 
 		// If the result of destroying and setting of a block was successful, do something.
 		if (waila.getResult()) {
+			FMLCommonHandler.instance().onPlayerPreTick(player);
+			
 			// While there is still items left in the given slot, decrease the stack by 1.
 			if (thisStack.stackSize > 0) thisStack.stackSize--;
 
@@ -86,6 +90,9 @@ public class ItemItemReplacer extends Item {
 				thisStack.stackSize = 0;
 				player.inventory.setInventorySlotContents(id, (ItemStack) null);
 			}
+			
+			player.onUpdate();
+			FMLCommonHandler.instance().onPlayerPostTick(player);
 			
 		}
 
