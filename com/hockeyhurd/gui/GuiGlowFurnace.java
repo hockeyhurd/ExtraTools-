@@ -25,7 +25,7 @@ public class GuiGlowFurnace extends GuiContainer {
 		this.ySize = 166;
 	}
 
-	public void drawGuiContainerForgroundLayer(int x, int y) {
+	public void drawGuiContainerForegroundLayer(int x, int y) {
 		String name = this.glowFurnace.isInvNameLocalized() ? this.glowFurnace.getInvName() : I18n.getString(this.glowFurnace.getInvName());
 		
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);

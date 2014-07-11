@@ -65,7 +65,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
-	@SidedProxy(clientSide = "com.hockeyhurd.client.ClientProxy", serverSide = "com.hockeyhurd.main.CommonProxy")
+	@SidedProxy(clientSide = "com.hockeyhurd.main.ClientProxy", serverSide = "com.hockeyhurd.main.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static GuiHandlerGlowFurnace guiHandler;

@@ -1,6 +1,5 @@
-package com.hockeyhurd.client;
+package com.hockeyhurd.main;
 
-import com.hockeyhurd.main.CommonProxy;
 
 public class ClientProxy extends CommonProxy {
 	

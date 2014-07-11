@@ -52,26 +52,10 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int metadata) {
+		if (side == 3) return this.furnaceFront;
 		return side == 1 ? this.furnaceTop : (side == 0 ? this.furnaceTop : (side != metadata ? this.blockIcon : this.furnaceFront));
 	}
 
-	/*public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-		if (world.isRemote) {
-			return true;
-		}
-		else {
-			// TileEntityFurnace tileentityfurnace = (TileEntityFurnace) world.getBlockTileEntity(x, y, z);
-			TileEntityGlowFurnace tileEntityGlowFurnace = (TileEntityGlowFurnace) world.getBlockTileEntity(x, y, z);
-
-			if (tileEntityGlowFurnace != null) {
-				// player.displayGUIFurnace(tileEntityGlowFurnace);
-				player.displayGUIFurnace(tileEntityGlowFurnace);
-			}
-
-			return true;
-		}
-	}*/
-	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			FMLNetworkHandler.openGui(player, ExtraTools.instance, ExtraTools.guiIDGlowFurnace, world, x, y, z);

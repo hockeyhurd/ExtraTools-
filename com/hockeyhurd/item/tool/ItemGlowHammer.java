@@ -93,6 +93,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		list.add("Unbreakable");
 		list.add("Mines a 3x3 area");
 		list.add("Right click to place GlowTorch");
 	}

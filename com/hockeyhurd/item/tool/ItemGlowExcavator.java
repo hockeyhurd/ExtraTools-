@@ -81,5 +81,10 @@ public class ItemGlowExcavator extends ItemSpade {
 
 		return true;
 	}
+	
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		list.add("Unbreakable!");
+		list.add("Digs a 3x3 area");
+	}
 
 }
