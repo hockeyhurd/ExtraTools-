@@ -82,7 +82,11 @@ public class ItemItemReplacer extends Item {
 			if (thisStack.stackSize > 0) thisStack.stackSize--;
 
 			// If there are no items left, make sure the slot becomes empty!
-			if (thisStack.stackSize < 1) player.inventory.setInventorySlotContents(id, (ItemStack) null);
+			if (thisStack.stackSize < 1) {
+				thisStack.stackSize = 0;
+				player.inventory.setInventorySlotContents(id, (ItemStack) null);
+			}
+			
 		}
 
 		return stack;

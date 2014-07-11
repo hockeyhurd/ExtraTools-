@@ -1,5 +1,7 @@
 package com.hockeyhurd.creativetab;
 
+import com.hockeyhurd.main.ExtraTools;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -10,8 +12,8 @@ public class MyCreativeTab extends CreativeTabs {
 	}
 	
 	public int getTabIconItemIndex() {
-		// return ExtraTools.glowSword.itemID;
-		return Item.diamond.itemID;
+		// return Item.diamond.itemID;
+		return ExtraTools.fireryNetherStar.itemID;
 	}
 	
 	public String getTranslatedTabLabel() {
