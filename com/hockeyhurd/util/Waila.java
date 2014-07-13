@@ -1,6 +1,8 @@
 /* Note:
  * 	This class has nothing to do and/or
  * 	is associated with the mod WAILA.
+ *  Just a simple class I made to help me
+ *  figure out What Am I Looking At? :)
  */
 
 package com.hockeyhurd.util;
@@ -43,7 +45,7 @@ public class Waila {
 	private int offset;
 	private int metaData;
 	private boolean returnState = false;
-	
+
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
 		this(itemStack, world, entityPlayer, block, 0, placeBlock, shiftClick);
 	}
@@ -64,10 +66,10 @@ public class Waila {
 		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
 		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
 		excavatorID = new ItemStack(ExtraTools.glowExcavatorUnbreakable, 1).itemID;
-		
+
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
-		
+
 		matWhiteList = new ArrayList<Material>();
 		addMatWhiteList();
 
@@ -82,23 +84,23 @@ public class Waila {
 		add(Block.railDetector);
 		add(Block.railPowered);
 		add(Block.bedrock);
-		
+
 		for (int i = 0; i < Block.blocksList.length; i++) {
 			Block block = Block.blocksList[i];
 			if (block != null && block.blockHardness == -1 && !blockBlackList.contains(block)) add(block);
 			else continue;
 		}
 	}
-	
+
 	private void addMatWhiteList() {
 		matWhiteList.add(Material.rock);
 		matWhiteList.add(Material.iron);
 	}
-	
+
 	public void setMatWhiteList(List<Material> mats) {
 		this.matWhiteList = mats;
 	}
-	
+
 	private void add(Block block) {
 		blockBlackList.add(block);
 	}
@@ -163,7 +165,7 @@ public class Waila {
 			float f9 = f3 * f5;
 			// Get the distance the vector ray should extend to.
 			// double d3 = 5000D;
-			double d3 = 5000D; 
+			double d3 = 5000D;
 
 			// Get the above calculations and represent this in a vector3
 			// format.
@@ -274,10 +276,10 @@ public class Waila {
 		for (int i = -offset; i <= offset; i++) {
 			for (int j = -offset; j <= offset; j++) {
 				if (sideHit == 0 || sideHit == 1) setBlockAir(x + i, y, z + j, deltaPos, true);
-				else if (sideHit == 2 || sideHit == 3) setBlockAir(x + i,  y + j,  z, deltaPos, true);
+				else if (sideHit == 2 || sideHit == 3) setBlockAir(x + i, y + j, z, deltaPos, true);
 				else if (sideHit == 4 || sideHit == 5) setBlockAir(x, y + i, z + j, deltaPos, true);
 			}
-		} 
+		}
 
 	}
 
@@ -306,18 +308,18 @@ public class Waila {
 		 * If said block is something and the player can reach the block they are looking at, place the said block.
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
-			if (!world.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
-			else if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
+			if (!bh.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
+			else if (bh.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
-				if (world.getBlockId(x, y, z) == block.blockID && bh.getBlockMetaData(x, y, z) == this.metaData) return;
+				if (bh.getBlockId(x, y, z) == block.blockID && bh.getBlockMetaData(x, y, z) == this.metaData) return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
 				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
-				
-				// Args: x, y, z, blockID, blockMetadata, 
+
+				// Args: x, y, z, blockID, blockMetadata,
 				world.setBlock(x, y, z, block.blockID, this.metaData, 3);
-				
+
 				setResult(true);
 			}
 
@@ -325,14 +327,14 @@ public class Waila {
 		}
 		else return;
 	}
-	
+
 	private void setBlockAir(int x, int y, int z, boolean matSp) {
 		setBlockAir(x, y, z, 4, matSp);
 	}
 
 	// Setting material to null disregards check for like material blocks.
 	private void setBlockAir(int x, int y, int z, int deltaPos, boolean matSp) {
-		
+
 		// How far should the player be able to 'reach'.
 		boolean xCheck = false, yCheck = false, zCheck = false;
 
@@ -347,17 +349,17 @@ public class Waila {
 		 * If said block is something and the player can reach the block they are looking at, place the said block.
 		 */
 		if (xCheck && yCheck && zCheck) {
-			if (world.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
+			if (bh.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				if (!matSp) world.destroyBlock(x, y, z, true);
 				else {
 					Material currentMat = bh.getBlockMaterial(x, y, z);
-					if ( (stack.getItem().itemID != hammerID && stack.getItem().itemID != excavatorID) || !matWhiteList.contains(currentMat) ) return;
+					if ((stack.getItem().itemID != hammerID && stack.getItem().itemID != excavatorID) || !matWhiteList.contains(currentMat)) return;
 					else world.destroyBlock(x, y, z, true);
 				}
-				
+
 				world.setBlockToAir(x, y, z);
 			}
 

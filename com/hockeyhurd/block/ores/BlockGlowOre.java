@@ -2,11 +2,11 @@ package com.hockeyhurd.block.ores;
 
 import java.util.Random;
 
-import com.hockeyhurd.main.ExtraTools;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+
+import com.hockeyhurd.main.ExtraTools;
 
 public class BlockGlowOre extends Block {
 

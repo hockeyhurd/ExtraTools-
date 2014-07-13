@@ -19,18 +19,31 @@ public class BlockHelper {
 		this.player = player;
 	}
 	
-	// Only use this constructor is there is no need with world or player interaction!
+	// Only use this constructor is there is no need with world or player interaction! i.e. block parameters.
+	@Deprecated
 	public BlockHelper() {
 		
 	}
 	
 	// Returns the block from world coordinate.
 	public Block getBlock(int x, int y, int z) {
-		return Block.blocksList[world.getBlockId(x, y, z)];  
+		return blockExists(x, y, z) ? Block.blocksList[getBlockId(x, y, z)] : null;  
 	}
 	
 	public Block getBlock(int id) {
 		return id > 0 && id < Block.blocksList.length ? Block.blocksList[id] : null;
+	}
+	
+	public int getBlockId(Block block) {
+		return block.blockID;
+	}
+	
+	public int getBlockId(int x, int y, int z) {
+		return world.getBlockId(x, y, z);
+	}
+	
+	public boolean blockExists(int x, int y, int z) {
+		return world.blockExists(x, y, z);
 	}
 	
 	public int getBlockMetaData(int x, int y, int z) {
@@ -40,6 +53,12 @@ public class BlockHelper {
 	// Returns the block's material
 	public Material getBlockMaterial(int x, int y, int z) {
 		return world.getBlockMaterial(x, y, z);
+	}
+	
+	// Set to depreciated until further tested, however is likely it works.
+	@Deprecated
+	public Material getBlockMaterial(Block block) {
+		return block.blockMaterial;
 	}
 	
 	public String getLocalized(Block block) {

@@ -1,12 +1,17 @@
 package com.hockeyhurd.item.armor;
 
-import com.hockeyhurd.main.ExtraTools;
+import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+
+import com.hockeyhurd.main.ExtraTools;
+
+import cpw.mods.fml.common.Loader;
 
 public class ArmorSetGlow extends ItemArmor {
 
@@ -43,9 +48,5 @@ public class ArmorSetGlow extends ItemArmor {
 		if (itemID == ExtraTools.glowLegging.itemID) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowLegging");
 		if (itemID == ExtraTools.glowBoot.itemID) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowBoot");
 	}
-	
-	/*public boolean hasEffect(ItemStack stack) {
-		return false;
-	}*/
-	
+
 }
