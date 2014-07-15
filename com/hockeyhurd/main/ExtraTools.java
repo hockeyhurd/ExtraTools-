@@ -49,6 +49,7 @@ import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -61,7 +62,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.6")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.7")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ExtraTools {
 
@@ -210,7 +211,7 @@ public class ExtraTools {
 		addLocalizedNames();
 		addCraftingRecipes();
 		addFurnaceRecipes();
-		pulverizeRecipes();
+		if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
 		registerTileEntities();
 		registerGuiHandler();
 	}
