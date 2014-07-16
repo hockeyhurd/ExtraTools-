@@ -50,9 +50,9 @@ public class EventHookContainer {
 	
 	@ForgeSubscribe 
 	public void onOreBreak(BreakEvent event) {
+		World world = event.getPlayer().worldObj;
 		
 		if (event.block.blockID == ExtraTools.glowOre.blockID) {
-			World world = event.getPlayer().worldObj;
 			Random random = new Random();
 			int chance = 15;
 			

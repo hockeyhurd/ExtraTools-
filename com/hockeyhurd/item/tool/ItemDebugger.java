@@ -6,9 +6,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
@@ -20,6 +23,7 @@ public class ItemDebugger extends Item {
 		super(id);
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 		this.setUnlocalizedName("ItemDebugger");
+		this.setMaxStackSize(1);
 		this.th = new TimerHelper(20);
 	}
 
@@ -41,11 +45,15 @@ public class ItemDebugger extends Item {
 
 		return stack;
 	}
-
-	// When player mines a block, mine a 3x3 area.
-	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entity) {
-		// Don't allow the player to break anything!
-		return false;
+	
+	// Prevent player from being able to break any block with this item!
+	public boolean onBlockStartBreak(ItemStack stack, int X, int Y, int Z, EntityPlayer player) {
+		if (!th.use) {
+			player.sendChatToPlayer(new ChatHelper().comp("Cannot break with this item!", EnumChatFormatting.DARK_RED));
+			th.setUse(true);
+		}
+		
+		return true;
 	}
 
 }
