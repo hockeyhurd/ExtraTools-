@@ -52,7 +52,8 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int metadata) {
-		if (side == 3) return this.furnaceFront;
+		// If it is side 3 and is in player inventory (since metaData should = 0) return furnace front side.
+		if (side == 3 && metadata == 0) return this.furnaceFront;
 		return side == 1 ? this.furnaceTop : (side == 0 ? this.furnaceTop : (side != metadata ? this.blockIcon : this.furnaceFront));
 	}
 

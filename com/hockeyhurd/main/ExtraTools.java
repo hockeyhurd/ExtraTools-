@@ -37,6 +37,7 @@ import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.tool.ItemDebugger;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
 import com.hockeyhurd.item.tool.ItemGlowExcavator;
@@ -122,6 +123,7 @@ public class ExtraTools {
 	public static Item hockeyStick;
 	public static Item diamondDetector;
 	public static Item itemReplacer;
+	public static Item itemDebugger;
 
 	// Armor materials.
 	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -188,6 +190,7 @@ public class ExtraTools {
 		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
 		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
 		itemReplacer = new ItemItemReplacer(ch.getID("itemReplacer"));
+		itemDebugger = new ItemDebugger(ch.getID("itemDebugger"));
 		
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
@@ -328,7 +331,7 @@ public class ExtraTools {
 		
 		// Crafting the ItemReplacer Tool
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReplacer, 1), new Object[] {
-			" xy", " zx", "z  ", 'x', "dyeBlue", 'y', fireryNetherStar, 'z', STICK
+			" xy", " zx", "z  ", 'x', "dyeBlue", 'y', fireryNetherStar, 'z', Item.blazeRod
 		}));
 		
 		// Crafting the glow coal
@@ -357,7 +360,7 @@ public class ExtraTools {
 		pick.addEnchantment(Enchantment.fortune, 4);
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(pick, new Object[] {
-				"yxy", " z ", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'z', STICK
+				"yxy", " z ", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'z', Item.blazeRod
 		}));
 
 		// Crafting the sword
@@ -366,27 +369,27 @@ public class ExtraTools {
 		SWORD.addEnchantment(Enchantment.sharpness, 5);
 		SWORD.addEnchantment(Enchantment.looting, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SWORD, new Object[] {
-				" w ", " x ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'z', STICK
+				" w ", " x ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'z', Item.blazeRod
 		}));
 
 		// Crafting the axe
 		ItemStack AXE = new ItemStack(glowAxeUnbreakable, 1);
 		AXE.addEnchantment(Enchantment.efficiency, 5);
 		GameRegistry.addRecipe(new ShapedOreRecipe(AXE, new Object[] {
-				"wx ", "xy ", " y ", 'w', diamondFusedNetherStar, 'x', glowIngot, 'y', STICK,
+				"wx ", "xy ", " y ", 'w', diamondFusedNetherStar, 'x', glowIngot, 'y', Item.blazeRod,
 		}));
 
 		// Crafting the glowHoe
 		ItemStack HOE = new ItemStack(glowHoeUnbreakable, 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HOE, new Object[] {
-				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', STICK
+				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', Item.blazeRod
 		}));
 
 		// Crafting the glow Shovel
 		ItemStack SHOVEL = new ItemStack(glowShovelUnbreakable, 1);
 		SHOVEL.addEnchantment(Enchantment.efficiency, 5);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SHOVEL, new Object[] {
-				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', STICK
+				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', Item.blazeRod
 		}));
 		
 		// Crafting the glow hammer
@@ -394,7 +397,7 @@ public class ExtraTools {
 		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
 		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
-				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
+				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', Item.blazeRod
 		}));
 		
 		// Crafting the glow excavator

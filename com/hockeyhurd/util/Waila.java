@@ -252,7 +252,8 @@ public class Waila {
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
 				String blockName = bh.getBlock(xx, yy, zz).getLocalizedName();
-				print(blockName);
+				print("Block: " + blockName);
+				print("SideHit: " + sideHit);
 			}
 
 		}

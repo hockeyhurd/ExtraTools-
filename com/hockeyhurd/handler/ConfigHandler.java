@@ -127,6 +127,9 @@ public class ConfigHandler {
 		
 		int itemReplacerID = config.getItem("ItemReplacerID", dh.getNextAvailableID()).getInt();
 		add("itemReplacerID", itemReplacerID);
+		
+		int itemDebuggerID = config.getItem("ItemDebuggerID", dh.getNextAvailableID()).getInt();
+		add("itemDebuggerID", itemDebuggerID);
 	}
 	
 	public int getID(String name) {
