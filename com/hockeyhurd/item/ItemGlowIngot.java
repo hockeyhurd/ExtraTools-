@@ -1,19 +1,19 @@
 package com.hockeyhurd.item;
 
-import com.hockeyhurd.main.ExtraTools;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemGlowIngot extends Item {
 
-	public ItemGlowIngot(int id) {
-		super(id);
+	public ItemGlowIngot() {
+		super();
 		this.setUnlocalizedName("GlowIngot");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowIngot");
 	}
 

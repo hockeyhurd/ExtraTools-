@@ -1,19 +1,17 @@
-package com.hockeyhurd.main;
-
-import java.util.logging.Level;
+package com.hockeyhurd.mod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -49,47 +47,43 @@ import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.5.7")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.6")
 public class ExtraTools {
 
-	@SidedProxy(clientSide = "com.hockeyhurd.main.ClientProxy", serverSide = "com.hockeyhurd.main.CommonProxy")
+	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
 	public static CommonProxy proxy;
 
 	public static GuiHandlerGlowFurnace guiHandler;
-	
+
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
 
 	public static String modPrefix = "extratools:";
-	
+
 	public static ConfigHandler ch;
 
 	// Blocks
 	public static Block glowRock;
 	public static Block glowTorch;
 	public static Block glowIngotBlock;
-	
+
 	// Machines
 	public static Block glowFurnaceOff;
 	public static Block glowFurnaceOn;
-	
+
 	// Gui stuff
 	public static final int guiIDGlowFurnace = 0;
-	
+
 	// Ores
 	public static Block glowOre;
 
@@ -107,9 +101,9 @@ public class ExtraTools {
 	public static Item rubber;
 
 	// Tool materials.
-	public static EnumToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
-	public static EnumToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
-	public static EnumToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
+	public static ToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
+	public static ToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
+	public static ToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
 
 	// Tool sets
 	public static Item glowPickaxeUnbreakable;
@@ -124,7 +118,7 @@ public class ExtraTools {
 	public static Item itemReplacer;
 
 	// Armor materials.
-	public static EnumArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
+	public static ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
 			3, 8, 6, 3
 	}, 25);
 
@@ -141,77 +135,74 @@ public class ExtraTools {
 	public void preInit(FMLPreInitializationEvent event) {
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
-		LogWrapper.log(Level.INFO, "ExtraTools+ config loaded succesfully!");
 	}
-	
+
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		proxy.registerRenderInformation();
 
 		loadObj();
 		init();
-
-		LogWrapper.log(Level.INFO, "ExtraTools+ loaded succesfully!");
 	}
-	
+
 	private void loadObj() {
 		// Blocks
-		glowRock = new BlockGlowRock(ch.getID("glowRock"), Material.glass);
-		glowTorch = new BlockGlowTorch(ch.getID("glowTorch"));
-		glowIngotBlock = new BlockGlowIngot(ch.getID("glowIngotBlock"), Material.rock);
-		
+		glowRock = new BlockGlowRock(Material.glass);
+		glowTorch = new BlockGlowTorch();
+		glowIngotBlock = new BlockGlowIngot(Material.rock);
+
 		// Machines
-		glowFurnaceOff = new BlockGlowFurnace(ch.getID("glowFurnaceOff"), Material.rock, false);
-		glowFurnaceOn = new BlockGlowFurnace(ch.getID("glowFurnaceOn"), Material.rock, true);
-		
+		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
+		glowFurnaceOn = new BlockGlowFurnace(Material.rock, true);
+
 		// Ores
-		glowOre = new BlockGlowOre(ch.getID("glowOre"), Material.rock);
-		
+		glowOre = new BlockGlowOre(Material.rock);
+
 		// Items
-		glowDust = new ItemGlowDust(ch.getID("glowDust"));
-		glowIngot = new ItemGlowIngot(ch.getID("glowIngot"));
-		diamondFusedNetherStar = new ItemDiamondFusedNetherStar(ch.getID("diamondFusedNetherStar"));
-		netherSoulCollector = new ItemNetherSoulCollector(ch.getID("netherSoulCollector"), false);
-		fireryNetherStar = new ItemNetherStarFirery(ch.getID("fireryNetherStar"));
-		glowCoal = new ItemGlowCoal(ch.getID("glowCoal"));
-		rubber = new ItemRubber(ch.getID("rubber"));
-		hockeyPuck = new ItemHockeyPuck(ch.getID("hockeyPuck"));
-		
+		glowDust = new ItemGlowDust();
+		glowIngot = new ItemGlowIngot();
+		diamondFusedNetherStar = new ItemDiamondFusedNetherStar();
+		netherSoulCollector = new ItemNetherSoulCollector(false);
+		fireryNetherStar = new ItemNetherStarFirery();
+		glowCoal = new ItemGlowCoal();
+		rubber = new ItemRubber();
+		hockeyPuck = new ItemHockeyPuck();
+
 		// Tool sets
-		glowPickaxeUnbreakable = new ItemGlowPickaxe(ch.getID("glowPickaxeUnbreakable"), toolGlowUnbreakable);
-		glowHoeUnbreakable = new ItemGlowHoe(ch.getID("glowHoeUnbreakable"), toolGlowUnbreakable);
-		glowSwordUnbreakable = new ItemGlowSword(ch.getID("glowSwordUnbreakable"), toolGlowUnbreakable);
-		glowAxeUnbreakable = new ItemGlowAxe(ch.getID("glowAxeUnbreakable"), toolGlowUnbreakable);
-		glowShovelUnbreakable = new ItemGlowShovel(ch.getID("glowShovelUnbreakable"), toolGlowUnbreakable);
-		glowHammerUnbreakable = new ItemGlowHammer(ch.getID("glowHammerUnbreakable"), toolGlowUnbreakable);
-		glowExcavatorUnbreakable = new ItemGlowExcavator(ch.getID("glowExcavatorUnbreakable"), toolGlowUnbreakable);
-		hockeyStick = new ItemHockeyStick(ch.getID("hockeyStick"), toolHockey);
-		diamondDetector = new ItemDiamondDetector(ch.getID("diamondDetector"));
-		itemReplacer = new ItemItemReplacer(ch.getID("itemReplacer"));
-		
+		glowPickaxeUnbreakable = new ItemGlowPickaxe(toolGlowUnbreakable);
+		glowHoeUnbreakable = new ItemGlowHoe(toolGlowUnbreakable);
+		glowSwordUnbreakable = new ItemGlowSword(toolGlowUnbreakable);
+		glowAxeUnbreakable = new ItemGlowAxe(toolGlowUnbreakable);
+		glowShovelUnbreakable = new ItemGlowShovel(toolGlowUnbreakable);
+		glowHammerUnbreakable = new ItemGlowHammer(toolGlowUnbreakable);
+		glowExcavatorUnbreakable = new ItemGlowExcavator(toolGlowUnbreakable);
+		hockeyStick = new ItemHockeyStick(toolHockey);
+		diamondDetector = new ItemDiamondDetector();
+		itemReplacer = new ItemItemReplacer();
+
 		// Armor sets.
-		glowHelmet = new ArmorSetGlow(ch.getID("glowHelmet"), glowArmorMat, 0, 0, "Glow").setUnlocalizedName("GlowHelm");
-		glowChestplate = new ArmorSetGlow(ch.getID("glowChestplate"), glowArmorMat, 0, 1, "Glow").setUnlocalizedName("GlowChestplate");
-		glowLegging = new ArmorSetGlow(ch.getID("glowLegging"), glowArmorMat, 0, 2, "Glow").setUnlocalizedName("GlowLeggings");
-		glowBoot = new ArmorSetGlow(ch.getID("glowBoot"), glowArmorMat, 0, 3, "Glow").setUnlocalizedName("GlowBoots");
+		glowHelmet = new ArmorSetGlow(glowArmorMat, 0, 0, "Glow", 0).setUnlocalizedName("GlowHelm");
+		glowChestplate = new ArmorSetGlow(glowArmorMat, 0, 1, "Glow", 1).setUnlocalizedName("GlowChestplate");
+		glowLegging = new ArmorSetGlow(glowArmorMat, 0, 2, "Glow", 2).setUnlocalizedName("GlowLeggings");
+		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
 	}
 
 	public ExtraTools() {
-		
+
 	}
 
 	// Handlers all init of blocks, items, etc.
 	private void init() {
-
 		registerEventHandlers();
 		registerWorldgen();
 		registerBlocks();
+		registerItems();
 		addOreDict();
 		addFuelRegister();
 		addLocalizedNames();
 		addCraftingRecipes();
 		addFurnaceRecipes();
-		if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
+		// if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
 		registerTileEntities();
 		registerGuiHandler();
 	}
@@ -221,7 +212,7 @@ public class ExtraTools {
 	}
 
 	private void registerWorldgen() {
-		GameRegistry.registerWorldGenerator(worldgenGlowOre);
+		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
 	}
 
 	private void registerBlocks() {
@@ -233,6 +224,30 @@ public class ExtraTools {
 		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
 	}
 
+	private void registerItems() {
+		GameRegistry.registerItem(glowIngot, "GlowIngot");
+		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
+		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
+		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");
+		GameRegistry.registerItem(glowCoal, "GlowCoal");
+		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
+		GameRegistry.registerItem(rubber, "Rubber");
+		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
+		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
+		GameRegistry.registerItem(glowSwordUnbreakable, "GlowSwordUnbreakable");
+		GameRegistry.registerItem(glowAxeUnbreakable, "GlowAxeUnbreakable");
+		GameRegistry.registerItem(glowShovelUnbreakable, "GlowShovelUnbreakable");
+		GameRegistry.registerItem(glowHammerUnbreakable, "GlowHammerUnbreakable");
+		GameRegistry.registerItem(glowExcavatorUnbreakable, "GlowExcavatorUnbreakable");
+		GameRegistry.registerItem(hockeyStick, "HockeyStick");
+		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
+		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
+		GameRegistry.registerItem(glowHelmet, "GlowHelmet");
+		GameRegistry.registerItem(glowChestplate, "GlowChestplate");
+		GameRegistry.registerItem(glowLegging, "GlowLegging");
+		GameRegistry.registerItem(glowBoot, "GlowBoot");
+	}
+
 	private void addOreDict() {
 		OreDictionary.registerOre("oreGlow", glowOre);
 		OreDictionary.registerOre("dustGlow", glowDust);
@@ -240,7 +255,7 @@ public class ExtraTools {
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
 		OreDictionary.registerOre("itemRubber", rubber);
 	}
-	
+
 	private void addFuelRegister() {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
@@ -251,7 +266,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(glowOre, "Glow Ore");
 		LanguageRegistry.addName(glowTorch, "Glow Torch");
 		LanguageRegistry.addName(glowIngotBlock, "Block of Glow'");
-		
+
 		// Machines
 		LanguageRegistry.addName(glowFurnaceOff, "Glow Furnace");
 		LanguageRegistry.addName(glowFurnaceOn, "Glow Furnace");
@@ -270,7 +285,7 @@ public class ExtraTools {
 		// Other tools
 		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
 		LanguageRegistry.addName(itemReplacer, "Wand of Soul Replacement");
-		
+
 		// Glow Toolset
 		LanguageRegistry.addName(glowPickaxeUnbreakable, "Pickaxe of The Lost Souls");
 		LanguageRegistry.addName(glowShovelUnbreakable, "Glow Shovel");
@@ -300,57 +315,57 @@ public class ExtraTools {
 				"xyy", "yyy", "yyy", 'x', glowDust, 'y', "ingotIron"
 		}));
 		GameRegistry.addRecipe(new ItemStack(glowIngot, 9), "x", 'x', glowIngotBlock);
-		
+
 		// Crafting the GlowIngotBlock
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngotBlock, 1), new Object[] {
-			"xxx", "xxx", "xxx", 'x', "ingotGlow"
+				"xxx", "xxx", "xxx", 'x', "ingotGlow"
 		}));
-		
+
 		// Crafting the glow furnace
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
-			" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Block.furnaceIdle
+				" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Blocks.furnace
 		}));
-		
+
 		// Nether Start Firery
 		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
-			"xyx", "yzy", "xyx", 'x', Block.netherBrick, 'y', glowIngot, 'z', Item.netherStar
+				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', glowIngot, 'z', Items.nether_star
 		});
 
 		// DiamondNetherStarIngot recipe
 		GameRegistry.addRecipe(new ItemStack(diamondFusedNetherStar, 1), new Object[] {
-				"xyx", "yzy", "xyx", 'x', Item.diamond, 'y', glowIngot, 'z', fireryNetherStar
+				"xyx", "yzy", "xyx", 'x', Items.diamond, 'y', glowIngot, 'z', fireryNetherStar
 		});
 
 		// Crafting the NetherSoulCollector
 		GameRegistry.addRecipe(new ItemStack(netherSoulCollector, 1), new Object[] {
-				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Item.ingotGold, 'z', diamondFusedNetherStar
+				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Items.gold_ingot, 'z', diamondFusedNetherStar
 		});
-		
+
 		// Crafting the ItemReplacer Tool
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReplacer, 1), new Object[] {
-			" xy", " zx", "z  ", 'x', "dyeBlue", 'y', fireryNetherStar, 'z', STICK
+				" xy", " zx", "z  ", 'x', "dyeBlue", 'y', fireryNetherStar, 'z', STICK
 		}));
-		
+
 		// Crafting the glow coal
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowCoal, 1), new Object[] {
-			" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
+				" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
 		}));
 
 		// Crafting the hockey stick
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hockeyStick, 1), new Object[] {
-			" wx", " wx", "yxw", 'w', "itemRubber", 'x', STICK, 'y', Item.silk
+				" wx", " wx", "yxw", 'w', "itemRubber", 'x', STICK, 'y', Items.string
 		}));
-		
+
 		// Crafting the hockey puck.
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hockeyPuck, 4), new Object[] {
-			"xy", 'x', "itemRubber", 'y', "coal"
+				"xy", 'x', "itemRubber", 'y', "coal"
 		}));
-		
+
 		// Crafting the DiamondDetector
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diamondDetector, 1), new Object[] {
-			" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Item.diamond
+				" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Items.diamond
 		}));
-		
+
 		// Craft the pick
 		ItemStack pick = new ItemStack(glowPickaxeUnbreakable, 1);
 		pick.addEnchantment(Enchantment.efficiency, 5);
@@ -379,7 +394,7 @@ public class ExtraTools {
 		// Crafting the glowHoe
 		ItemStack HOE = new ItemStack(glowHoeUnbreakable, 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HOE, new Object[] {
-				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', STICK
+				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', STICK
 		}));
 
 		// Crafting the glow Shovel
@@ -388,19 +403,19 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ShapedOreRecipe(SHOVEL, new Object[] {
 				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', STICK
 		}));
-		
+
 		// Crafting the glow hammer
 		ItemStack HAMMER = new ItemStack(glowHammerUnbreakable, 1);
 		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
 		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
-				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Item.diamond, 'z', STICK
+				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Items.diamond, 'z', STICK
 		}));
-		
+
 		// Crafting the glow excavator
 		ItemStack EXCAVATOR = new ItemStack(glowExcavatorUnbreakable, 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(EXCAVATOR, new Object[] {
-			" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Item.diamond, 'z', STICK	
+				" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', STICK
 		}));
 
 		// Crafting the glow boots
@@ -430,35 +445,29 @@ public class ExtraTools {
 
 	private void addFurnaceRecipes() {
 		// USE: args(use what block/item from id, (get what block/item from id, how much), how much xp should the player be rewarded.
-		GameRegistry.addSmelting(glowOre.blockID, new ItemStack(glowDust, 1), 100f);
+		GameRegistry.addSmelting(glowOre, new ItemStack(glowDust, 1), 100f);
 	}
 
-	private void pulverizeRecipes() {
-		// Code performing glowOre into 2*glowDust via Thermal Expansion
-		// Pulverizer.
-		NBTTagCompound toSend = new NBTTagCompound();
-		toSend.setInteger("energy", 1000);
-		toSend.setCompoundTag("input", new NBTTagCompound());
-		toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
-
-		ItemStack inputStack = new ItemStack(glowOre, 1);
-		inputStack.writeToNBT(toSend.getCompoundTag("input"));
-
-		ItemStack outputStack = new ItemStack(glowDust, 2);
-		outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput"));
-		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
-
-	}
+	/*
+	 * private void pulverizeRecipes() { // Code performing glowOre into 2*glowDust via Thermal Expansion // Pulverizer. NBTTagCompound toSend = new NBTTagCompound(); toSend.setInteger("energy", 1000); toSend.setCompoundTag("input", new NBTTagCompound()); toSend.setCompoundTag("primaryOutput", new
+	 * NBTTagCompound());
+	 * 
+	 * ItemStack inputStack = new ItemStack(glowOre, 1); inputStack.writeToNBT(toSend.getCompoundTag("input"));
+	 * 
+	 * ItemStack outputStack = new ItemStack(glowDust, 2); outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput")); FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
+	 * 
+	 * }
+	 */
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
 	}
-	
+
 	private void registerGuiHandler() {
-		if (guiHandler != null) NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		else {
 			guiHandler = new GuiHandlerGlowFurnace();
-			NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		}
 	}
 

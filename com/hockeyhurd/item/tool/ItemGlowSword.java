@@ -2,23 +2,22 @@ package com.hockeyhurd.item.tool;
 
 import java.util.List;
 
-import com.hockeyhurd.main.ExtraTools;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
+import com.hockeyhurd.mod.ExtraTools;
+
 public class ItemGlowSword extends ItemSword {
 
-	public ItemGlowSword(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemGlowSword(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("GlowSwordUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowSwordUnbreakable");
 	}
 	

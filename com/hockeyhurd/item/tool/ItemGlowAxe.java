@@ -2,23 +2,22 @@ package com.hockeyhurd.item.tool;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemGlowAxe extends ItemAxe {
 
-	public ItemGlowAxe(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemGlowAxe(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("GlowAxeUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowAxeUnbreakable");
 	}
 	

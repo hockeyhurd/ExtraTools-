@@ -5,16 +5,15 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
@@ -24,8 +23,8 @@ public class ItemGlowExcavator extends ItemSpade {
 	private List<Material> mats;
 	private TimerHelper th;
 
-	public ItemGlowExcavator(int id, EnumToolMaterial toolMat) {
-		super(id, toolMat);
+	public ItemGlowExcavator(ToolMaterial toolMat) {
+		super(toolMat);
 		this.setUnlocalizedName("GlowExcavator");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
@@ -43,7 +42,7 @@ public class ItemGlowExcavator extends ItemSpade {
 		mats.add(Material.clay);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowExcavator");
 	}
 
@@ -53,7 +52,7 @@ public class ItemGlowExcavator extends ItemSpade {
 	}
 
 	// When player mines a block, mine a 3x3 area.
-	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block blockDestroyed, int x, int y, int z, EntityLivingBase entityLiving) {
 
 		// If for some reason this instance of event is called and the entity is not a player, just return true and mine a single block.
 		if (!(entityLiving instanceof EntityPlayer)) return true;

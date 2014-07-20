@@ -5,21 +5,23 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
-import cpw.mods.fml.common.network.FMLNetworkHandler;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,28 +32,28 @@ public class BlockGlowFurnace extends BlockContainer {
 	private final Random furnaceRand = new Random();
 
 	@SideOnly(Side.CLIENT)
-	private Icon furnaceFront, furnaceTop;
+	private IIcon furnaceFront, furnaceTop;
 
-	public BlockGlowFurnace(int id, Material material, boolean active) {
-		super(id, material);
+	public BlockGlowFurnace(Material material, boolean active) {
+		super(material);
 		this.active = active;
-		this.setUnlocalizedName(active ? "GlowFurnaceOn" : "GlowFurnaceOff");
+		this.setBlockName(active ? "GlowFurnaceOn" : "GlowFurnaceOff");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 
-	public int idDropped(int par1, Random random, int par3) {
-		return ExtraTools.glowFurnaceOff.blockID;
+	public Item getItemDropped(int par1, Random random, int par3) {
+		return Item.getItemFromBlock(ExtraTools.glowFurnaceOff);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister reg) {
+	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowFurnace_side");
 		this.furnaceFront = reg.registerIcon(ExtraTools.modPrefix + (active ? "GlowFurnace_front_on" : "GlowFurnace_front_off"));
 		this.furnaceTop = reg.registerIcon(ExtraTools.modPrefix + "GlowFurnace_top");
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int metadata) {
+	public IIcon getIcon(int side, int metadata) {
 		if (side == 3) return this.furnaceFront;
 		return side == 1 ? this.furnaceTop : (side == 0 ? this.furnaceTop : (side != metadata ? this.blockIcon : this.furnaceFront));
 	}
@@ -71,25 +73,25 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	private void setDefaultDirection(World world, int x, int y, int z) {
 		if (!world.isRemote) {
-			int l = world.getBlockId(x, y, z - 1);
-			int i1 = world.getBlockId(x, y, z + 1);
-			int j1 = world.getBlockId(x - 1, y, z);
-			int k1 = world.getBlockId(x + 1, y, z);
+			Block block = world.getBlock(x, y, z - 1);
+			Block block1 = world.getBlock(x, y, z + 1);
+			Block block2 = world.getBlock(x - 1, y, z);
+			Block block3 = world.getBlock(x + 1, y, z);
 			byte b0 = 3;
 
-			if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1]) {
+			if (block.func_149730_j() && !block1.func_149730_j()) {
 				b0 = 3;
 			}
 
-			if (Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l]) {
+			if (block1.func_149730_j() && !block.func_149730_j()) {
 				b0 = 2;
 			}
 
-			if (Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[k1]) {
+			if (block2.func_149730_j() && !block3.func_149730_j()) {
 				b0 = 5;
 			}
 
-			if (Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[j1]) {
+			if (block3.func_149730_j() && !block2.func_149730_j()) {
 				b0 = 4;
 			}
 
@@ -99,14 +101,14 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	public static void updateFurnaceBlockState(boolean active, World world, int x, int y, int z) {
 		int metaData = world.getBlockMetadata(x, y, z);
-		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileentity = world.getTileEntity(x, y, z);
 		keepFurnaceInventory = true;
 
 		if (active) {
-			world.setBlock(x, y, z, ExtraTools.glowFurnaceOn.blockID);
+			world.setBlock(x, y, z, ExtraTools.glowFurnaceOn);
 		}
 		else {
-			world.setBlock(x, y, z, ExtraTools.glowFurnaceOff.blockID);
+			world.setBlock(x, y, z, ExtraTools.glowFurnaceOff);
 		}
 
 		keepFurnaceInventory = false;
@@ -114,7 +116,7 @@ public class BlockGlowFurnace extends BlockContainer {
 
 		if (tileentity != null) {
 			tileentity.validate();
-			world.setBlockTileEntity(x, y, z, tileentity);
+			world.setTileEntity(x, y, z, tileentity);
 		}
 	}
 
@@ -170,13 +172,13 @@ public class BlockGlowFurnace extends BlockContainer {
 		}
 
 		if (stack.hasDisplayName()) {
-			((TileEntityGlowFurnace) world.getBlockTileEntity(x, y, z)).setGuiDisplayName(stack.getDisplayName());
+			((TileEntityGlowFurnace) world.getTileEntity(x, y, z)).setGuiDisplayName(stack.getDisplayName());
 		}
 	}
 
-	public void breakBlock(World world, int x, int y, int z, int oldBlockID, int oldBlockMetaData) {
+	public void breakBlock(World world, int x, int y, int z, Block oldBlock, int oldBlockMetaData) {
 		if (!keepFurnaceInventory) {
-			TileEntityGlowFurnace tileEntityGlowFurnace = (TileEntityGlowFurnace) world.getBlockTileEntity(x, y, z);
+			TileEntityGlowFurnace tileEntityGlowFurnace = (TileEntityGlowFurnace) world.getTileEntity(x, y, z);
 
 			if (tileEntityGlowFurnace != null) {
 				for (int j1 = 0; j1 < tileEntityGlowFurnace.getSizeInventory(); j1++) {
@@ -195,7 +197,7 @@ public class BlockGlowFurnace extends BlockContainer {
 							}
 
 							stack.stackSize -= k1;
-							EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(stack.itemID, k1, stack.getItemDamage()));
+							EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(stack.getItem(), k1, stack.getItemDamage()));
 
 							if (stack.hasTagCompound()) {
 								entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
@@ -210,19 +212,26 @@ public class BlockGlowFurnace extends BlockContainer {
 					}
 				}
 
-				world.func_96440_m(x, y, z, oldBlockID);
+				world.func_147453_f(x, y, z, oldBlock);
 			}
 		}
 
-		super.breakBlock(world, x, y, z, oldBlockID, oldBlockMetaData);
+		super.breakBlock(world, x, y, z, oldBlock, oldBlockMetaData);
 	}
 
 	public boolean hasComparatorInputOverride() {
 		return true;
 	}
 	
-	public int idPicked(World world, int x, int y, int z) {
-		return ExtraTools.glowFurnaceOff.blockID;
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World world, int x, int y, int z) {
+		return Item.getItemFromBlock(ExtraTools.glowFurnaceOff);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

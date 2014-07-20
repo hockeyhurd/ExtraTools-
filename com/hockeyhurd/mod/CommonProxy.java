@@ -1,4 +1,4 @@
-package com.hockeyhurd.main;
+package com.hockeyhurd.mod;
 
 public class CommonProxy {
 

@@ -1,8 +1,10 @@
 package com.hockeyhurd.util;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.IChatComponent.Serializer;
 
 public class ChatHelper {
 
@@ -28,16 +30,18 @@ public class ChatHelper {
 		return this.color;
 	}
 	
-	public ChatMessageComponent comp(String message) {
+	/*public IChatComponent comp(String message) {
 		return comp(message, this.color);
-	}
+	}*/
 	
-	public ChatMessageComponent comp(String message, EnumChatFormatting color) {
+	/* public IChatComponent comp(String message, EnumChatFormatting color) {
 		setColor(color);
-		ChatMessageComponent comp = new ChatMessageComponent();
-		comp.addText(message);
-		comp.setColor(color);
+		IChatComponent comp = IChatComponent;
+		comp.appendText(message);
+		ChatStyle style = new ChatStyle();
+		style.setColor(color);
+		comp.setChatStyle(style);
 		return comp;
-	}
+	} */
 	
 }

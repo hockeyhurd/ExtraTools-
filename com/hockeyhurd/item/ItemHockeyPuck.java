@@ -1,23 +1,23 @@
 package com.hockeyhurd.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.throwable.EntityPuck;
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemHockeyPuck extends Item {
 
-	public ItemHockeyPuck(int id) {
-		super(id);
+	public ItemHockeyPuck() {
+		super();
 		this.setUnlocalizedName("HockeyPuck");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "HockeyPuck");
 	}
 	

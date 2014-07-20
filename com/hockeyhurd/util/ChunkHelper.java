@@ -11,7 +11,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
@@ -19,16 +18,18 @@ public class ChunkHelper {
 
 	private World world;
 	private EntityPlayer player;
+	private BlockHelper bh;
 	
 	public ChunkHelper(World world, EntityPlayer player) {
 		this.world = world;
 		this.player = player;
+		this.bh = new BlockHelper(world, player);
 	}
 	
 	// Searches chunk for a block.
 	public void searchChunk(Block blockToFind) {
 		// Make sure I didn't derp up anything and the block to be searched for is an actual block.
-		if (blockToFind == null || blockToFind.blockID <= 0) {
+		if (blockToFind == null || !bh.isABlock(blockToFind)) {
 			System.err.println("Block to find is not a block!");
 			return;
 		}
@@ -46,11 +47,11 @@ public class ChunkHelper {
 				for (int z = 0; z < 16; z++) {
 					
 					// Get the block id of the block being analyzed,
-					int blockID = world.getBlockId(chunkX + x, y, chunkZ + z);
+					Block block = bh.getBlock(chunkX + x, y, chunkZ + z);
 					// If the block id is not of 'air' and it matches the desired block, add it to the list.
-					if (blockID > 0 && blockID == blockToFind.blockID) {
-						Block block = blockToFind;
-						list.add(block);
+					if (block != null && bh.isABlock(block) && block == blockToFind) {
+						Block block2 = blockToFind;
+						list.add(block2);
 						// System.out.println("Diamond added at pos: (" + x + ", " + y + ", " + z + ").");
 					}
 					
@@ -61,8 +62,7 @@ public class ChunkHelper {
 		
 		// Print out to the player how much of the given block is currently in the chunk they are standing in.
 		int amount = list.size();
-		BlockHelper blockHelper = new BlockHelper(world, player);
-		player.sendChatToPlayer(ChatMessageComponent.createFromText(amount + " " + blockHelper.getLocalized(blockToFind) + "(s) diamonds left to be found!"));
+		// player.sendChatToPlayer(ChatMessageComponent.createFromText(amount + " " + bh.getLocalized(blockToFind) + "(s) diamonds left to be found!"));
 		
 		// Make sure the list removed from memory.
 		list.removeAll(Collections.EMPTY_LIST);

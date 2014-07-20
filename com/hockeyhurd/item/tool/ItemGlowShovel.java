@@ -2,23 +2,22 @@ package com.hockeyhurd.item.tool;
 
 import java.util.List;
 
-import com.hockeyhurd.main.ExtraTools;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
+import com.hockeyhurd.mod.ExtraTools;
+
 public class ItemGlowShovel extends ItemSpade {
 
-	public ItemGlowShovel(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemGlowShovel(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("GlowShovelUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowShovelUnbreakable");
 	}
 	

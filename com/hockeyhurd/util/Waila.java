@@ -8,19 +8,21 @@
 package com.hockeyhurd.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 public class Waila {
 
@@ -36,10 +38,6 @@ public class Waila {
 	private List<Material> matWhiteList;
 
 	// Tools/items used.
-	private final int pickID;
-	private final int hoeID;
-	private final int hammerID;
-	private final int excavatorID;
 
 	private int sideHit = 0;
 	private int offset;
@@ -58,14 +56,8 @@ public class Waila {
 		this.metaData = metaData;
 		this.bh = new BlockHelper(world, player);
 		this.ih = new ItemHelper(world, player);
-		this.placeBlock = placeBlock; // TODO: implement some sort if placeBlock
-										// = false, return block looking at.
+		this.placeBlock = placeBlock; 
 		this.shiftClick = shiftClick;
-
-		pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
-		hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
-		hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
-		excavatorID = new ItemStack(ExtraTools.glowExcavatorUnbreakable, 1).itemID;
 
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
@@ -78,18 +70,20 @@ public class Waila {
 
 	private void addBlockBlackList() {
 		add(ExtraTools.glowTorch);
-		add(Block.torchWood);
-		add(Block.rail);
-		add(Block.railActivator);
-		add(Block.railDetector);
-		add(Block.railPowered);
-		add(Block.bedrock);
+		add(Blocks.torch);
+		add(Blocks.rail);
+		add(Blocks.activator_rail);
+		add(Blocks.detector_rail);
+		add(Blocks.golden_rail);
+		add(Blocks.bedrock);
 
-		for (int i = 0; i < Block.blocksList.length; i++) {
-			Block block = Block.blocksList[i];
-			if (block != null && block.blockHardness == -1 && !blockBlackList.contains(block)) add(block);
-			else continue;
-		}
+		// TODO: Find solution to determine if a block has a hardness of -1 (unbreakable).
+		/*Iterator iter = Block.blockRegistry.iterator();
+		while (iter.hasNext()) {
+			Block block = (Block) iter.next();
+			if (block != null && !blockBlackList.contains(block)) add(block);
+		}*/
+
 	}
 
 	private void addMatWhiteList() {
@@ -106,9 +100,7 @@ public class Waila {
 	}
 
 	public void setOffset(int offset) {
-		/*
-		 * If the setOffsetVal > 0 set this.offSet = offset else, set this.offset = 0, (removing offset to faulty val).
-		 */
+		// If the setOffsetVal > 0 set this.offSet = offset else, set this.offset = 0, (removing offset to faulty val).
 		this.offset = (offset > 0 ? offset : 0);
 	}
 
@@ -174,14 +166,15 @@ public class Waila {
 			/*
 			 * Combine vector rotations and vector absolute world positions and throw it through a vector ray to calculate the direction and block the entity (player) is currently looking at in the given instance.
 			 */
-			MovingObjectPosition movingObjectPos = world.rayTraceBlocks_do_do(vec3d, vec3d1, false, true);
+			MovingObjectPosition movingObjectPos = world.func_147447_a(vec3d, vec3d1, false, true, false);
 
 			// Make sure there is no possibility the entity (player) is not
 			// looking at 'null'.
 			if (movingObjectPos == null) return stack;
 
 			// Check if the vector ray intersects with some sort of TILE
-			if (movingObjectPos.typeOfHit == EnumMovingObjectType.TILE) {
+			// if (movingObjectPos.typeOfHit == MovingObjectType.TILE) {
+			if (movingObjectPos.typeOfHit == MovingObjectType.BLOCK) {
 
 				// Get the posiotion of the TILE intersected as represented in
 				// 3D space.
@@ -218,26 +211,25 @@ public class Waila {
 
 		else if (!placeBlock) {
 			// Check if item used == glowHoe
-			if ((stack.itemID == hoeID) && sideHit == 1) {
+			if ((stack.getItem() == ExtraTools.glowHoeUnbreakable) && sideHit == 1) {
 
 				// Get Block and block ids'
-				Block tilDirt = Block.tilledField;
-				int dirtID = Block.dirt.blockID;
-				int grassID = Block.grass.blockID;
-				int tilDirtID = tilDirt.blockID;
-				int currentID = world.getBlockId(xx, yy, zz);
+				Block tilDirt = Blocks.farmland;
+				Block dirt = Blocks.dirt;
+				Block grass = Blocks.grass;
+				Block currentBlock = world.getBlock(xx, yy, zz);
 
 				// Get the block the player is currently looking at
-				if (currentID == dirtID || currentID == grassID || currentID == tilDirtID) {
+				if (currentBlock == dirt || currentBlock == grass || currentBlock == tilDirt) {
 
 					/*
 					 * if they shift click, till a 9 * 9 area else, hoe the block they are looking at
 					 */
 					if (shiftClick) tillLand(xx, yy, zz);
-					else world.setBlock(xx, yy, zz, tilDirtID);
+					else world.setBlock(xx, yy, zz, tilDirt);
 
 					// Play world sound for all to hear :)
-					world.playSoundEffect((double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getStepSound(), (tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f);
+					world.playSoundEffect((double) (xx + 0.5), (double) (yy + 0.5), (double) (zz + 0.5), tilDirt.stepSound.getBreakSound(), (tilDirt.stepSound.getVolume() + 1.0f) / 2.0f, tilDirt.stepSound.getPitch() * 0.8f);
 				}
 
 				/*
@@ -246,8 +238,8 @@ public class Waila {
 				else print("Block could not be tilled!");
 			}
 
-			else if (stack.itemID == hammerID) mineArea(sideHit, xx, yy, zz);
-			else if (stack.itemID == excavatorID) mineArea(sideHit, xx, yy, zz);
+			else if (stack.getItem() == ExtraTools.glowHammerUnbreakable) mineArea(sideHit, xx, yy, zz);
+			else if (stack.getItem() == ExtraTools.glowExcavatorUnbreakable) mineArea(sideHit, xx, yy, zz);
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
 			else {
@@ -308,17 +300,17 @@ public class Waila {
 		 * If said block is something and the player can reach the block they are looking at, place the said block.
 		 */
 		if (block != null && xCheck && yCheck && zCheck) {
-			if (!bh.blockExists(x, y, z)) world.setBlock(x, y, z, block.blockID);
+			if (!bh.blockExists(x, y, z)) world.setBlock(x, y, z, block);
 			else if (bh.blockExists(x, y, z) && !blockBlackList.contains(bh.getBlock(x, y, z))) {
 				// If the block trying to be placed is equal to block at the coordinate, return;
-				if (bh.getBlockId(x, y, z) == block.blockID && bh.getBlockMetaData(x, y, z) == this.metaData) return;
+				if (bh.getBlock(x, y, z) == block && bh.getBlockMetaData(x, y, z) == this.metaData) return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
-				if (stack.getItem().itemID != ExtraTools.glowHoeUnbreakable.itemID) world.destroyBlock(x, y, z, true);
+				if (stack.getItem() != ExtraTools.glowHoeUnbreakable) bh.destroyBlock(x, y, z, true);
 
 				// Args: x, y, z, blockID, blockMetadata,
-				world.setBlock(x, y, z, block.blockID, this.metaData, 3);
+				world.setBlock(x, y, z, block, this.metaData, 3);
 
 				setResult(true);
 			}
@@ -353,11 +345,12 @@ public class Waila {
 				// If the block trying to be placed is equal to block at the coordinate, return;
 
 				// Set true for par4 if destroyed block should drop, item-drops.
-				if (!matSp) world.destroyBlock(x, y, z, true);
+				// if (!matSp) world.func_147480_a(x, y, z, true);
+				if (!matSp) bh.destroyBlock(x, y, z, true);
 				else {
 					Material currentMat = bh.getBlockMaterial(x, y, z);
-					if ((stack.getItem().itemID != hammerID && stack.getItem().itemID != excavatorID) || !matWhiteList.contains(currentMat)) return;
-					else world.destroyBlock(x, y, z, true);
+					if ((stack.getItem() != ExtraTools.glowHammerUnbreakable && stack.getItem() != ExtraTools.glowExcavatorUnbreakable) || !matWhiteList.contains(currentMat)) return;
+					else bh.destroyBlock(x, y, z, true);
 				}
 
 				world.setBlockToAir(x, y, z);
@@ -378,20 +371,19 @@ public class Waila {
 
 	private void tillLand(int x, int y, int z) {
 		// Get all needed block ids'
-		Block tilDir = Block.tilledField;
-		int tilledDirtID = tilDir.blockID;
-		int dirtID = Block.dirt.blockID;
-		int grassID = Block.grass.blockID;
+		Block tilDir = Blocks.farmland;
+		Block dirt = Blocks.dirt;
+		Block grass = Blocks.grass;
 
 		/*
 		 * Scan through blocks on the x and z axis, check if they can be tilled, till the land!
 		 */
 		for (int xx = x - 1; xx < x + 2; xx++) {
 			for (int zz = z - 1; zz < z + 2; zz++) {
-				int currentBlock = world.getBlockId(xx, y, zz);
+				Block currentBlock = bh.getBlock(xx, y, zz);
 
 				// Note: Last check below shouldn't be necessary as it should already be tilled! (in theory).
-				if (currentBlock == dirtID || currentBlock == grassID /* || currentBlock == tilledDirtID */) {
+				if (currentBlock == dirt || currentBlock == grass /* || currentBlock == tilledDirtID */) {
 					setBlock(xx, y, zz, tilDir);
 				}
 			}

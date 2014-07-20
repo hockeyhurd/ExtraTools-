@@ -2,7 +2,7 @@ package com.hockeyhurd.handler;
 
 import net.minecraft.item.ItemStack;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.common.IFuelHandler;
 
@@ -13,7 +13,7 @@ public class FuelHandler implements IFuelHandler {
 	public FuelHandler() {}
 	
 	public int getBurnTime(ItemStack fuel) {
-		if (fuel.itemID == ExtraTools.glowCoal.itemID) return getTime(10);
+		if (fuel.getItem() == ExtraTools.glowCoal) return getTime(10);
 		return 0;
 	}
 	

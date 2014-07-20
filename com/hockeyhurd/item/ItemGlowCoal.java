@@ -2,22 +2,22 @@ package com.hockeyhurd.item;
 
 import java.util.List;
 
-import com.hockeyhurd.main.ExtraTools;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.hockeyhurd.mod.ExtraTools;
+
 public class ItemGlowCoal extends Item {
 
-	public ItemGlowCoal(int id) {
-		super(id);
+	public ItemGlowCoal() {
+		super();
 		this.setUnlocalizedName("GlowCoal");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowCoal");
 	}
 	

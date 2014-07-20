@@ -1,23 +1,20 @@
 package com.hockeyhurd.item;
 
-import com.hockeyhurd.main.ExtraTools;
-import com.hockeyhurd.util.Waila;
-
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemNetherStarFirery extends Item {
 
-	public ItemNetherStarFirery(int id) {
-		super(id);
+	public ItemNetherStarFirery() {
+		super();
 		this.setUnlocalizedName("NetherStarFirery");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "FireryNetherStar");
 	}
 	

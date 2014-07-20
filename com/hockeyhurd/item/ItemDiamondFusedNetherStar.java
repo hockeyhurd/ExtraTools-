@@ -1,23 +1,23 @@
 package com.hockeyhurd.item;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemDiamondFusedNetherStar extends Item {
 
-	public ItemDiamondFusedNetherStar(int id) {
-		super(id);
+	public ItemDiamondFusedNetherStar() {
+		super();
 		this.setUnlocalizedName("DiamondFusedNetherStar");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister iconReg){
+	public void registerIcons(IIconRegister iconReg){
 		itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "DiamondNetherStarIngot");
 	}
 	

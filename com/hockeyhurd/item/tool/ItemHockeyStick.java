@@ -1,26 +1,24 @@
 package com.hockeyhurd.item.tool;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.throwable.EntityPuck;
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemHockeyStick extends ItemSword {
 
-	public ItemHockeyStick(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemHockeyStick(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("HockeyStick");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "HockeyStick");
 	}
 
@@ -37,8 +35,8 @@ public class ItemHockeyStick extends ItemSword {
 
 	// TODO: Change the throwing object to a custom made hockey puck! Ouch!
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityPlayer player, int itemInUseCount) {
-		final int _itemID = ExtraTools.hockeyPuck.itemID;
-		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(_itemID)) {
+		final Item _item = ExtraTools.hockeyPuck;
+		if (player.capabilities.isCreativeMode || player.inventory.consumeInventoryItem(_item)) {
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 			if (!world.isRemote) {
 				world.spawnEntityInWorld(new EntityPuck(world, player));

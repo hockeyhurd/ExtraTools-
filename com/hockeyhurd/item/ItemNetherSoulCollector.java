@@ -3,7 +3,7 @@ package com.hockeyhurd.item;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -11,13 +11,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatMessageComponent;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
-import com.hockeyhurd.util.ChatHelper;
+import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,10 +22,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemNetherSoulCollector extends Item {
 
 	private static boolean isActive;
-	private Icon iconOverlay;
+	private IIcon iconOverlay;
 
-	public ItemNetherSoulCollector(int id, boolean state) {
-		super(id);
+	public ItemNetherSoulCollector(boolean state) {
+		super();
 		isActive = state;
 		this.setUnlocalizedName("NetherSoulCollector");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
@@ -45,13 +42,13 @@ public class ItemNetherSoulCollector extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconReg) {
+	public void registerIcons(IIconRegister iconReg) {
 		itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "NetherSoulCollector");
 		iconOverlay = iconReg.registerIcon(ExtraTools.modPrefix + "NetherSoulCollector_overlay");
 	}
 
 	@Override
-	public Icon getIcon(ItemStack stack, int renderPass) {
+	public IIcon getIcon(ItemStack stack, int renderPass) {
 		if ((stack.getItemDamage() == 0 || renderPass != 1) /*&& !isActive*/) return this.itemIcon;
 		else return iconOverlay;
 	}
@@ -151,9 +148,9 @@ public class ItemNetherSoulCollector extends Item {
 			itemStack.setItemDamage(1);
 			isActive = true;
 			
-			String msg = "Magnet mode activated!";
-			EnumChatFormatting color = EnumChatFormatting.GOLD;
-			player.sendChatToPlayer(new ChatHelper().comp(msg, color));
+			// String msg = "Magnet mode activated!";
+			// EnumChatFormatting color = EnumChatFormatting.GOLD;
+			// player.addChatComponentMessage(new ChatHelper().comp(msg, color)); TODO: Fix chat messaging!
 		}
 		else {
 			if (!isActive) return itemStack;
@@ -161,9 +158,9 @@ public class ItemNetherSoulCollector extends Item {
 			itemStack.setItemDamage(0);
 			isActive = false;
 			
-			String msg = "Magnet mode deactivated!";
-			EnumChatFormatting color = EnumChatFormatting.GOLD;
-			player.sendChatToPlayer(new ChatHelper().comp(msg, color));
+			// String msg = "Magnet mode deactivated!";
+			// EnumChatFormatting color = EnumChatFormatting.GOLD;
+			// player.addChatComponentMessage(new ChatHelper().comp(msg, color)); TODO: Fix chat messaging!
 		}
 
 		return itemStack;

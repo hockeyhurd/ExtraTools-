@@ -1,33 +1,31 @@
 package com.hockeyhurd.item.tool;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
 public class ItemGlowPickaxe extends ItemPickaxe {
 
 	private final Block torch = ExtraTools.glowTorch;
-	private final int torchID = torch.blockID;
 	private TimerHelper th;
 
-	public ItemGlowPickaxe(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemGlowPickaxe(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("GlowPickaxeUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
 		th = new TimerHelper(20, 2);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowPickaxeUnbreakable");
 	}
 

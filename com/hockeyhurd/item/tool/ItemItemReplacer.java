@@ -3,16 +3,15 @@ package com.hockeyhurd.item.tool;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
-import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
@@ -22,8 +21,8 @@ public class ItemItemReplacer extends Item {
 
 	private TimerHelper th;
 
-	public ItemItemReplacer(int id) {
-		super(id);
+	public ItemItemReplacer() {
+		super();
 		this.setUnlocalizedName("ItemReplacer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 		this.setMaxStackSize(1);
@@ -31,7 +30,7 @@ public class ItemItemReplacer extends Item {
 		th = new TimerHelper(20, 2);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "ItemReplacer");
 	}
 
@@ -53,15 +52,15 @@ public class ItemItemReplacer extends Item {
 			if (player.inventory.getStackInSlot(i).getItem() == this) {
 				id = i + 1;
 				if (player.inventory.getStackInSlot(id) == null) break;
-				int item_id = player.inventory.getStackInSlot(id).getItem().itemID;
-
-				if (!bh.blockListContains(item_id) && !th.getUse()) {
-					player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
+				Item item_block = player.inventory.getStackInSlot(id).getItem();
+				
+				if (!bh.blockListContains(item_block.getIdFromItem(item_block)) && !th.getUse()) {
+					// player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
 					break;
 				}
 				else {
 					thisStack = player.inventory.getStackInSlot(id);
-					block = Block.blocksList[thisStack.itemID];
+					block = bh.getBlockFromID(thisStack.getItem().getIdFromItem(thisStack.getItem()));
 					break;
 				}
 			}

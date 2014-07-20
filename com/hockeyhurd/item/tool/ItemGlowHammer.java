@@ -5,16 +5,15 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
@@ -22,12 +21,11 @@ import com.hockeyhurd.util.Waila;
 public class ItemGlowHammer extends ItemPickaxe {
 
 	private final Block torch = ExtraTools.glowTorch;
-	private final int torchID = torch.blockID;
 	private List<Material> mineAble;
 	private TimerHelper th;
 
-	public ItemGlowHammer(int id, EnumToolMaterial material) {
-		super(id, material);
+	public ItemGlowHammer(ToolMaterial material) {
+		super(material);
 		this.setUnlocalizedName("GlowHammer");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
@@ -42,7 +40,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 		mineAble.add(Material.iron);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowHammer");
 	}
 
@@ -52,7 +50,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 	}
 
 	// When player mines a block, mine a 3x3 area.
-	public boolean onBlockDestroyed(ItemStack stack, World world, int par3, int x, int y, int z, EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block blockDestroyed, int x, int y, int z, EntityLivingBase entityLiving) {
 
 		// If for some reason this instance of event is called and the entity is not a player, just return true and mine a single block.
 		if (!(entityLiving instanceof EntityPlayer)) return true;
@@ -73,10 +71,10 @@ public class ItemGlowHammer extends ItemPickaxe {
 		// Makes sure the matwhitelist is in sync.
 		waila.setMatWhiteList(mineAble);
 
-		if (!world.isRemote && (!th.use || th.excuser())) {
+		 if (!world.isRemote && (!th.use || th.excuser())) {
 			waila.finder();
 			th.setUse(true);
-		}
+		 }
 
 		return true;
 	}

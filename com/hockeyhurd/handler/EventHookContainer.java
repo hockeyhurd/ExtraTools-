@@ -9,14 +9,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
-import com.hockeyhurd.item.tool.ItemGlowHammer;
-import com.hockeyhurd.main.ExtraTools;
-import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.mod.ExtraTools;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHookContainer {
 
@@ -24,48 +23,42 @@ public class EventHookContainer {
 	private final Item chest = ExtraTools.glowChestplate;
 	private final Item leg = ExtraTools.glowLegging;
 	private final Item boot = ExtraTools.glowBoot;
-	
+
 	private boolean bootCheck = false;
 	private boolean legCheck = false;
 	private boolean chestCheck = false;
 	private boolean helmCheck = false;
 	private boolean canFly = false;
 
-	// Removed as unused.
-	/*@ForgeSubscribe
-	public void onPlayerDamage(LivingHurtEvent event) {
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		else {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-		}
-	}*/
-	
+	public EventHookContainer() {
+	}
+
 	private void setAllowedFly(boolean canFly) {
 		this.canFly = canFly;
 	}
-	
+
 	private boolean getAllowedFly() {
 		return this.canFly;
 	}
-	
-	@ForgeSubscribe 
+
+	@SubscribeEvent
 	public void onOreBreak(BreakEvent event) {
-		
-		if (event.block.blockID == ExtraTools.glowOre.blockID) {
+
+		if (event.block == ExtraTools.glowOre) {
 			World world = event.getPlayer().worldObj;
 			Random random = new Random();
 			int chance = 15;
-			
+
 			int val = 1 + random.nextInt(99);
 			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.glowDust)));
 		}
-		
+
 		else return;
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event) {
-		
+
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
@@ -103,7 +96,8 @@ public class EventHookContainer {
 
 			if (currentLeg == leg) {
 				legCheck = true;
-				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 2, 0));
+				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,
+				// 2, 0));
 			}
 
 			if (currentChest == chest) {
@@ -117,7 +111,7 @@ public class EventHookContainer {
 				if (player.isInWater()) player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 5, 0));
 				else player.removePotionEffect(Potion.waterBreathing.id);
 			}
-			
+
 			if (bootCheck && legCheck && chestCheck && helmCheck) {
 				player.capabilities.allowFlying = true;
 				setAllowedFly(true);
@@ -126,32 +120,33 @@ public class EventHookContainer {
 				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) player.capabilities.allowFlying = false;
 				setAllowedFly(false);
 			}
-			
+
 			bootCheck = legCheck = chestCheck = helmCheck = false;
 
 		}
 
 	}
-	
+
 	/*
 	 * Event called when user hovers over my items at the end of the <List>.
 	 */
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onItemHover(ItemTooltipEvent event) {
-		int currentID = event.itemStack.itemID;
-		int pickID = new ItemStack(ExtraTools.glowPickaxeUnbreakable, 1).itemID;
-		int swordID = new ItemStack(ExtraTools.glowSwordUnbreakable, 1).itemID;
-		int axeID = new ItemStack(ExtraTools.glowAxeUnbreakable, 1).itemID;
-		int hoeID = new ItemStack(ExtraTools.glowHoeUnbreakable, 1).itemID;
-		int shovelID = new ItemStack(ExtraTools.glowShovelUnbreakable, 1).itemID;
-		int hammerID = new ItemStack(ExtraTools.glowHammerUnbreakable, 1).itemID;
-		// int netherSoulCollectorID = new ItemStack(ExtraTools.netherSoulCollector, 1).itemID;
+		Item currentItem = event.itemStack.getItem();
+		Item pick = ExtraTools.glowPickaxeUnbreakable;
+		Item sword = ExtraTools.glowSwordUnbreakable;
+		Item axe = ExtraTools.glowAxeUnbreakable;
+		Item hoe = ExtraTools.glowHoeUnbreakable;
+		Item shovel = ExtraTools.glowShovelUnbreakable;
+		Item hammer = ExtraTools.glowHammerUnbreakable;
+		// int netherSoulCollectorID = new
+		// ItemStack(ExtraTools.netherSoulCollector, 1).itemID;
 
-		if (currentID == pickID || currentID == swordID || currentID == axeID || currentID == hoeID || currentID == shovelID || currentID == hammerID) {
+		if (currentItem == pick || currentItem == sword || currentItem == axe || currentItem == hoe || currentItem == shovel || currentItem == hammer) {
 			event.toolTip.add("Unbreakable!");
-			if (currentID == pickID) event.toolTip.add("Right click to place torches!");
+			if (currentItem == pick) event.toolTip.add("Right click to place torches!");
 		}
-		
+
 		else return;
 	}
 
@@ -159,5 +154,5 @@ public class EventHookContainer {
 	/*
 	 * @ForgeSubscribe public void onPlayerChat(ServerChatEvent event) { }
 	 */
-	
+
 }

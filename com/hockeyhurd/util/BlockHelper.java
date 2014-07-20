@@ -4,9 +4,12 @@
 
 package com.hockeyhurd.util;
 
+import java.util.Iterator;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 public class BlockHelper {
@@ -25,21 +28,17 @@ public class BlockHelper {
 		
 	}
 	
-	// Returns the block from world coordinate.
-	public Block getBlock(int x, int y, int z) {
-		return blockExists(x, y, z) ? Block.blocksList[getBlockId(x, y, z)] : null;  
-	}
-	
 	public Block getBlock(int id) {
-		return id > 0 && id < Block.blocksList.length ? Block.blocksList[id] : null;
+		// return id > 0 && id < Block.blockRegistry. ? Block.blocksList[id] : null;
+		return (Block) Block.blockRegistry.getObjectById(id);
 	}
 	
-	public int getBlockId(Block block) {
-		return block.blockID;
+	public Block getBlock(int x, int y, int z) {
+		return world.getBlock(x, y, z);
 	}
 	
-	public int getBlockId(int x, int y, int z) {
-		return world.getBlockId(x, y, z);
+	public Block getBlockFromID(int id) {
+		return (blockListContains(id) ? (Block) Block.blockRegistry.getObjectById(id) : null);
 	}
 	
 	public boolean blockExists(int x, int y, int z) {
@@ -52,13 +51,13 @@ public class BlockHelper {
 	
 	// Returns the block's material
 	public Material getBlockMaterial(int x, int y, int z) {
-		return world.getBlockMaterial(x, y, z);
+		return world.getBlock(x, y, z).getMaterial();
 	}
 	
 	// Set to depreciated until further tested, however is likely it works.
 	@Deprecated
 	public Material getBlockMaterial(Block block) {
-		return block.blockMaterial;
+		return block.getMaterial();
 	}
 	
 	public String getLocalized(Block block) {
@@ -70,24 +69,26 @@ public class BlockHelper {
 	}
 	
 	public boolean blockListContains(int id) {
-		Block b = Block.blocksList[Block.blocksList.length - 1];
+		Block b = getBlock(id);
 		
-		// Checks if the given id is > the last registered block and if so, just return false; 
-		if (b != null && id > b.blockID) return false;
+		if (b != null && b != Blocks.air) return false;
 		Block block = null;
 		
-		for (int i = 0; i < Block.blocksList.length; i++) {
-			if (Block.blocksList[i] != null && Block.blocksList[i].blockID == id) {
-				block = Block.blocksList[i];
-				break;
-			}
+		Iterator iter = Block.blockRegistry.iterator();
+		while (iter.hasNext()) {
+			if (iter.next() instanceof Block) block = (Block) iter.next();
+			if (block == b) break;
 		}
 		
-		return block != null ? true : false;
+		return block != null && block != Blocks.air ? true : false;
 	}
 	
 	public boolean isABlock(Block block) {
-		return blockListContains(block.blockID);
+		return block != null && block != Blocks.air && Block.blockRegistry.containsKey(block) ? true : false;
+	}
+	
+	public void destroyBlock(int x, int y, int z, boolean drop) {
+		world.func_147480_a(x, y, z, drop);
 	}
 	
 }

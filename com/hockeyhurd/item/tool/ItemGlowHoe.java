@@ -2,30 +2,28 @@ package com.hockeyhurd.item.tool;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 import org.lwjgl.input.Keyboard;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.Waila;
 
 public class ItemGlowHoe extends ItemHoe {
 
-	public ItemGlowHoe(int id, EnumToolMaterial toolGlow) {
-		super(id, toolGlow);
+	public ItemGlowHoe(ToolMaterial toolGlow) {
+		super(toolGlow);
 		this.setUnlocalizedName("GlowHoeUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowHoeUnbreakable");
 	}
 
@@ -51,8 +49,8 @@ public class ItemGlowHoe extends ItemHoe {
 			
 			UseHoeEvent event = new UseHoeEvent(entityPlayer, itemStack, world, x, y, z);
 			MinecraftForge.EVENT_BUS.post(event);
-			if (event.getResult() == Result.ALLOW) return true;
-			else if (event.getResult() == Result.DENY) return false;
+			if (event.getResult() == cpw.mods.fml.common.eventhandler.Event.Result.ALLOW) return true;
+			else if (event.getResult() == cpw.mods.fml.common.eventhandler.Event.Result.DENY) return false;
 			
 			return true;
 		}

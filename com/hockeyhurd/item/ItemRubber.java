@@ -1,19 +1,19 @@
 package com.hockeyhurd.item;
 
-import com.hockeyhurd.main.ExtraTools;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+
+import com.hockeyhurd.mod.ExtraTools;
 
 public class ItemRubber extends Item {
 
-	public ItemRubber(int id) {
-		super(id);
+	public ItemRubber() {
+		super();
 		this.setUnlocalizedName("Rubber");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
-	public void registerIcons(IconRegister reg) {
+	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "Rubber");
 	}
 

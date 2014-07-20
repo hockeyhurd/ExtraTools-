@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 
-import com.hockeyhurd.main.ExtraTools;
+import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -48,7 +48,7 @@ public class OreGlowWorldgen implements IWorldGenerator {
 			int posY = minY + random.nextInt(maxY - minY);
 			int posZ = + blockZPos + random.nextInt(maxZ);
 			
-			(new WorldGenMinable(block.blockID, maxVeinSize)).generate(world, random, posX, posY, posZ);
+			(new WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
 		}
 	}
 
