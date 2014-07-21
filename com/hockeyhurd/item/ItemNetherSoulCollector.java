@@ -11,10 +11,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.ChatHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -148,9 +150,9 @@ public class ItemNetherSoulCollector extends Item {
 			itemStack.setItemDamage(1);
 			isActive = true;
 			
-			// String msg = "Magnet mode activated!";
-			// EnumChatFormatting color = EnumChatFormatting.GOLD;
-			// player.addChatComponentMessage(new ChatHelper().comp(msg, color)); TODO: Fix chat messaging!
+			String msg = "Magnet mode activated!";
+			EnumChatFormatting color = EnumChatFormatting.GOLD;
+			player.addChatComponentMessage(new ChatHelper().comp(msg, color)); 
 		}
 		else {
 			if (!isActive) return itemStack;
@@ -158,9 +160,9 @@ public class ItemNetherSoulCollector extends Item {
 			itemStack.setItemDamage(0);
 			isActive = false;
 			
-			// String msg = "Magnet mode deactivated!";
-			// EnumChatFormatting color = EnumChatFormatting.GOLD;
-			// player.addChatComponentMessage(new ChatHelper().comp(msg, color)); TODO: Fix chat messaging!
+			String msg = "Magnet mode deactivated!";
+			EnumChatFormatting color = EnumChatFormatting.GOLD;
+			player.addChatComponentMessage(new ChatHelper().comp(msg, color)); 
 		}
 
 		return itemStack;

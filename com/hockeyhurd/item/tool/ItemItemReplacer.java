@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 
@@ -55,7 +56,7 @@ public class ItemItemReplacer extends Item {
 				Item item_block = player.inventory.getStackInSlot(id).getItem();
 				
 				if (!bh.blockListContains(item_block.getIdFromItem(item_block)) && !th.getUse()) {
-					// player.sendChatToPlayer(new ChatHelper().comp("Cannot place an item!"));
+					player.addChatComponentMessage(new ChatHelper().comp("Cannot place an item!"));
 					break;
 				}
 				else {
