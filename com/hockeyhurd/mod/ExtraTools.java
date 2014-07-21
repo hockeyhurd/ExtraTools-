@@ -27,6 +27,7 @@ import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
+import com.hockeyhurd.item.ItemDiamondSacrifice;
 import com.hockeyhurd.item.ItemGlowCoal;
 import com.hockeyhurd.item.ItemGlowDust;
 import com.hockeyhurd.item.ItemGlowIngot;
@@ -96,6 +97,7 @@ public class ExtraTools {
 	public static Item diamondFusedNetherStar;
 	public static Item netherSoulCollector;
 	public static Item fireryNetherStar;
+	public static Item diamondSacrifice;
 	public static Item glowCoal;
 	public static Item hockeyPuck;
 	public static Item rubber;
@@ -164,6 +166,7 @@ public class ExtraTools {
 		diamondFusedNetherStar = new ItemDiamondFusedNetherStar();
 		netherSoulCollector = new ItemNetherSoulCollector(false);
 		fireryNetherStar = new ItemNetherStarFirery();
+		diamondSacrifice = new ItemDiamondSacrifice();
 		glowCoal = new ItemGlowCoal();
 		rubber = new ItemRubber();
 		hockeyPuck = new ItemHockeyPuck();
@@ -229,6 +232,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
 		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
 		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");
+		GameRegistry.registerItem(diamondSacrifice, "Sacriment to The Nether");
 		GameRegistry.registerItem(glowCoal, "GlowCoal");
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");
@@ -281,6 +285,7 @@ public class ExtraTools {
 		LanguageRegistry.addName(hockeyPuck, "Hockey Puck");
 		LanguageRegistry.addName(fireryNetherStar, "Enflamed Star of The Nether");
 		LanguageRegistry.addName(diamondDetector, "Diamond Detector");
+		LanguageRegistry.addName(diamondSacrifice, "Sacriment to The Nether!");
 
 		// Other tools
 		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
@@ -330,6 +335,10 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', glowIngot, 'z', Items.nether_star
 		});
+		
+		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
+			"xxx", "xyx", "xxx", 'x', diamondSacrifice, 'y', Blocks.redstone_block
+		});			
 
 		// DiamondNetherStarIngot recipe
 		GameRegistry.addRecipe(new ItemStack(diamondFusedNetherStar, 1), new Object[] {
@@ -339,6 +348,11 @@ public class ExtraTools {
 		// Crafting the NetherSoulCollector
 		GameRegistry.addRecipe(new ItemStack(netherSoulCollector, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Items.gold_ingot, 'z', diamondFusedNetherStar
+		});
+		
+		// Crafting the 'Black Diamond'
+		GameRegistry.addRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
+			"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod
 		});
 
 		// Crafting the ItemReplacer Tool
