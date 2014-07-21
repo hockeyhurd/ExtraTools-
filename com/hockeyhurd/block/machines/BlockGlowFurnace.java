@@ -59,11 +59,14 @@ public class BlockGlowFurnace extends BlockContainer {
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			FMLNetworkHandler.openGui(player, ExtraTools.instance, ExtraTools.guiIDGlowFurnace, world, x, y, z);
+		if (world.isRemote) return true;
+		
+		else {
+			TileEntityGlowFurnace teGF = (TileEntityGlowFurnace) world.getTileEntity(x, y, z);
+			if (teGF != null) FMLNetworkHandler.openGui(player, ExtraTools.instance, ExtraTools.guiIDGlowFurnace, world, x, y, z);
+			return true;
 		}
 
-		return true;
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z) {
@@ -148,7 +151,7 @@ public class BlockGlowFurnace extends BlockContainer {
 		}
 	}
 
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 		return new TileEntityGlowFurnace();
 	}
 
@@ -172,7 +175,7 @@ public class BlockGlowFurnace extends BlockContainer {
 		}
 
 		if (stack.hasDisplayName()) {
-			((TileEntityGlowFurnace) world.getTileEntity(x, y, z)).setGuiDisplayName(stack.getDisplayName());
+			((TileEntityGlowFurnace) world.getTileEntity(x, y, z)).func_145951_a(stack.getDisplayName());
 		}
 	}
 
@@ -226,12 +229,6 @@ public class BlockGlowFurnace extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World world, int x, int y, int z) {
 		return Item.getItemFromBlock(ExtraTools.glowFurnaceOff);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.hockeyhurd.entity.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -38,7 +40,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 	public int burnTime;
 	public int currentBurnTime;
 	public int cookTime;
-	private String field_94130_e;
+	private String field_145958_o;
 
 	public TileEntityGlowFurnace() {
 	}
@@ -94,25 +96,25 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 		}
 	}
 
-	public String getInvName() {
-		return this.isInvNameLocalized() ? this.field_94130_e : "container.furnace";
+	public String getInventoryName() {
+		return this.hasCustomInventoryName() ? this.field_145958_o : "container.furnace";
 	}
 
-	public boolean isInvNameLocalized() {
-		return this.field_94130_e != null && this.field_94130_e.length() > 0;
+	public boolean hasCustomInventoryName() {
+		return this.field_145958_o != null && this.field_145958_o.length() > 0;
 	}
 
-	public void setGuiDisplayName(String text) {
-		this.field_94130_e = text;
+	public void func_145951_a(String text) {
+		this.field_145958_o = text;
 	}
 
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
-		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
+		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items", 10);
 		this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
 			byte b0 = nbttagcompound1.getByte("Slot");
 
 			if (b0 >= 0 && b0 < this.furnaceItemStacks.length) {
@@ -125,7 +127,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 		this.currentBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 
 		if (par1NBTTagCompound.hasKey("CustomName")) {
-			this.field_94130_e = par1NBTTagCompound.getString("CustomName");
+			this.field_145958_o = par1NBTTagCompound.getString("CustomName");
 		}
 	}
 
@@ -146,8 +148,8 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 
 		par1NBTTagCompound.setTag("Items", nbttaglist);
 
-		if (this.isInvNameLocalized()) {
-			par1NBTTagCompound.setString("CustomName", this.field_94130_e);
+		if (this.hasCustomInventoryName()) {
+			par1NBTTagCompound.setString("CustomName", this.field_145958_o);
 		}
 	}
 
@@ -192,7 +194,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 						--this.furnaceItemStacks[1].stackSize;
 
 						if (this.furnaceItemStacks[1].stackSize == 0) {
-							this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem().getContainerItemStack(furnaceItemStacks[1]);
+							this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem().getContainerItem(furnaceItemStacks[1]);
 						}
 					}
 				}
@@ -218,7 +220,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 		}
 
 		if (flag1) {
-			this.onInventoryChanged();
+			this.markDirty();
 		}
 	}
 
@@ -263,28 +265,25 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 			return 0;
 		}
 		else {
-			int i = stack.getItem().itemID;
 			Item item = stack.getItem();
 
-			if (stack.getItem() instanceof ItemBlock && Block.blocksList[i] != null) {
-				Block block = Block.blocksList[i];
+			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != null && Block.getBlockFromItem(item) != Blocks.air) {
+				Block block = Block.getBlockFromItem(item);
 
-				if (block == Block.woodSingleSlab) { return 150; }
-
-				if (block.blockMaterial == Material.wood) { return 300; }
-
-				if (block == Block.coalBlock) { return 16000; }
+				if (block == Blocks.wooden_slab) return 150;
+				if (block.getMaterial() == Material.wood) return 300; 
+				if (block == Blocks.coal_block) return 16000;
 			}
 
 			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
 			if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-			if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD")) return 200;
-			if (i == Item.stick.itemID) return 100;
-			if (i == Item.coal.itemID) return 1600;
-			if (i == Item.bucketLava.itemID) return 20000;
-			if (i == Block.sapling.blockID) return 100;
-			if (i == Item.blazeRod.itemID) return 2400;
-			if (i == ExtraTools.glowCoal.itemID) return 1600 / 8 * 12;
+			if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
+			if (item == Items.stick) return 100;
+			if (item == Items.coal) return 1600;
+			if (item == Items.lava_bucket) return 20000;
+			if (item == Item.getItemFromBlock(Blocks.sapling)) return 100;
+			if (item == Items.blaze_rod) return 2400;
+			if (item == ExtraTools.glowCoal) return 1600 / 8 * 12;
 			return GameRegistry.getFuelValue(stack);
 		}
 	}
@@ -294,14 +293,14 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 	}
 
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : player.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : player.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;
 	}
 
-	public void openChest() {
+	public void openInventory() {
 
 	}
 
-	public void closeChest() {
+	public void closeInventory() {
 
 	}
 
@@ -318,7 +317,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 	}
 
 	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return side != 0 || slot != 1 || stack.itemID == Item.bucketEmpty.itemID;
+		return side != 0 || slot != 1 || stack.getItem() == Items.bucket;
 	}
 
 }

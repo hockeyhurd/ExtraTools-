@@ -26,10 +26,10 @@ public class GuiGlowFurnace extends GuiContainer {
 	}
 
 	public void drawGuiContainerForegroundLayer(int x, int y) {
-		String name = this.glowFurnace.isInvNameLocalized() ? this.glowFurnace.getInvName() : I18n.getString(this.glowFurnace.getInvName());
+		String name = this.glowFurnace.hasCustomInventoryName() ? this.glowFurnace.getInventoryName() : I18n.format(this.glowFurnace.getInventoryName(), new Object[0]);
 		
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 	
 	public void drawGuiContainerBackgroundLayer(float f, int x, int y) {
