@@ -62,6 +62,7 @@ public class EventHookContainer {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			if (player.capabilities.isCreativeMode) return;
 
 			Item currentHelm = null;
 			Item currentChest = null;
