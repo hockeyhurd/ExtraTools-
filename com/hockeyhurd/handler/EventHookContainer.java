@@ -31,15 +31,6 @@ public class EventHookContainer {
 	private boolean helmCheck = false;
 	private boolean canFly = false;
 
-	// Removed as unused.
-	/*@ForgeSubscribe
-	public void onPlayerDamage(LivingHurtEvent event) {
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		else {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-		}
-	}*/
-	
 	private void setAllowedFly(boolean canFly) {
 		this.canFly = canFly;
 	}
@@ -69,6 +60,7 @@ public class EventHookContainer {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			if (player.capabilities.isCreativeMode) return;
 
 			Item currentHelm = null;
 			Item currentChest = null;
