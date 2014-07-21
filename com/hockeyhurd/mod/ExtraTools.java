@@ -229,6 +229,7 @@ public class ExtraTools {
 
 	private void registerItems() {
 		GameRegistry.registerItem(glowIngot, "GlowIngot");
+		GameRegistry.registerItem(glowDust, "Glow Dust");
 		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
 		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
 		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");
