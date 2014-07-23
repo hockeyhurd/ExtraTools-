@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
+import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
 import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -29,6 +30,8 @@ public class EventHookContainer {
 	private boolean chestCheck = false;
 	private boolean helmCheck = false;
 	private boolean canFly = false;
+	
+	private final float time = ( (float)TileEntityGlowFurnace.scaledTime / (float) TileEntityGlowFurnace.defaultCookTime) * 100;
 
 	public EventHookContainer() {
 	}
@@ -147,6 +150,8 @@ public class EventHookContainer {
 			event.toolTip.add("Unbreakable!");
 			if (currentItem == pick) event.toolTip.add("Right click to place torches!");
 		}
+		
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!" );
 
 		else return;
 	}

@@ -41,6 +41,8 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 	public int currentBurnTime;
 	public int cookTime;
 	private String field_145958_o;
+	public static int defaultCookTime = 200;
+	public static int scaledTime = (defaultCookTime / 10) * 5;
 
 	public TileEntityGlowFurnace() {
 	}
@@ -159,13 +161,13 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 
 	@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int i) {
-		return this.cookTime * i / 200;
+		return this.cookTime * i / scaledTime;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int par1) {
 		if (this.currentBurnTime == 0) {
-			this.currentBurnTime = 200;
+			this.currentBurnTime = defaultCookTime;
 		}
 
 		return this.burnTime * par1 / this.currentBurnTime;
@@ -203,7 +205,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 			if (this.isBurning() && this.canSmelt()) {
 				++this.cookTime;
 
-				if (this.cookTime == 200) {
+				if (this.cookTime == scaledTime) {
 					this.cookTime = 0;
 					this.smeltItem();
 					flag1 = true;
