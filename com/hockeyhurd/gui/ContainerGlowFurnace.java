@@ -41,7 +41,7 @@ public class ContainerGlowFurnace extends Container {
 		// Adds the inventory to furnace's gui.
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				this.addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18)); 
+				this.addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
 			}
 		}
 
@@ -51,25 +51,45 @@ public class ContainerGlowFurnace extends Container {
 		}
 
 	}
-	
+
 	public void addCraftingToCrafters(ICrafting craft) {
 		super.addCraftingToCrafters(craft);
 		craft.sendProgressBarUpdate(this, 0, this.glowFurnace.cookTime);
 		craft.sendProgressBarUpdate(this, 1, this.glowFurnace.burnTime);
 		craft.sendProgressBarUpdate(this, 2, this.glowFurnace.currentBurnTime);
 	}
-	
+
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
+
+		for (int i = 0; i < this.crafters.size(); i++) {
+			ICrafting icrafting = (ICrafting) this.crafters.get(i);
+
+			if (this.lastCookTime != this.glowFurnace.cookTime) {
+				icrafting.sendProgressBarUpdate(this, 0, this.glowFurnace.cookTime);
+			}
+
+			if (this.lastBurnTime != this.glowFurnace.burnTime) {
+				icrafting.sendProgressBarUpdate(this, 1, this.glowFurnace.burnTime);
+			}
+
+			if (this.lastItemBurnTime != this.glowFurnace.currentBurnTime) {
+				icrafting.sendProgressBarUpdate(this, 2, this.glowFurnace.currentBurnTime);
+			}
+		}
+
+		this.lastCookTime = this.glowFurnace.cookTime;
+		this.lastBurnTime = this.glowFurnace.burnTime;
+		this.lastItemBurnTime = this.glowFurnace.currentBurnTime;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int slot, int newVal) {
 		if (slot == 0) this.glowFurnace.cookTime = newVal;
 		if (slot == 1) this.glowFurnace.burnTime = newVal;
 		if (slot == 2) this.glowFurnace.currentBurnTime = newVal;
 	}
-	
+
 	// Player shift-click a slot.
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack stack = null;
@@ -80,16 +100,16 @@ public class ContainerGlowFurnace extends Container {
 			if (index < 8) {
 				if (!this.mergeItemStack(slotStack, 8, this.inventorySlots.size(), false)) return null;
 			}
-			
+
 			else if (!this.getSlot(0).isItemValid(slotStack) || !this.mergeItemStack(slotStack, 0, 4, false)) return null;
-			
+
 			if (slotStack.stackSize == 0) slot.putStack((ItemStack) null);
 			else slot.onSlotChanged();
-			
+
 			if (slotStack.stackSize == stack.stackSize) return null;
 			slot.onPickupFromSlot(player, slotStack);
 		}
-		
+
 		return stack;
 	}
 
@@ -97,7 +117,7 @@ public class ContainerGlowFurnace extends Container {
 		// return this.glowFurnace.isUseableByPlayer(player);
 		return true; // Let's make sure the player can always interact with this tileentity
 	}
-	
+
 	public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) {
 		return super.mergeItemStack(stack, start, end, reverse);
 	}

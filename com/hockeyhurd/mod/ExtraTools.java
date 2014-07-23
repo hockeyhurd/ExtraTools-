@@ -26,6 +26,7 @@ import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
+import com.hockeyhurd.item.ItemBottler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemDiamondSacrifice;
 import com.hockeyhurd.item.ItemGlowCoal;
@@ -101,6 +102,7 @@ public class ExtraTools {
 	public static Item glowCoal;
 	public static Item hockeyPuck;
 	public static Item rubber;
+	public static Item bottler;
 
 	// Tool materials.
 	public static ToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
@@ -170,6 +172,7 @@ public class ExtraTools {
 		glowCoal = new ItemGlowCoal();
 		rubber = new ItemRubber();
 		hockeyPuck = new ItemHockeyPuck();
+		bottler = new ItemBottler();
 
 		// Tool sets
 		glowPickaxeUnbreakable = new ItemGlowPickaxe(toolGlowUnbreakable);
@@ -237,6 +240,11 @@ public class ExtraTools {
 		GameRegistry.registerItem(glowCoal, "GlowCoal");
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");
+		GameRegistry.registerItem(bottler, "Bottler");
+		
+		GameRegistry.registerItem(hockeyStick, "HockeyStick");
+		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
+		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
 		GameRegistry.registerItem(glowSwordUnbreakable, "GlowSwordUnbreakable");
@@ -244,9 +252,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(glowShovelUnbreakable, "GlowShovelUnbreakable");
 		GameRegistry.registerItem(glowHammerUnbreakable, "GlowHammerUnbreakable");
 		GameRegistry.registerItem(glowExcavatorUnbreakable, "GlowExcavatorUnbreakable");
-		GameRegistry.registerItem(hockeyStick, "HockeyStick");
-		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
-		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
+		
 		GameRegistry.registerItem(glowHelmet, "GlowHelmet");
 		GameRegistry.registerItem(glowChestplate, "GlowChestplate");
 		GameRegistry.registerItem(glowLegging, "GlowLegging");

@@ -36,6 +36,13 @@ public class GuiGlowFurnace extends GuiContainer {
 		GL11.glColor4f(1f, 1f, 1f, 1f);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+		
+		if (this.glowFurnace.isBurning()) {
+			int i1 = this.glowFurnace.getBurnTimeRemainingScaled(13);
+            this.drawTexturedModalRect(guiLeft + 56, guiTop + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
+            i1 = this.glowFurnace.getCookProgressScaled(24);
+            this.drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 14, i1 + 1, 16);
+		}
 	}
 
 	
