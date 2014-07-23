@@ -1,0 +1,30 @@
+tile.glowRock.name = Glow Rock
+tile.glowOre.name = Glow Ore
+tile.glowTorch.name = Block of Glow
+
+tile.glowFurnaceOff.name = Glow Furnace
+
+item.glowDust.name = Glow Dust
+item.diamondFusedNetherStar.name = Encaptured Soul of The Nether
+item.glowIngot.name = Glow Ingot
+item.netherSoulCollector.name = Soul Collector of The Nether
+item.glowCoal.name = Glow Coal
+item.rubber.name = Rubber
+item.hockeyPuck.name = Hockey Puck
+item.fireryNetherStar.name = Enflamed Star of The Nether
+item.diamondDetector.name = Diamond Detector
+item.diamondSacrifice.name = Sacriment to The Nether!
+item.hockeyStick.name = Hockey Stick
+item.itemReplacer.name = Wand of Soul Replacement
+
+item.glowPickaxeUnbreakable.name = Pickaxe of The Lost Souls
+item.glowShovelUnbreakable.name = Glow Shovel
+item.glowHoeUnbreakable.name = Glow Hoe
+item.glowAxeUnbreakable.name = Glow Axe
+item.glowSwordUnbreakable.name = Glow Sword
+item.glowHammerUnbreakable.name = Glow Hammer
+item.glowExcavatorUnbreakable.name = Glow Excavator
+item.glowHelmet.name = Glow Helmet
+item.glowChestplate.name = Glow Chestplate
+item.glowLegging.name = Glow Leggings
+item.glowBoot.name = Glow Boots
