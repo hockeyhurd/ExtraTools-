@@ -205,7 +205,7 @@ public class ExtraTools {
 		registerItems();
 		addOreDict();
 		addFuelRegister();
-		addLocalizedNames();
+		// addLocalizedNames();
 		addCraftingRecipes();
 		addFurnaceRecipes();
 		// if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();

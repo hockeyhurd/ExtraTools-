@@ -25,7 +25,7 @@ public class ItemGlowExcavator extends ItemSpade {
 
 	public ItemGlowExcavator(ToolMaterial toolMat) {
 		super(toolMat);
-		this.setUnlocalizedName("GlowExcavator");
+		this.setUnlocalizedName("GlowExcavatorUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
 		mats = new ArrayList<Material>();

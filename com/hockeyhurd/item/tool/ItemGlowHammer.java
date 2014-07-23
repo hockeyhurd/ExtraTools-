@@ -26,7 +26,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 
 	public ItemGlowHammer(ToolMaterial material) {
 		super(material);
-		this.setUnlocalizedName("GlowHammer");
+		this.setUnlocalizedName("GlowHammerUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
 		mineAble = new ArrayList<Material>();
