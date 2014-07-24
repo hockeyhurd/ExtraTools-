@@ -19,6 +19,10 @@ public class Vector3IHelper {
 		this.sideHit = sideHit;
 	}
 	
+	public boolean hasSideHit() {
+		return this.sideHit > -1 ? true : false;
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}

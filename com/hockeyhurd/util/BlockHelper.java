@@ -28,6 +28,19 @@ public class BlockHelper {
 		
 	}
 	
+	public void setWorld(World world) {
+		this.world = world;
+	}
+	
+	public void setPlayer(EntityPlayer player) {
+		this.player = player;
+	}
+	
+	public void setWorldPlayer(World world, EntityPlayer player) {
+		setWorld(world);
+		setPlayer(player);
+	}
+	
 	public Block getBlock(int id) {
 		// return id > 0 && id < Block.blockRegistry. ? Block.blocksList[id] : null;
 		return (Block) Block.blockRegistry.getObjectById(id);
@@ -39,6 +52,14 @@ public class BlockHelper {
 	
 	public Block getBlockFromID(int id) {
 		return (blockListContains(id) ? (Block) Block.blockRegistry.getObjectById(id) : null);
+	}
+	
+	public boolean canMineBlock(int x, int y, int z) {
+		return canMineBlock(this.player, x, y, z);
+	}
+	
+	public boolean canMineBlock(EntityPlayer player, int x, int y, int z) {
+		return world.canMineBlock(player, x, y, z);
 	}
 	
 	public boolean blockExists(int x, int y, int z) {

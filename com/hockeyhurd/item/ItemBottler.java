@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -18,11 +19,15 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.Vector3IHelper;
+import com.hockeyhurd.util.Waila;
 
 public class ItemBottler extends Item {
 
 	private Entity entityToSpawn;
 	private String entityName;
+	private BlockHelper bh;
 
 	public ItemBottler() {
 		super();
@@ -31,6 +36,8 @@ public class ItemBottler extends Item {
 		this.setMaxDamage(1);
 		if (new ItemStack(this).getItemDamage() > 0) this.setMaxStackSize(1);
 		else this.setMaxStackSize(64);
+		
+		this.bh = new BlockHelper();
 	}
 
 	public void registerIcons(IIconRegister reg) {
@@ -42,7 +49,7 @@ public class ItemBottler extends Item {
 	}
 
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		if (!(entity instanceof EntityCreature)) return true;
+		if (!(entity instanceof EntityCreature) || stack.getItemDamage() > 0) return true;
 
 		Item item = stack.getItem();
 		ItemStack thisStack = new ItemStack(item, 1, 1);
@@ -80,7 +87,7 @@ public class ItemBottler extends Item {
 
 	private void decreaseStackSize(ItemStack stack, int slotNum, EntityPlayer player) {
 		if (stack.stackSize > 0) stack.stackSize--;
-		else if (stack.stackSize < 1) {
+		if (stack.stackSize < 1) {
 			stack.stackSize = 0;
 			player.inventory.setInventorySlotContents(slotNum, (ItemStack) null);
 		}
@@ -90,74 +97,47 @@ public class ItemBottler extends Item {
 		return stack.getItemDamage() > 0;
 	}
 
-	/*
-	 * public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) { if (!canPlaceEntity(stack)) return stack;
-	 * 
-	 * else { if (this.entityToSpawn != null && !world.isRemote) { spawnCreature(world, player.posX, player.posY, player.posZ); }
-	 * 
-	 * int slotNum = checkInvForStack(new ItemStack(this, 1, 0), player); if (slotNum != -1) { player.inventory.getStackInSlot(slotNum).stackSize++; player.onUpdate(); return stack; } else if (slotNum == -1) checkInvForStack((ItemStack) null, player);
-	 * 
-	 * if (slotNum != -1) { player.inventory.setInventorySlotContents(slotNum, new ItemStack(this, 1, 0)); player.onUpdate(); return stack; } else if (slotNum == -1) world.spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, new ItemStack(this, 1, 1)));
-	 * 
-	 * player.onUpdate(); return stack; } }
-	 */
-
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (world.isRemote || !canPlaceEntity(stack)) return stack;
 		else {
-			MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
-
-			if (movingobjectposition == null) return stack;
-			else {
-				if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-					int xx = movingobjectposition.blockX;
-					int yy = movingobjectposition.blockY;
-					int zz = movingobjectposition.blockZ;
-
-					if (!world.canMineBlock(player, xx, yy, zz)) return stack;
-					if (!player.canPlayerEdit(xx, yy, zz, movingobjectposition.sideHit, stack)) return stack;
-
-					if (world.getBlock(xx, yy, zz) instanceof BlockLiquid) {
-						Entity entity = spawnCreature(world, (double) xx, (double) yy, (double) zz);
-
-						if (entity != null) {
-							if (entity instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
-
-							if (!player.capabilities.isCreativeMode) stack.stackSize--;
-						}
+			bh.setWorldPlayer(world, player);
+			Waila waila = new Waila(stack, world, player, null, false, false);
+			waila.finder(false);
+			
+			Vector3IHelper vec = waila.getVector3I();
+			
+			if (vec != null) {
+				if (!bh.canMineBlock(0, 0, 0)) return stack;
+				if (!player.canPlayerEdit(vec.getX(), vec.getY(), vec.getZ(), vec.getSideHit(), stack)) return stack;
+				
+				if (bh.getBlock(vec.getX(), vec.getY(), vec.getZ()) instanceof BlockLiquid) {
+					Entity e = spawnCreature(world, (double) vec.getX(), (double) vec.getY(), (double) vec.getZ());
+					
+					if (e != null) {
+						if (e instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) e).setCustomNameTag(stack.getDisplayName());
+						if (!player.capabilities.isCreativeMode) stack.stackSize--;
 					}
 				}
-
-				return stack;
 			}
+			
+			return stack;
 		}
 	}
 
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
-		if (p_77648_3_.isRemote) {
-			return true;
-		}
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+		if (world.isRemote) return true;
 		else {
-			Block block = p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_);
-			p_77648_4_ += Facing.offsetsXForSide[p_77648_7_];
-			p_77648_5_ += Facing.offsetsYForSide[p_77648_7_];
-			p_77648_6_ += Facing.offsetsZForSide[p_77648_7_];
+			Block block = world.getBlock(x, y, z);
+			x += Facing.offsetsXForSide[p_77648_7_];
+			y += Facing.offsetsYForSide[p_77648_7_];
+			z += Facing.offsetsZForSide[p_77648_7_];
 			double d0 = 0.0D;
+			if (p_77648_7_ == 1 && block.getRenderType() == 11) d0 = 0.5D;
 
-			if (p_77648_7_ == 1 && block.getRenderType() == 11) {
-				d0 = 0.5D;
-			}
-
-			Entity entity = spawnCreature(p_77648_3_, (double) p_77648_4_ + 0.5D, (double) p_77648_5_ + d0, (double) p_77648_6_ + 0.5D);
-
+			Entity entity = spawnCreature(world, (double) x + 0.5D, (double) y + d0, (double) z + 0.5D);
 			if (entity != null) {
-				if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
-					((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
-				}
-
-				if (!player.capabilities.isCreativeMode) {
-					--stack.stackSize;
-				}
+				if (entity instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
+				if (!player.capabilities.isCreativeMode) stack.stackSize--;
 			}
 
 			return true;
@@ -168,7 +148,6 @@ public class ItemBottler extends Item {
 		Entity entity = null;
 
 		for (int j = 0; j < 1; j++) {
-			// entity = this.entityToSpawn;
 			entity = EntityList.createEntityByName(this.entityName, world);
 
 			if (entity != null && entity instanceof EntityLivingBase) {
@@ -176,7 +155,7 @@ public class ItemBottler extends Item {
 				entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
 				entityliving.rotationYawHead = entityliving.rotationYaw;
 				entityliving.renderYawOffset = entityliving.rotationYaw;
-				// entityliving.onSpawnWithEgg((IEntityLivingData) null);
+				entityliving.onSpawnWithEgg((IEntityLivingData) null);
 
 				System.out.println("Enitity: " + entity + ", Stored Entity: " + this.entityToSpawn);
 				world.spawnEntityInWorld(entity);
