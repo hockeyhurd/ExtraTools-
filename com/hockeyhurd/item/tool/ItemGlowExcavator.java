@@ -20,7 +20,7 @@ import com.hockeyhurd.util.Waila;
 
 public class ItemGlowExcavator extends ItemSpade {
 
-	private List<Material> mats;
+	private Material[] mats;
 	private TimerHelper th;
 
 	public ItemGlowExcavator(ToolMaterial toolMat) {
@@ -28,18 +28,11 @@ public class ItemGlowExcavator extends ItemSpade {
 		this.setUnlocalizedName("GlowExcavatorUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
-		mats = new ArrayList<Material>();
-		loadMats();
+		mats = new Material[] {
+				Material.grass, Material.ground, Material.sand, Material.snow, Material.clay
+		};
 
 		th = new TimerHelper(10, 2);
-	}
-
-	private void loadMats() {
-		mats.add(Material.grass);
-		mats.add(Material.ground);
-		mats.add(Material.sand);
-		mats.add(Material.snow);
-		mats.add(Material.clay);
 	}
 
 	public void registerIcons(IIconRegister reg) {
@@ -61,9 +54,14 @@ public class ItemGlowExcavator extends ItemSpade {
 		BlockHelper bh = new BlockHelper(world, player);
 		Block block = bh.getBlock(x, y, z);
 		Material mat = bh.getBlockMaterial(x, y, z);
+		boolean contains = false;
+
+		for (int i = 0; i < mats.length; i++) {
+			if (mats[i] == mat) contains = true;
+		}
 
 		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking() || !mats.contains(mat)) return true;
+		if (player.isSneaking() || !contains) return true;
 
 		Waila waila = new Waila(stack, world, player, block, false, false);
 
@@ -80,7 +78,7 @@ public class ItemGlowExcavator extends ItemSpade {
 
 		return true;
 	}
-	
+
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		list.add("Unbreakable!");
 		list.add("Digs a 3x3 area");

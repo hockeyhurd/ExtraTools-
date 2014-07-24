@@ -21,7 +21,7 @@ import com.hockeyhurd.util.Waila;
 public class ItemGlowHammer extends ItemPickaxe {
 
 	private final Block torch = ExtraTools.glowTorch;
-	private List<Material> mineAble;
+	private Material[] mineAble;
 	private TimerHelper th;
 
 	public ItemGlowHammer(ToolMaterial material) {
@@ -29,15 +29,11 @@ public class ItemGlowHammer extends ItemPickaxe {
 		this.setUnlocalizedName("GlowHammerUnbreakable");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 
-		mineAble = new ArrayList<Material>();
-		loadMats();
+		mineAble = new Material[] {
+				Material.rock, Material.iron
+		};
 
 		th = new TimerHelper(10, 2);
-	}
-
-	private void loadMats() {
-		mineAble.add(Material.rock);
-		mineAble.add(Material.iron);
 	}
 
 	public void registerIcons(IIconRegister reg) {
@@ -59,9 +55,14 @@ public class ItemGlowHammer extends ItemPickaxe {
 		BlockHelper bh = new BlockHelper(world, player);
 		Block block = bh.getBlock(x, y, z);
 		Material mat = bh.getBlockMaterial(x, y, z);
+		boolean contains = false;
+
+		for (int i = 0; i < mineAble.length; i++) {
+			if (mineAble[i] == mat) contains = true;
+		}
 
 		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking() || !mineAble.contains(mat)) return true;
+		if (player.isSneaking() || !contains) return true;
 
 		Waila waila = new Waila(stack, world, player, block, false, false);
 
@@ -71,10 +72,10 @@ public class ItemGlowHammer extends ItemPickaxe {
 		// Makes sure the matwhitelist is in sync.
 		waila.setMatWhiteList(mineAble);
 
-		 if (!world.isRemote && (!th.use || th.excuser())) {
+		if (!world.isRemote && (!th.use || th.excuser())) {
 			waila.finder();
 			th.setUse(true);
-		 }
+		}
 
 		return true;
 	}
