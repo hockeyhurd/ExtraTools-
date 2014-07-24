@@ -22,7 +22,7 @@ public class BlockHelper {
 		this.player = player;
 	}
 	
-	// Only use this constructor is there is no need with world or player interaction! i.e. block parameters.
+	// Only use this constructor if there is no need with world or player interaction! i.e. block parameters.
 	@Deprecated
 	public BlockHelper() {
 		
@@ -50,12 +50,24 @@ public class BlockHelper {
 		return world.getBlock(x, y, z);
 	}
 	
+	public Block getBlock(Vector3IHelper vec) {
+		return getBlock(vec.getX(), vec.getY(), vec.getZ());
+	}
+	
 	public Block getBlockFromID(int id) {
 		return (blockListContains(id) ? (Block) Block.blockRegistry.getObjectById(id) : null);
 	}
 	
 	public boolean canMineBlock(int x, int y, int z) {
 		return canMineBlock(this.player, x, y, z);
+	}
+	
+	public boolean canMineBlock(Vector3IHelper vec) {
+		return canMineBlock(vec.getX(), vec.getY(), vec.getZ());
+	}
+	
+	public boolean canMineBlock(EntityPlayer player, Vector3IHelper vec) {
+		return canMineBlock(player, vec.getX(), vec.getY(), vec.getZ());
 	}
 	
 	public boolean canMineBlock(EntityPlayer player, int x, int y, int z) {
@@ -66,13 +78,25 @@ public class BlockHelper {
 		return world.blockExists(x, y, z);
 	}
 	
+	public boolean blockExists(Vector3IHelper vec) {
+		return blockExists(vec.getX(), vec.getY(), vec.getZ());
+	}
+	
 	public int getBlockMetaData(int x, int y, int z) {
 		return world.getBlockMetadata(x, y, z);
+	}
+	
+	public int getBlockMetaData(Vector3IHelper vec) {
+		return getBlockMetaData(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
 	// Returns the block's material
 	public Material getBlockMaterial(int x, int y, int z) {
 		return world.getBlock(x, y, z).getMaterial();
+	}
+	
+	public Material getBlockMaterial(Vector3IHelper vec) {
+		return getBlockMaterial(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
 	// Set to depreciated until further tested, however is likely it works.
@@ -108,8 +132,20 @@ public class BlockHelper {
 		return block != null && block != Blocks.air && Block.blockRegistry.containsKey(block) ? true : false;
 	}
 	
+	public void destroyBlock(int x, int y, int z) {
+		destroyBlock(x, y, z, true);
+	}
+	
 	public void destroyBlock(int x, int y, int z, boolean drop) {
 		world.func_147480_a(x, y, z, drop);
+	}
+	
+	public void destroyBlock(Vector3IHelper vec, boolean drop) {
+		destroyBlock(vec.getX(), vec.getY(), vec.getZ(), drop);
+	}
+	
+	public void destroyBlock(Vector3IHelper vec) {
+		destroyBlock(vec, true);
 	}
 	
 }
