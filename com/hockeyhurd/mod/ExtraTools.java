@@ -205,7 +205,6 @@ public class ExtraTools {
 		registerItems();
 		addOreDict();
 		addFuelRegister();
-		// addLocalizedNames();
 		addCraftingRecipes();
 		addFurnaceRecipes();
 		// if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
@@ -271,49 +270,6 @@ public class ExtraTools {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 
-	private void addLocalizedNames() {
-		// Blocks
-		LanguageRegistry.addName(glowRock, "Glow Rock");
-		LanguageRegistry.addName(glowOre, "Glow Ore");
-		LanguageRegistry.addName(glowTorch, "Glow Torch");
-		LanguageRegistry.addName(glowIngotBlock, "Block of Glow'");
-
-		// Machines
-		LanguageRegistry.addName(glowFurnaceOff, "Glow Furnace");
-		LanguageRegistry.addName(glowFurnaceOn, "Glow Furnace");
-
-		// Items
-		LanguageRegistry.addName(glowDust, "Glow Dust");
-		LanguageRegistry.addName(diamondFusedNetherStar, "Encaptured Soul of The Nether");
-		LanguageRegistry.addName(glowIngot, "Glow Ingot");
-		LanguageRegistry.addName(netherSoulCollector, "Soul Collector of The Nether");
-		LanguageRegistry.addName(glowCoal, "Glow Coal");
-		LanguageRegistry.addName(rubber, "Rubber");
-		LanguageRegistry.addName(hockeyPuck, "Hockey Puck");
-		LanguageRegistry.addName(fireryNetherStar, "Enflamed Star of The Nether");
-		LanguageRegistry.addName(diamondDetector, "Diamond Detector");
-		LanguageRegistry.addName(diamondSacrifice, "Sacriment to The Nether!");
-
-		// Other tools
-		LanguageRegistry.addName(hockeyStick, "Hockey Stick");
-		LanguageRegistry.addName(itemReplacer, "Wand of Soul Replacement");
-
-		// Glow Toolset
-		LanguageRegistry.addName(glowPickaxeUnbreakable, "Pickaxe of The Lost Souls");
-		LanguageRegistry.addName(glowShovelUnbreakable, "Glow Shovel");
-		LanguageRegistry.addName(glowHoeUnbreakable, "Glow Hoe");
-		LanguageRegistry.addName(glowAxeUnbreakable, "Glow Axe");
-		LanguageRegistry.addName(glowSwordUnbreakable, "Glow Sword");
-		LanguageRegistry.addName(glowHammerUnbreakable, "Glow Hammer");
-		LanguageRegistry.addName(glowExcavatorUnbreakable, "Glow Excavator");
-
-		// Glow Armor set
-		LanguageRegistry.addName(glowHelmet, "Glow Helmet");
-		LanguageRegistry.addName(glowChestplate, "Glow Chestplate");
-		LanguageRegistry.addName(glowLegging, "Glow Leggings");
-		LanguageRegistry.addName(glowBoot, "Glow Boots");
-	}
-
 	private void addCraftingRecipes() {
 		// General purpose items.
 		final String STICK = "stickWood";
@@ -361,6 +317,11 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
 			"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod
 		});
+		
+		// Crafting the 'Item Bottler'
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
+			"xy", 'x', "dustGlow", 'y', Items.glass_bottle 
+		}));
 
 		// Crafting the ItemReplacer Tool
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReplacer, 1), new Object[] {
