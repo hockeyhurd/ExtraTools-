@@ -46,7 +46,7 @@ public class ItemBottler extends Item {
 
 		Item item = stack.getItem();
 		ItemStack thisStack = new ItemStack(item, 1, 1);
-		item.setUnlocalizedName("Bottled: " + entity.toString());
+		thisStack.setStackDisplayName("Bottled: " + entity.toString());
 
 		this.entityToSpawn = entity;
 		this.entityName = EntityList.getEntityString(entity);
@@ -102,42 +102,33 @@ public class ItemBottler extends Item {
 	 * player.onUpdate(); return stack; } }
 	 */
 
-	public ItemStack onItemRightClick(ItemStack p_77659_1_, World p_77659_2_, EntityPlayer p_77659_3_) {
-		if (p_77659_2_.isRemote) {
-			return p_77659_1_;
-		}
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if (world.isRemote || !canPlaceEntity(stack)) return stack;
 		else {
-			MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(p_77659_2_, p_77659_3_, true);
+			MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
 
-			if (movingobjectposition == null) {
-				return p_77659_1_;
-			}
+			if (movingobjectposition == null) return stack;
 			else {
 				if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-					int i = movingobjectposition.blockX;
-					int j = movingobjectposition.blockY;
-					int k = movingobjectposition.blockZ;
+					int xx = movingobjectposition.blockX;
+					int yy = movingobjectposition.blockY;
+					int zz = movingobjectposition.blockZ;
 
-					if (!p_77659_2_.canMineBlock(p_77659_3_, i, j, k)) { return p_77659_1_; }
+					if (!world.canMineBlock(player, xx, yy, zz)) return stack;
+					if (!player.canPlayerEdit(xx, yy, zz, movingobjectposition.sideHit, stack)) return stack;
 
-					if (!p_77659_3_.canPlayerEdit(i, j, k, movingobjectposition.sideHit, p_77659_1_)) { return p_77659_1_; }
-
-					if (p_77659_2_.getBlock(i, j, k) instanceof BlockLiquid) {
-						Entity entity = spawnCreature(p_77659_2_, (double) i, (double) j, (double) k);
+					if (world.getBlock(xx, yy, zz) instanceof BlockLiquid) {
+						Entity entity = spawnCreature(world, (double) xx, (double) yy, (double) zz);
 
 						if (entity != null) {
-							if (entity instanceof EntityLivingBase && p_77659_1_.hasDisplayName()) {
-								((EntityLiving) entity).setCustomNameTag(p_77659_1_.getDisplayName());
-							}
+							if (entity instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
 
-							if (!p_77659_3_.capabilities.isCreativeMode) {
-								--p_77659_1_.stackSize;
-							}
+							if (!player.capabilities.isCreativeMode) stack.stackSize--;
 						}
 					}
 				}
 
-				return p_77659_1_;
+				return stack;
 			}
 		}
 	}

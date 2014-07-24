@@ -42,6 +42,7 @@ public class Waila {
 	private int sideHit = 0;
 	private int offset;
 	private int metaData;
+	private Vector3IHelper vec;
 	private boolean returnState = false;
 
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
@@ -99,12 +100,11 @@ public class Waila {
 		this.offset = (offset > 0 ? offset : 0);
 	}
 
-	public ItemStack finder() {
-		return finder(true);
+	public void finder() {
+		finder(true);
 	}
 
-	// We return stack to avoid any remote possible item damaging.
-	public ItemStack finder(boolean handler) {
+	public void finder(boolean handler) {
 		if (stack.getItemDamage() >= 0) {
 			float f = 1.0F;
 
@@ -165,7 +165,7 @@ public class Waila {
 
 			// Make sure there is no possibility the entity (player) is not
 			// looking at 'null'.
-			if (movingObjectPos == null) return stack;
+			if (movingObjectPos == null) return;
 
 			// Check if the vector ray intersects with some sort of TILE
 			// if (movingObjectPos.typeOfHit == MovingObjectType.TILE) {
@@ -182,12 +182,15 @@ public class Waila {
 				// print("Side: " + sideHit);
 
 				if (handler) placeBlockHandler(world, xx, yy, zz, sideHit);
-				else setSideHit(sideHit);
+				else {
+					setSideHit(sideHit);
+					setVector3I(xx, yy, zz, sideHit);
+				}
 			}
 
 			stack.setItemDamage(0);
 		}
-		return stack;
+		return;
 	}
 
 	private void placeBlockHandler(World world, int xx, int yy, int zz, int sideHit) {
@@ -245,8 +248,17 @@ public class Waila {
 		}
 	}
 
+	@Deprecated
 	private void setSideHit(int sideHit) {
 		this.sideHit = sideHit;
+	}
+	
+	public Vector3IHelper getVector3I() {
+		return this.vec;
+	}
+	
+	private void setVector3I(int x, int y, int z, int sideHit) {
+		this.vec = new Vector3IHelper(x, y, z, sideHit);
 	}
 
 	public int getSideHit() {
