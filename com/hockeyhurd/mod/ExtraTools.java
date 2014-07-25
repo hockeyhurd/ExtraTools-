@@ -247,7 +247,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");
 		GameRegistry.registerItem(bottler, "Bottler");
-		
+
 		GameRegistry.registerItem(hockeyStick, "HockeyStick");
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
@@ -258,7 +258,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(glowShovelUnbreakable, "GlowShovelUnbreakable");
 		GameRegistry.registerItem(glowHammerUnbreakable, "GlowHammerUnbreakable");
 		GameRegistry.registerItem(glowExcavatorUnbreakable, "GlowExcavatorUnbreakable");
-		
+
 		GameRegistry.registerItem(glowHelmet, "GlowHelmet");
 		GameRegistry.registerItem(glowChestplate, "GlowChestplate");
 		GameRegistry.registerItem(glowLegging, "GlowLegging");
@@ -300,20 +300,22 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
 				" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Blocks.furnace
 		}));
-		
+
 		// Crafting the ExtraSmoothStone
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {
-			"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
+				"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
 		}));
 
-		// Nether Start Firery
+		// Nether Star Firery
 		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
-				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', glowIngot, 'z', Items.nether_star
+				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', glowIngot, 'z', !ch.easyRecipes ? Items.nether_star : Items.diamond
 		});
-		
-		GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
-			"xxx", "xyx", "xxx", 'x', diamondSacrifice, 'y', Blocks.redstone_block
-		});			
+
+		if (ch.altFireStarRecipe) {
+			GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
+					"xxx", "xyx", "xxx", 'x', diamondSacrifice, 'y', Blocks.redstone_block
+			});
+		}
 
 		// DiamondNetherStarIngot recipe
 		GameRegistry.addRecipe(new ItemStack(diamondFusedNetherStar, 1), new Object[] {
@@ -324,15 +326,15 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ItemStack(netherSoulCollector, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', glowIngot, 'y', Items.gold_ingot, 'z', diamondFusedNetherStar
 		});
-		
+
 		// Crafting the 'Black Diamond'
 		GameRegistry.addRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
-			"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod
+				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod
 		});
-		
+
 		// Crafting the 'Item Bottler'
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
-			"xy", 'x', "dustGlow", 'y', Items.glass_bottle 
+				"xy", 'x', "dustGlow", 'y', Items.glass_bottle
 		}));
 
 		// Crafting the ItemReplacer Tool
@@ -400,7 +402,7 @@ public class ExtraTools {
 
 		// Crafting the glow hammer
 		ItemStack HAMMER = new ItemStack(glowHammerUnbreakable, 1);
-		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Change this!
+		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Adjust this!
 		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
 				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Items.diamond, 'z', STICK

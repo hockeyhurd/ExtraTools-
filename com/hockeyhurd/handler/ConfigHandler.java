@@ -22,6 +22,10 @@ public class ConfigHandler {
 	private DefaultIDHandler dh;
 	private BlockHelper bh;
 	private ItemHelper ih;
+	
+	// Properties:
+	public boolean easyRecipes = false;
+	public boolean altFireStarRecipe = true;
 
 	public ConfigHandler(FMLPreInitializationEvent event) {
 		this.event = event;
@@ -37,6 +41,10 @@ public class ConfigHandler {
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
+
+		easyRecipes = config.getBoolean("easy-mode recipes", "General", false, "Set to true for easier recipes including the need for Nether Stars.");
+		altFireStarRecipe = config.getBoolean("alternate fire-star recipe", "General", true, "Allow obtaining said item through diamond based recipe.");
+		
 		config.save();
 
 		// initLists();
