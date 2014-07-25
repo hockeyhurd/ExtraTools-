@@ -166,10 +166,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 
 	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int par1) {
-		if (this.currentBurnTime == 0) {
-			this.currentBurnTime = defaultCookTime;
-		}
-
+		if (this.currentBurnTime == 0) this.currentBurnTime = defaultCookTime;
 		return this.burnTime * par1 / this.currentBurnTime;
 	}
 
@@ -181,9 +178,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 		boolean flag = this.burnTime > 0;
 		boolean flag1 = false;
 
-		if (this.burnTime > 0) {
-			--this.burnTime;
-		}
+		if (this.burnTime > 0) this.burnTime--;
 
 		if (!this.worldObj.isRemote) {
 			if (this.burnTime == 0 && this.canSmelt()) {
@@ -193,7 +188,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 					flag1 = true;
 
 					if (this.furnaceItemStacks[1] != null) {
-						--this.furnaceItemStacks[1].stackSize;
+						this.furnaceItemStacks[1].stackSize--;
 
 						if (this.furnaceItemStacks[1].stackSize == 0) {
 							this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem().getContainerItem(furnaceItemStacks[1]);
@@ -203,7 +198,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 			}
 
 			if (this.isBurning() && this.canSmelt()) {
-				++this.cookTime;
+				this.cookTime++;
 
 				if (this.cookTime == scaledTime) {
 					this.cookTime = 0;
@@ -211,9 +206,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 					flag1 = true;
 				}
 			}
-			else {
-				this.cookTime = 0;
-			}
+			else this.cookTime = 0;
 
 			if (flag != this.burnTime > 0) {
 				flag1 = true;
@@ -254,7 +247,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 				furnaceItemStacks[2].stackSize += itemstack.stackSize;
 			}
 
-			--this.furnaceItemStacks[0].stackSize;
+			this.furnaceItemStacks[0].stackSize--;
 
 			if (this.furnaceItemStacks[0].stackSize <= 0) {
 				this.furnaceItemStacks[0] = null;
@@ -263,9 +256,7 @@ public class TileEntityGlowFurnace extends TileEntity implements ISidedInventory
 	}
 
 	public static int getItemBurnTime(ItemStack stack) {
-		if (stack == null) {
-			return 0;
-		}
+		if (stack == null) return 0;
 		else {
 			Item item = stack.getItem();
 

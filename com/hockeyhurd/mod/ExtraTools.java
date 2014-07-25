@@ -15,6 +15,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import com.hockeyhurd.block.BlockExtraSmoothStone;
 import com.hockeyhurd.block.BlockGlowIngot;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
@@ -59,7 +60,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.6.2")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.6.3")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -78,6 +79,7 @@ public class ExtraTools {
 	public static Block glowRock;
 	public static Block glowTorch;
 	public static Block glowIngotBlock;
+	public static Block extraSmoothStone;
 
 	// Machines
 	public static Block glowFurnaceOff;
@@ -88,6 +90,7 @@ public class ExtraTools {
 
 	// Ores
 	public static Block glowOre;
+	public static Block glowOreNether;
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
@@ -154,6 +157,7 @@ public class ExtraTools {
 		glowRock = new BlockGlowRock(Material.glass);
 		glowTorch = new BlockGlowTorch();
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
+		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
 
 		// Machines
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
@@ -161,12 +165,13 @@ public class ExtraTools {
 
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock);
+		glowOreNether = new BlockGlowOreNether(Material.rock);
 
 		// Items
 		glowDust = new ItemGlowDust();
 		glowIngot = new ItemGlowIngot();
 		diamondFusedNetherStar = new ItemDiamondFusedNetherStar();
-		netherSoulCollector = new ItemNetherSoulCollector(false);
+		netherSoulCollector = new ItemNetherSoulCollector();
 		fireryNetherStar = new ItemNetherStarFirery();
 		diamondSacrifice = new ItemDiamondSacrifice();
 		glowCoal = new ItemGlowCoal();
@@ -223,10 +228,12 @@ public class ExtraTools {
 	private void registerBlocks() {
 		GameRegistry.registerBlock(glowRock, "GlowRock");
 		GameRegistry.registerBlock(glowOre, "GlowOre");
+		GameRegistry.registerBlock(glowOreNether, "GlowOreNether");
 		GameRegistry.registerBlock(glowTorch, "GlowTorchOn");
 		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
 		GameRegistry.registerBlock(glowFurnaceOff, "GlowFurnaceOff");
 		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
+		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
 	}
 
 	private void registerItems() {
@@ -292,6 +299,11 @@ public class ExtraTools {
 		// Crafting the glow furnace
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
 				" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Blocks.furnace
+		}));
+		
+		// Crafting the ExtraSmoothStone
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {
+			"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
 		}));
 
 		// Nether Start Firery

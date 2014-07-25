@@ -26,9 +26,10 @@ public class ItemNetherSoulCollector extends Item {
 	private static boolean isActive;
 	private IIcon iconOverlay;
 
-	public ItemNetherSoulCollector(boolean state) {
+	public ItemNetherSoulCollector() {
 		super();
-		isActive = state;
+		isActive = new ItemStack(this, 1).getItemDamage() > 0 ? true : false;
+		
 		this.setUnlocalizedName("NetherSoulCollector");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 		this.setMaxDamage(0);

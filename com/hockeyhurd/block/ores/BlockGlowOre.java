@@ -9,6 +9,9 @@ import net.minecraft.item.Item;
 
 import com.hockeyhurd.mod.ExtraTools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockGlowOre extends Block {
 
 	public BlockGlowOre(Material material) {
@@ -20,6 +23,7 @@ public class BlockGlowOre extends Block {
 		this.setResistance(5);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowOre");
 	}

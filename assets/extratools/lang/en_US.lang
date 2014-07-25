@@ -1,7 +1,9 @@
 tile.GlowRock.name=Glow Rock
 tile.GlowOre.name=Glow Ore
+tile.BlockGlowOreNether.name=Glow Ore
 tile.GlowTorch.name=Glow Torch
 tile.GlowIngotBlock.name=Block of Glow
+tile.ExtraSmoothStone.name='Stone'
 
 tile.GlowFurnaceOff.name=Glow Furnace
 
@@ -17,6 +19,7 @@ item.DiamondDetector.name=Diamond Detector
 item.DiamondSacrifice.name=Sacriment to The Nether!
 item.HockeyStick.name=Hockey Stick
 item.ItemReplacer.name=Wand of Soul Replacement
+item.EntityBottler.name=Entity Bottler
 
 item.GlowPickaxeUnbreakable.name=Pickaxe of The Lost Souls
 item.GlowShovelUnbreakable.name=Glow Shovel
