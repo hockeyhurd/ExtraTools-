@@ -267,10 +267,12 @@ public class ExtraTools {
 
 	private void addOreDict() {
 		OreDictionary.registerOre("oreGlow", glowOre);
+		OreDictionary.registerOre("oreGlow", glowOreNether);
 		OreDictionary.registerOre("dustGlow", glowDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
 		OreDictionary.registerOre("itemRubber", rubber);
+		OreDictionary.registerOre("stone", extraSmoothStone);
 	}
 
 	private void addFuelRegister() {
