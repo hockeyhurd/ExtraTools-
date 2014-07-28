@@ -10,9 +10,10 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.ChunkHelper;
+import com.hockeyhurd.util.IToolDetector;
 import com.hockeyhurd.util.TimerHelper;
 
-public class ItemDiamondDetector extends Item {
+public class ItemDiamondDetector extends Item implements IToolDetector {
 
 	private boolean inUse = false;
 	private TimerHelper th;

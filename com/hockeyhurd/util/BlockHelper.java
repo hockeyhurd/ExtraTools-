@@ -116,7 +116,7 @@ public class BlockHelper {
 	public boolean blockListContains(int id) {
 		Block b = getBlock(id);
 		
-		if (b != null && b != Blocks.air) return false;
+		if (b == null || b == Blocks.air) return false;
 		Block block = null;
 		
 		Iterator iter = Block.blockRegistry.iterator();
@@ -126,6 +126,12 @@ public class BlockHelper {
 		}
 		
 		return block != null && block != Blocks.air ? true : false;
+	}
+	
+	public boolean blockListContains(Block block) {
+		int id = Block.getIdFromBlock(block);
+		Block b = Block.getBlockById(id); 
+		return b != null && b != Blocks.air ? true : false; 
 	}
 	
 	public boolean isABlock(Block block) {

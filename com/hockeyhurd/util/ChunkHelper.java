@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
@@ -29,7 +30,8 @@ public class ChunkHelper {
 	// Searches chunk for a block.
 	public void searchChunk(Block blockToFind) {
 		// Make sure I didn't derp up anything and the block to be searched for is an actual block.
-		if (blockToFind == null || !bh.isABlock(blockToFind)) {
+		// if (blockToFind == null || !bh.isABlock(blockToFind)) {
+		if (blockToFind == null || !bh.blockListContains(blockToFind)) {
 			System.err.println("Block to find is not a block!");
 			return;
 		}
@@ -49,7 +51,7 @@ public class ChunkHelper {
 					// Get the block id of the block being analyzed,
 					Block block = bh.getBlock(chunkX + x, y, chunkZ + z);
 					// If the block id is not of 'air' and it matches the desired block, add it to the list.
-					if (block != null && bh.isABlock(block) && block == blockToFind) {
+					if (block != null && block != Blocks.air && bh.blockListContains(block) && block == blockToFind) {
 						Block block2 = blockToFind;
 						list.add(block2);
 						// System.out.println("Diamond added at pos: (" + x + ", " + y + ", " + z + ").");
@@ -62,7 +64,7 @@ public class ChunkHelper {
 		
 		// Print out to the player how much of the given block is currently in the chunk they are standing in.
 		int amount = list.size();
-		// player.sendChatToPlayer(ChatMessageComponent.createFromText(amount + " " + bh.getLocalized(blockToFind) + "(s) diamonds left to be found!"));
+		player.addChatComponentMessage(new ChatHelper().comp(amount + " " + bh.getLocalized(blockToFind) + "(s) diamonds left to be found!"));
 		
 		// Make sure the list removed from memory.
 		list.removeAll(Collections.EMPTY_LIST);
