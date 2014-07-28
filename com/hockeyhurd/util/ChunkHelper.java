@@ -30,7 +30,6 @@ public class ChunkHelper {
 	// Searches chunk for a block.
 	public void searchChunk(Block blockToFind) {
 		// Make sure I didn't derp up anything and the block to be searched for is an actual block.
-		// if (blockToFind == null || !bh.isABlock(blockToFind)) {
 		if (blockToFind == null || !bh.blockListContains(blockToFind)) {
 			System.err.println("Block to find is not a block!");
 			return;
@@ -54,7 +53,6 @@ public class ChunkHelper {
 					if (block != null && block != Blocks.air && bh.blockListContains(block) && block == blockToFind) {
 						Block block2 = blockToFind;
 						list.add(block2);
-						// System.out.println("Diamond added at pos: (" + x + ", " + y + ", " + z + ").");
 					}
 					
 					else continue;
