@@ -77,6 +77,7 @@ public class ExtraTools {
 
 	public static String modPrefix = "extratools:";
 	
+	// Config object
 	public static ConfigHandler ch;
 
 	// Blocks
