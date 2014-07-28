@@ -60,7 +60,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v0.1.6.4")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.1")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -371,7 +371,7 @@ public class ExtraTools {
 		pick.addEnchantment(Enchantment.fortune, 4);
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(pick, new Object[] {
-				"yxy", " z ", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'z', STICK
+				"yxy", " z ", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'z', Items.blaze_rod
 		}));
 
 		// Crafting the sword
@@ -380,27 +380,27 @@ public class ExtraTools {
 		SWORD.addEnchantment(Enchantment.sharpness, 5);
 		SWORD.addEnchantment(Enchantment.looting, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SWORD, new Object[] {
-				" w ", " x ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'z', STICK
+				" w ", " x ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'z', Items.blaze_rod
 		}));
 
 		// Crafting the axe
 		ItemStack AXE = new ItemStack(glowAxeUnbreakable, 1);
 		AXE.addEnchantment(Enchantment.efficiency, 5);
 		GameRegistry.addRecipe(new ShapedOreRecipe(AXE, new Object[] {
-				"wx ", "xy ", " y ", 'w', diamondFusedNetherStar, 'x', glowIngot, 'y', STICK,
+				"wx ", "xy ", " y ", 'w', diamondFusedNetherStar, 'x', glowIngot, 'y', Items.blaze_rod,
 		}));
 
 		// Crafting the glowHoe
 		ItemStack HOE = new ItemStack(glowHoeUnbreakable, 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HOE, new Object[] {
-				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', STICK
+				"wx ", "yz ", " z ", 'w', glowIngot, 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', Items.blaze_rod
 		}));
 
 		// Crafting the glow Shovel
 		ItemStack SHOVEL = new ItemStack(glowShovelUnbreakable, 1);
 		SHOVEL.addEnchantment(Enchantment.efficiency, 5);
 		GameRegistry.addRecipe(new ShapedOreRecipe(SHOVEL, new Object[] {
-				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', STICK
+				" x ", " y ", " y ", 'x', diamondFusedNetherStar, 'y', Items.blaze_rod
 		}));
 
 		// Crafting the glow hammer
@@ -408,13 +408,13 @@ public class ExtraTools {
 		// HAMMER.addEnchantment(Enchantment.efficiency, 5); // TODO: Adjust this!
 		HAMMER.addEnchantment(Enchantment.fortune, 4);
 		GameRegistry.addRecipe(new ShapedOreRecipe(HAMMER, new Object[] {
-				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Items.diamond, 'z', STICK
+				"yxy", "wzw", " z ", 'x', diamondFusedNetherStar, 'y', glowIngot, 'w', Items.diamond, 'z', Items.blaze_rod
 		}));
 
 		// Crafting the glow excavator
 		ItemStack EXCAVATOR = new ItemStack(glowExcavatorUnbreakable, 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(EXCAVATOR, new Object[] {
-				" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', STICK
+				" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', Items.blaze_rod
 		}));
 
 		// Crafting the glow boots
