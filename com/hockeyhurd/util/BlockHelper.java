@@ -114,17 +114,7 @@ public class BlockHelper {
 	}
 	
 	public boolean blockListContains(int id) {
-		Block b = getBlock(id);
-		
-		if (b == null || b == Blocks.air) return false;
-		Block block = null;
-		
-		Iterator iter = Block.blockRegistry.iterator();
-		while (iter.hasNext()) {
-			if (iter.next() instanceof Block) block = (Block) iter.next();
-			if (block == b) break;
-		}
-		
+		Block block = Block.getBlockById(id);
 		return block != null && block != Blocks.air ? true : false;
 	}
 	
@@ -132,10 +122,6 @@ public class BlockHelper {
 		int id = Block.getIdFromBlock(block);
 		Block b = Block.getBlockById(id); 
 		return b != null && b != Blocks.air ? true : false; 
-	}
-	
-	public boolean isABlock(Block block) {
-		return block != null && block != Blocks.air && Block.blockRegistry.containsKey(block) ? true : false;
 	}
 	
 	public void destroyBlock(int x, int y, int z) {

@@ -13,6 +13,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -314,7 +315,11 @@ public class Waila {
 
 				// Set true for par4 if destroyed block should drop, item-drops.
 				// Makes sure that if we are trying to hoe dirt, there is no need to destroy the block.
-				if (stack.getItem() != ExtraTools.glowHoeUnbreakable) bh.destroyBlock(x, y, z, true);
+				if (stack.getItem() != ExtraTools.glowHoeUnbreakable) {
+					Block b = bh.getBlock(x, y, z);
+					bh.destroyBlock(x, y, z, false);
+					world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(b, 1)));
+				}
 
 				// Args: x, y, z, blockID, blockMetadata,
 				world.setBlock(x, y, z, block, this.metaData, 3);
