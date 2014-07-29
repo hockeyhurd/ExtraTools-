@@ -191,7 +191,7 @@ public class ExtraTools {
 		glowHammerUnbreakable = new ItemGlowHammer(toolGlowUnbreakable);
 		glowExcavatorUnbreakable = new ItemGlowExcavator(toolGlowUnbreakable);
 		hockeyStick = new ItemHockeyStick(toolHockey);
-		diamondDetector = new ItemDiamondDetector();
+		diamondDetector = new ItemDiamondDetector(Blocks.diamond_ore);
 		itemReplacer = new ItemItemReplacer();
 
 		// Armor sets.
