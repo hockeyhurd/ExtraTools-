@@ -223,7 +223,7 @@ public class ExtraTools {
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
 		// MinecraftForge.EVENT_BUS.register(new KeyEventHandler());
-		FMLCommonHandler.instance().bus().register(new KeyEventHandler());
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) FMLCommonHandler.instance().bus().register(new KeyEventHandler());
 	}
 
 	private void registerWorldgen() {
