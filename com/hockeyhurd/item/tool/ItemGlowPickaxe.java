@@ -44,10 +44,4 @@ public class ItemGlowPickaxe extends ItemPickaxe {
 		return itemStack;
 	}
 
-	/*
-	 * public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-	 * 
-	 * }
-	 */
-
 }

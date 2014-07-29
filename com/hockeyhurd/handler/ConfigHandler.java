@@ -26,7 +26,8 @@ public class ConfigHandler {
 	// Properties:
 	public boolean easyRecipes = false;
 	public boolean altFireStarRecipe = true;
-
+	public boolean debugMode = false;
+	
 	public ConfigHandler(FMLPreInitializationEvent event) {
 		this.event = event;
 		blocks = new ArrayList<Block>();
@@ -44,6 +45,7 @@ public class ConfigHandler {
 
 		easyRecipes = config.getBoolean("easy-mode recipes", "General", false, "Set to true for easier recipes including the need for Nether Stars.");
 		altFireStarRecipe = config.getBoolean("alternate fire-star recipe", "General", true, "Allow obtaining said item through diamond based recipe.");
+		debugMode = config.getBoolean("debug-mode toggle,", "General", false, "Allows displaying of debugging info!");
 		
 		config.save();
 

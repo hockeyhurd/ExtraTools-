@@ -27,6 +27,7 @@ import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
+import com.hockeyhurd.handler.KeyEventHandler;
 import com.hockeyhurd.item.ItemBottler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemDiamondSacrifice;
@@ -50,6 +51,7 @@ import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -60,7 +62,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.1")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.2")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -220,6 +222,8 @@ public class ExtraTools {
 
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
+		// MinecraftForge.EVENT_BUS.register(new KeyEventHandler());
+		FMLCommonHandler.instance().bus().register(new KeyEventHandler());
 	}
 
 	private void registerWorldgen() {

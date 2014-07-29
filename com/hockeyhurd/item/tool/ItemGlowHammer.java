@@ -13,16 +13,19 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.hockeyhurd.handler.KeyEventHandler;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.interfaces.IToolToggle;
 
-public class ItemGlowHammer extends ItemPickaxe {
+public class ItemGlowHammer extends ItemPickaxe implements IToolToggle {
 
 	private final Block torch = ExtraTools.glowTorch;
 	private Material[] mineAble;
 	private TimerHelper th;
+	private boolean toggle = false;
 
 	public ItemGlowHammer(ToolMaterial material) {
 		super(material);
@@ -43,6 +46,15 @@ public class ItemGlowHammer extends ItemPickaxe {
 	// Makes sure the player can't press it more than once per second.
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		th.update();
+		// if (!th.use && KeyEventHandler.keyValues = KeyEventHandler.)
+	}
+	
+	public void setToggle(boolean toggle) {
+		this.toggle = toggle;
+	}
+	
+	public boolean getToggle() {
+		return this.toggle;
 	}
 
 	// When player mines a block, mine a 3x3 area.
@@ -62,7 +74,7 @@ public class ItemGlowHammer extends ItemPickaxe {
 		}
 
 		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking() || !contains) return true;
+		if (toggle|| !contains) return true;
 
 		Waila waila = new Waila(stack, world, player, block, false, false);
 

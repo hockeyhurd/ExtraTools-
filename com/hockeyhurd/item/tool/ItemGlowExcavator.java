@@ -17,11 +17,13 @@ import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.interfaces.IToolToggle;
 
-public class ItemGlowExcavator extends ItemSpade {
+public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 
 	private Material[] mats;
 	private TimerHelper th;
+	private boolean toggle = false;
 
 	public ItemGlowExcavator(ToolMaterial toolMat) {
 		super(toolMat);
@@ -42,6 +44,14 @@ public class ItemGlowExcavator extends ItemSpade {
 	// Makes sure the player can't press it more than once per second.
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		th.update();
+	}
+	
+	public void setToggle(boolean toggle) {
+		this.toggle = toggle;
+	}
+	
+	public boolean getToggle() {
+		return this.toggle;
 	}
 
 	// When player mines a block, mine a 3x3 area.
