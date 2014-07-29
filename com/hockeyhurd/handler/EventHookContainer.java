@@ -143,12 +143,13 @@ public class EventHookContainer {
 		Item hoe = ExtraTools.glowHoeUnbreakable;
 		Item shovel = ExtraTools.glowShovelUnbreakable;
 		Item hammer = ExtraTools.glowHammerUnbreakable;
+		Item excavator = ExtraTools.glowExcavatorUnbreakable;
 		// int netherSoulCollectorID = new
 		// ItemStack(ExtraTools.netherSoulCollector, 1).itemID;
 
-		if (currentItem == pick || currentItem == sword || currentItem == axe || currentItem == hoe || currentItem == shovel || currentItem == hammer) {
+		if (currentItem == pick || currentItem == sword || currentItem == axe || currentItem == hoe || currentItem == shovel || currentItem == hammer || currentItem == excavator) {
 			event.toolTip.add("Unbreakable!");
-			if (currentItem == pick) event.toolTip.add("Right click to place torches!");
+			if (currentItem == pick || currentItem == hammer) event.toolTip.add("Right click to place torches!");
 		}
 		
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!" );
