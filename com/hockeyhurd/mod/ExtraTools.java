@@ -223,14 +223,11 @@ public class ExtraTools {
 
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
-		// MinecraftForge.EVENT_BUS.register(new KeyEventHandler());
 		PacketHandler.init();
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			Keybindings.init();
 			FMLCommonHandler.instance().bus().register(new KeyEventHandler());
 		}
-		// if (FMLCommonHandler.instance().getEffectiveSide().isClient()) FMLCommonHandler.instance().bus().register(new KeyEventHandler());
-		// EnumMap<Side, FMLEmbeddedChannel> channels = NetworkRegistry.INSTANCE.newChannel("channel", new ChannelHandler());
 	}
 
 	private void registerWorldgen() {

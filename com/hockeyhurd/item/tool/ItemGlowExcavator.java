@@ -11,18 +11,22 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.interfaces.IKeyBound;
 import com.hockeyhurd.util.interfaces.IToolToggle;
 
-public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
+public class ItemGlowExcavator extends ItemSpade implements IToolToggle, IKeyBound {
 
 	private Material[] mats;
 	private TimerHelper th;
+	private ChatHelper ch;
 	private boolean toggle = false;
 
 	public ItemGlowExcavator(ToolMaterial toolMat) {
@@ -35,6 +39,7 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 		};
 
 		th = new TimerHelper(10, 2);
+		ch = new ChatHelper();
 	}
 
 	public void registerIcons(IIconRegister reg) {
@@ -57,6 +62,11 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 	public void toggler() {
 		setToggle(toggle ? false : true);
 	}
+	
+	public void doKeyBindingAction(EntityPlayer player, ItemStack stack, int key) {
+		toggler();
+		player.addChatComponentMessage(ch.comp("Mode: " + (getToggle() ? "1x1 area." : "3x3 area."), EnumChatFormatting.GOLD));
+	}
 
 	// When player mines a block, mine a 3x3 area.
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block blockDestroyed, int x, int y, int z, EntityLivingBase entityLiving) {
@@ -71,11 +81,11 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 		boolean contains = false;
 
 		for (int i = 0; i < mats.length; i++) {
-			if (mats[i] == mat) contains = true;
+			if (mats[i] == mat) {
+				contains = true;
+				break;
+			}
 		}
-
-		// If the player is sneaking void 3x3 mining,
-		if (player.isSneaking() || !contains) return true;
 
 		Waila waila = new Waila(stack, world, player, block, false, false);
 
@@ -86,7 +96,7 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 		waila.setMatWhiteList(mats);
 
 		if (!world.isRemote && (!th.use || th.excuser())) {
-			waila.finder();
+			if (!getToggle() && contains) waila.finder();
 			th.setUse(true);
 		}
 

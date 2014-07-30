@@ -3,6 +3,7 @@ package com.hockeyhurd.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 
+import com.hockeyhurd.item.tool.ItemGlowExcavator;
 import com.hockeyhurd.item.tool.ItemGlowHammer;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.Keybindings;
@@ -47,20 +48,14 @@ public class KeyEventHandler {
 				item = player.getCurrentEquippedItem().getItem();
 
 				if (item instanceof ItemGlowHammer) {
-					if (player.worldObj.isRemote) {
-						PacketHandler.instance.sendToServer(new MessageTogglePressed());
-					}
-					else {
-						((IKeyBound) item).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
-						// player.addChatComponentMessage(ch.comp("Mode: " + (newItem.getToggle() ? "1x1 area." : "3x3 area."), color));
-					}
+					if (player.worldObj.isRemote) PacketHandler.instance.sendToServer(new MessageTogglePressed());
+					else ((IKeyBound) item).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
 				}
 
-				/*else if (item instanceof ItemGlowExcavator) {
-					((ItemGlowExcavator) item).toggler();
-					player.addChatComponentMessage(ch.comp("Mode: " + (((ItemGlowExcavator) item).getToggle() ? "1x1 area." : "3x3 area"), color));
-					player.onUpdate();
-				}*/
+				else if (item instanceof ItemGlowExcavator) {
+					if (player.worldObj.isRemote) PacketHandler.instance.sendToServer(new MessageTogglePressed());
+					else ((IKeyBound) item).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
+				}
 
 				else {
 					if (debug) System.out.println("No effect!");

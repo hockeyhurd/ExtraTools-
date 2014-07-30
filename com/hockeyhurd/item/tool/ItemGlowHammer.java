@@ -92,12 +92,6 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle, IKeyBoun
 				break;
 			}
 		}
-		
-		System.out.println("Toggle: " + getToggle() + ", state: " + contains);
-		// If the player is sneaking void 3x3 mining,
-		/*if ((getToggle() || !contains)) {
-			return true;
-		}*/
 
 		Waila waila = new Waila(stack, world, player, block, false, false);
 		// Sets offset or number of blocks in all directions that are possible to mine.
