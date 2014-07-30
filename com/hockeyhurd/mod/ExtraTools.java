@@ -28,6 +28,7 @@ import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.handler.KeyEventHandler;
+import com.hockeyhurd.handler.PacketHandler;
 import com.hockeyhurd.item.ItemBottler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
 import com.hockeyhurd.item.ItemDiamondSacrifice;
@@ -49,6 +50,7 @@ import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowSword;
 import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
+import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -60,9 +62,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.2")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.3")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -223,7 +224,13 @@ public class ExtraTools {
 	private void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
 		// MinecraftForge.EVENT_BUS.register(new KeyEventHandler());
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) FMLCommonHandler.instance().bus().register(new KeyEventHandler());
+		PacketHandler.init();
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+			Keybindings.init();
+			FMLCommonHandler.instance().bus().register(new KeyEventHandler());
+		}
+		// if (FMLCommonHandler.instance().getEffectiveSide().isClient()) FMLCommonHandler.instance().bus().register(new KeyEventHandler());
+		// EnumMap<Side, FMLEmbeddedChannel> channels = NetworkRegistry.INSTANCE.newChannel("channel", new ChannelHandler());
 	}
 
 	private void registerWorldgen() {

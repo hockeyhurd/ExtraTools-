@@ -53,6 +53,10 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 	public boolean getToggle() {
 		return this.toggle;
 	}
+	
+	public void toggler() {
+		setToggle(toggle ? false : true);
+	}
 
 	// When player mines a block, mine a 3x3 area.
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block blockDestroyed, int x, int y, int z, EntityLivingBase entityLiving) {
