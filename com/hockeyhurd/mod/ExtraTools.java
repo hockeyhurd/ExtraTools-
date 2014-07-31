@@ -353,6 +353,11 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
 				"xy", 'x', "dustGlow", 'y', Items.glass_bottle
 		}));
+		
+		// Crafting the GlowWrench
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wrench, 1), new Object[] {
+			"x x", "xxx", " x ", 'x', "ingotGlow"
+		}));
 
 		// Crafting the ItemReplacer Tool
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReplacer, 1), new Object[] {
