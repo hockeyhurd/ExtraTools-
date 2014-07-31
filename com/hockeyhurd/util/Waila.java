@@ -77,6 +77,7 @@ public class Waila {
 		add(Blocks.detector_rail);
 		add(Blocks.golden_rail);
 		add(Blocks.bedrock);
+		add(Blocks.mob_spawner);
 
 		// TODO: Find solution to determine if a block has a hardness of -1 (unbreakable).
 		/*Iterator iter = Block.blockRegistry.iterator();

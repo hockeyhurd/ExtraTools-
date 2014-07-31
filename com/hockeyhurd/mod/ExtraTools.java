@@ -50,6 +50,7 @@ import com.hockeyhurd.item.tool.ItemGlowShovel;
 import com.hockeyhurd.item.tool.ItemGlowSword;
 import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
+import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
@@ -63,7 +64,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.3")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.4")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -78,6 +79,7 @@ public class ExtraTools {
 
 	// Config object(s).
 	public static ConfigHandler ch;
+	public static String modID = "ExtraTools+";
 
 	// Blocks
 	public static Block glowRock;
@@ -127,6 +129,7 @@ public class ExtraTools {
 	public static Item hockeyStick;
 	public static Item diamondDetector;
 	public static Item itemReplacer;
+	public static Item wrench;
 
 	// Armor materials.
 	public static ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -146,6 +149,7 @@ public class ExtraTools {
 	public void preInit(FMLPreInitializationEvent event) {
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
+		ch.handleWrenchablesConfiguration();
 	}
 
 	@EventHandler
@@ -194,6 +198,7 @@ public class ExtraTools {
 		hockeyStick = new ItemHockeyStick(toolHockey);
 		diamondDetector = new ItemDiamondDetector(Blocks.diamond_ore);
 		itemReplacer = new ItemItemReplacer();
+		wrench = new ItemWrench();
 
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(glowArmorMat, 0, 0, "Glow", 0).setUnlocalizedName("GlowHelm");
@@ -260,6 +265,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(hockeyStick, "HockeyStick");
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
+		GameRegistry.registerItem(wrench, "GlowWrench");
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
 		GameRegistry.registerItem(glowSwordUnbreakable, "GlowSwordUnbreakable");
