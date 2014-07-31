@@ -40,6 +40,7 @@ import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.tool.ItemDebugger;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
 import com.hockeyhurd.item.tool.ItemGlowExcavator;
@@ -64,7 +65,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.4")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.5")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -130,6 +131,7 @@ public class ExtraTools {
 	public static Item diamondDetector;
 	public static Item itemReplacer;
 	public static Item wrench;
+	public static Item debugger;
 
 	// Armor materials.
 	public static ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
@@ -186,6 +188,7 @@ public class ExtraTools {
 		rubber = new ItemRubber();
 		hockeyPuck = new ItemHockeyPuck();
 		bottler = new ItemBottler();
+		debugger = new ItemDebugger();
 
 		// Tool sets
 		glowPickaxeUnbreakable = new ItemGlowPickaxe(toolGlowUnbreakable);
@@ -266,6 +269,8 @@ public class ExtraTools {
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
 		GameRegistry.registerItem(wrench, "GlowWrench");
+		GameRegistry.registerItem(debugger, "ItemDebugger");
+		
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
 		GameRegistry.registerItem(glowSwordUnbreakable, "GlowSwordUnbreakable");
