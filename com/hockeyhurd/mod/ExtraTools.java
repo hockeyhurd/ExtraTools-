@@ -53,6 +53,7 @@ import com.hockeyhurd.item.tool.ItemGlowSword;
 import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.item.tool.ItemWrench;
+import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
@@ -66,7 +67,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.5")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.6")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -204,7 +205,8 @@ public class ExtraTools {
 		hockeyStick = new ItemHockeyStick(toolHockey);
 		diamondDetector = new ItemDiamondDetector(Blocks.diamond_ore);
 		itemReplacer = new ItemItemReplacer();
-		if (ModsLoadedHelper.ic2Loaded) wrench = new ItemWrench();
+		if (ModsLoadedHelper.ic2Loaded) wrench = new ItemWrenchIC2();
+		else wrench = new ItemWrench();
 
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(glowArmorMat, 0, 0, "Glow", 0).setUnlocalizedName("GlowHelm");
@@ -272,8 +274,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
 		GameRegistry.registerItem(debugger, "ItemDebugger");
-
-		if (ModsLoadedHelper.ic2Loaded) GameRegistry.registerItem(wrench, "GlowWrench");
+		GameRegistry.registerItem(wrench, "GlowWrench");
 		
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
