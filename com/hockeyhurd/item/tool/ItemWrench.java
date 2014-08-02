@@ -1,5 +1,7 @@
 package com.hockeyhurd.item.tool;
 
+import ic2.api.tile.IWrenchable;
+import ic2.core.block.TileEntityBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -18,16 +20,19 @@ import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Vector3IHelper;
 import com.hockeyhurd.util.Waila;
 
-public class ItemWrench extends Item {
+public class ItemWrench extends Item implements IWrenchable {
 
 	private TimerHelper th;
 	private EntitySpawnerHelper esh;
 	private Block[] wrenchables;
+	private Block theBlock;
 	
 	public ItemWrench() {
 		super();
 		this.setUnlocalizedName("Wrench");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
+		this.setMaxStackSize(1);
+		this.setMaxDamage(0);
 		
 		th = new TimerHelper();
 		esh = new EntitySpawnerHelper();
@@ -57,8 +62,17 @@ public class ItemWrench extends Item {
 				
 				if (bh.blockExists(vec)) {
 					boolean contains = false;
-					Block currentBlock = bh.getBlock(vec);
-					if (currentBlock == Blocks.mob_spawner && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityMobSpawner) {
+					boolean flag = false;
+					Block currentBlock = theBlock = bh.getBlock(vec);
+					
+					if (world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityBlock) {
+						contains = true;
+						TileEntityBlock te = (TileEntityBlock) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
+						metaData = te.blockMetadata;
+						flag = metaData > 0;
+					}
+					
+					else if (currentBlock == Blocks.mob_spawner && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityMobSpawner) {
 						contains = true;
 						TileEntityMobSpawner te = (TileEntityMobSpawner) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
 						String entityToSpawn = te.func_145881_a().getEntityNameToSpawn();
@@ -73,8 +87,8 @@ public class ItemWrench extends Item {
 					}
 					
 					if (contains) {
-						world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData > 0 ? metaData : 0)));
-						bh.destroyBlock(vec);
+						if (metaData > 0) world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData)));
+						bh.destroyBlock(vec, flag ? false : true);
 					}
 				}
 				
@@ -84,6 +98,30 @@ public class ItemWrench extends Item {
 		}
 		
 		return stack;
+	}
+
+	public boolean wrenchCanSetFacing(EntityPlayer player, int side) {
+		return false;
+	}
+
+	public short getFacing() {
+		return 0;
+	}
+
+	public void setFacing(short facing) {
+		
+	}
+
+	public boolean wrenchCanRemove(EntityPlayer player) {
+		return true;
+	}
+
+	public float getWrenchDropRate() {
+		return 1.0f;
+	}
+
+	public ItemStack getWrenchDrop(EntityPlayer player) {
+		return new ItemStack(theBlock, 1);
 	}
 
 }

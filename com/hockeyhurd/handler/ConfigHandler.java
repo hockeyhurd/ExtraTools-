@@ -1,5 +1,8 @@
 package com.hockeyhurd.handler;
 
+import ic2.core.IC2;
+import ic2.core.item.tool.ItemToolWrench;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +48,7 @@ public class ConfigHandler {
 
 	private String[] initWrenchablesArray() {
 		wrenchables = new Block[] {
-			Blocks.mob_spawner
+			Blocks.mob_spawner,
 		};
 
 		List<String> list = new ArrayList<String>();

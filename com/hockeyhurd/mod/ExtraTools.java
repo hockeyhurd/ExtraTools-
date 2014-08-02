@@ -28,6 +28,7 @@ import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.handler.KeyEventHandler;
+import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.handler.PacketHandler;
 import com.hockeyhurd.item.ItemBottler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
@@ -152,6 +153,8 @@ public class ExtraTools {
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
+		
+		ModsLoadedHelper.init();
 	}
 
 	@EventHandler
@@ -201,7 +204,7 @@ public class ExtraTools {
 		hockeyStick = new ItemHockeyStick(toolHockey);
 		diamondDetector = new ItemDiamondDetector(Blocks.diamond_ore);
 		itemReplacer = new ItemItemReplacer();
-		wrench = new ItemWrench();
+		if (ModsLoadedHelper.ic2Loaded) wrench = new ItemWrench();
 
 		// Armor sets.
 		glowHelmet = new ArmorSetGlow(glowArmorMat, 0, 0, "Glow", 0).setUnlocalizedName("GlowHelm");
@@ -268,8 +271,9 @@ public class ExtraTools {
 		GameRegistry.registerItem(hockeyStick, "HockeyStick");
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
-		GameRegistry.registerItem(wrench, "GlowWrench");
 		GameRegistry.registerItem(debugger, "ItemDebugger");
+
+		if (ModsLoadedHelper.ic2Loaded) GameRegistry.registerItem(wrench, "GlowWrench");
 		
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");

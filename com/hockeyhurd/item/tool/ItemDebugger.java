@@ -48,6 +48,7 @@ public class ItemDebugger extends Item {
 			BlockHelper bh = new BlockHelper(world, player);
 			Block block = bh.getBlock(vec);
 			
+			if (ExtraTools.ch.debugMode) System.out.println("Block: " + block);
 			player.addChatComponentMessage(ch.comp("Block: " + block.getLocalizedName()));
 			player.addChatComponentMessage(ch.comp("SideHit: " + vec.getSideHit()));
 		}
