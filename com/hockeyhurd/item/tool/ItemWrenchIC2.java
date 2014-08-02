@@ -1,7 +1,9 @@
 package com.hockeyhurd.item.tool;
 
-import ic2.api.tile.IWrenchable;
+import ic2.api.tile.IEnergyStorage;
 import ic2.core.block.TileEntityBlock;
+import ic2.core.block.wiring.BlockElectric;
+import ic2.core.block.wiring.TileEntityElectricBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
@@ -18,10 +20,11 @@ import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Vector3IHelper;
 import com.hockeyhurd.util.Waila;
 
-public class ItemWrenchIC2 extends AbstractToolWrench implements IWrenchable {
+public class ItemWrenchIC2 extends AbstractToolWrench {
 
 	private Block[] wrenchables;
 	private Block theBlock;
+	private int energyStored;
 	
 	public ItemWrenchIC2() {
 		super();
@@ -53,13 +56,21 @@ public class ItemWrenchIC2 extends AbstractToolWrench implements IWrenchable {
 				if (bh.blockExists(vec)) {
 					boolean contains = false;
 					boolean flag = false;
-					Block currentBlock = theBlock = bh.getBlock(vec);
+					Block currentBlock = bh.getBlock(vec);
 					
 					if (world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityBlock) {
 						contains = true;
 						TileEntityBlock te = (TileEntityBlock) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
 						metaData = te.blockMetadata;
 						flag = metaData > 0;
+						
+						if (te instanceof TileEntityElectricBlock) {
+							TileEntityElectricBlock te2 = (TileEntityElectricBlock) te;
+							theBlock = te2.blockType;
+							
+							System.out.println(theBlock);
+							energyStored = te2.getStored();
+						}
 					}
 					
 					else if (currentBlock == Blocks.mob_spawner && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityMobSpawner) {
@@ -69,12 +80,12 @@ public class ItemWrenchIC2 extends AbstractToolWrench implements IWrenchable {
 						metaData = esh.getMappedID(entityToSpawn);
 					}
 					
-					for (int i = 0; i < wrenchables.length; i++) {
+					/*for (int i = 0; i < wrenchables.length; i++) {
 						if ((wrenchables[i] != null && wrenchables[i] == currentBlock) || currentBlock == Blocks.mob_spawner) {
 							contains = true;
 							break;
 						}
-					}
+					}*/
 					
 					if (contains) {
 						if (metaData > 0) world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData)));
@@ -88,30 +99,6 @@ public class ItemWrenchIC2 extends AbstractToolWrench implements IWrenchable {
 		}
 		
 		return stack;
-	}
-
-	public boolean wrenchCanSetFacing(EntityPlayer player, int side) {
-		return false;
-	}
-
-	public short getFacing() {
-		return 0;
-	}
-
-	public void setFacing(short facing) {
-		
-	}
-
-	public boolean wrenchCanRemove(EntityPlayer player) {
-		return true;
-	}
-
-	public float getWrenchDropRate() {
-		return 1.0f;
-	}
-
-	public ItemStack getWrenchDrop(EntityPlayer player) {
-		return new ItemStack(theBlock, 1);
 	}
 
 }
