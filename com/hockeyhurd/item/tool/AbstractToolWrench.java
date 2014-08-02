@@ -67,7 +67,7 @@ public abstract class AbstractToolWrench extends Item {
 					}
 					
 					for (int i = 0; i < wrenchables.length; i++) {
-						if ((wrenchables[i] != null && wrenchables[i] == currentBlock) || currentBlock == Blocks.mob_spawner) {
+						if (wrenchables[i] != null && wrenchables[i] == currentBlock) {
 							contains = true;
 							break;
 						}

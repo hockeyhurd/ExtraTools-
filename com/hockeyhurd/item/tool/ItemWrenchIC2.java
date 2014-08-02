@@ -56,6 +56,7 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 				if (bh.blockExists(vec)) {
 					boolean contains = false;
 					boolean flag = false;
+					boolean machine = false;
 					Block currentBlock = bh.getBlock(vec);
 					
 					if (world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityBlock) {
@@ -65,10 +66,10 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 						flag = metaData > 0;
 						
 						if (te instanceof TileEntityElectricBlock) {
+							machine = true;
 							TileEntityElectricBlock te2 = (TileEntityElectricBlock) te;
 							theBlock = te2.blockType;
 							
-							System.out.println(theBlock);
 							energyStored = te2.getStored();
 						}
 					}
@@ -80,16 +81,21 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 						metaData = esh.getMappedID(entityToSpawn);
 					}
 					
-					/*for (int i = 0; i < wrenchables.length; i++) {
-						if ((wrenchables[i] != null && wrenchables[i] == currentBlock) || currentBlock == Blocks.mob_spawner) {
+					for (int i = 0; i < wrenchables.length; i++) {
+						if ((wrenchables[i] != null && wrenchables[i] == currentBlock) ) {
 							contains = true;
 							break;
 						}
-					}*/
+					}
 					
 					if (contains) {
-						if (metaData > 0) world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData)));
-						bh.destroyBlock(vec, flag ? false : true);
+						if (machine) {
+							if (flag) world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData)));
+							bh.destroyBlock(vec, flag ? false : true);
+							return stack;
+						}
+						else world.spawnEntityInWorld(new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), new ItemStack(currentBlock, 1, metaData)));
+						bh.destroyBlock(vec, false);
 					}
 				}
 				

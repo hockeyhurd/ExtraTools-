@@ -1,12 +1,11 @@
 package com.hockeyhurd.handler;
 
-import ic2.core.IC2;
-import ic2.core.item.tool.ItemToolWrench;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -48,22 +47,26 @@ public class ConfigHandler {
 
 	private String[] initWrenchablesArray() {
 		wrenchables = new Block[] {
-			Blocks.mob_spawner,
+				Blocks.mob_spawner, Blocks.bookshelf, Blocks.beacon
 		};
 
 		List<String> list = new ArrayList<String>();
-		for (int i = 0; i < wrenchables.length; i++) {
-			if (wrenchables[i] != null) list.add(wrenchables[i].toString());
+		Set<String> set = Block.blockRegistry.getKeys();
+		
+		for (String name : set) {
+			if (list.size() >= wrenchables.length) break;
+			for (int i = 0; i < wrenchables.length; i++) {
+				if (Block.getBlockFromName(name) == wrenchables[i]) list.add(name);					
+			}
 		}
-
-		// wrench = (String[]) list.toArray();
+		
 		wrench = list.toArray(new String[list.size()]);
 		return wrench;
 	}
-	
+
 	private Block[] getDefaultBlockArray() {
 		return new Block[] {
-			Blocks.mob_spawner	
+			Blocks.mob_spawner
 		};
 	}
 
@@ -83,7 +86,8 @@ public class ConfigHandler {
 	}
 
 	public void handleWrenchablesConfiguration() {
-		File file = new File(event.getModConfigurationDirectory() + "\\" + ExtraTools.modID + "wrenchables.cfg");
+		String PATH = event.getModConfigurationDirectory() + File.separator + ExtraTools.modID;
+		File file = new File(PATH + "wrenchables.cfg");
 		Configuration config = new Configuration(file);
 		config.load();
 
@@ -97,7 +101,13 @@ public class ConfigHandler {
 			if (wrench[i] != null && !wrench[i].equals("")) blocks.add(Block.getBlockFromName(wrench[i]));
 		}
 
+		blocks.add(Block.getBlockFromName("bookshelf"));
 		wrenchables = blocks.toArray(new Block[blocks.size()]);
+	}
+
+	private Block blockSerializer(String name) {
+		Block block = Block.getBlockFromName(name);
+		return block;
 	}
 
 	public Block[] getBlockWrenchArray() {
