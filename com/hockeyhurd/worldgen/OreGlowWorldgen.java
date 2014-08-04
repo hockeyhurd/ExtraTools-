@@ -31,7 +31,7 @@ public class OreGlowWorldgen implements IWorldGenerator {
 	}
 
 	private void generateNether(World world, Random random, int blockX, int blockZ) {
-		
+		addOreSpawn(ExtraTools.glowOreNether, world, random, blockX, blockZ, chunkSize, chunkSize, 2 + random.nextInt(2), chanceOfSpawn, 8, 40);
 	}
 
 	private void generateSurface(World world, Random random, int blockX, int blockZ) {
