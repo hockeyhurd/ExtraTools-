@@ -15,6 +15,7 @@ public class OreGlowWorldgen implements IWorldGenerator {
 
 	private final int chunkSize = 16;
 	private final int chanceOfSpawn = 4;
+	private final int chanceOfSpawn_nether = chanceOfSpawn * chanceOfSpawn * 2;
 	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
@@ -31,11 +32,11 @@ public class OreGlowWorldgen implements IWorldGenerator {
 	}
 
 	private void generateNether(World world, Random random, int blockX, int blockZ) {
-		addOreSpawn(ExtraTools.glowOreNether, world, random, blockX, blockZ, chunkSize, chunkSize, 2 + random.nextInt(2), chanceOfSpawn, 8, 40);
+		addOreSpawn(ExtraTools.glowOreNether, world, random, blockX, blockZ, chunkSize, chunkSize, 2 + random.nextInt(2), chanceOfSpawn_nether, 8, 40);
 	}
 
 	private void generateSurface(World world, Random random, int blockX, int blockZ) {
-		addOreSpawn(ExtraTools.glowOre, world, random, blockX, blockZ, chunkSize, chunkSize, 6 + random.nextInt(2), chanceOfSpawn, 8, 16);
+		addOreSpawn(ExtraTools.glowOre, world, random, blockX, blockZ, chunkSize, chunkSize, 4 + random.nextInt(2), chanceOfSpawn, 8, 16);
 	}
 	
 	private void generateEnd(World world, Random rand, int blockX, int blockZ) {
