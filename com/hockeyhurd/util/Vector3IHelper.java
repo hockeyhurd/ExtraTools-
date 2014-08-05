@@ -1,6 +1,6 @@
 package com.hockeyhurd.util;
 
-public class Vector3IHelper<E> {
+public class Vector3IHelper {
 
 	private int x, y, z, sideHit;
 	

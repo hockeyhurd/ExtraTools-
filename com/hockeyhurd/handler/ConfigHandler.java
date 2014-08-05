@@ -47,7 +47,7 @@ public class ConfigHandler {
 
 	private String[] initWrenchablesArray() {
 		wrenchables = new Block[] {
-				Blocks.mob_spawner, Blocks.bookshelf, Blocks.beacon
+				Blocks.mob_spawner, Blocks.bookshelf, Blocks.beacon, Blocks.chest
 		};
 
 		List<String> list = new ArrayList<String>();
@@ -101,7 +101,6 @@ public class ConfigHandler {
 			if (wrench[i] != null && !wrench[i].equals("")) blocks.add(Block.getBlockFromName(wrench[i]));
 		}
 
-		blocks.add(Block.getBlockFromName("bookshelf"));
 		wrenchables = blocks.toArray(new Block[blocks.size()]);
 	}
 
