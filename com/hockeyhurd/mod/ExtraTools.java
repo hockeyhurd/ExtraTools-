@@ -19,10 +19,13 @@ import com.hockeyhurd.block.BlockExtraSmoothStone;
 import com.hockeyhurd.block.BlockGlowIngot;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
+import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
+import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.gui.GuiHandlerGlowChest;
 import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
@@ -73,7 +76,8 @@ public class ExtraTools {
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static GuiHandlerGlowFurnace guiHandler;
+	public static GuiHandlerGlowFurnace guiHandlerGlowFurnace;
+	public static GuiHandlerGlowChest guiHandlerGlowChest;
 
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
@@ -90,12 +94,14 @@ public class ExtraTools {
 	public static Block glowIngotBlock;
 	public static Block extraSmoothStone;
 
-	// Machines
+	// Machines/TileEntityBlocks
 	public static Block glowFurnaceOff;
 	public static Block glowFurnaceOn;
+	public static Block glowChest;
 
 	// Gui stuff
 	public static final int guiIDGlowFurnace = 0;
+	public static final int guiIDGlowChest = 1;
 
 	// Ores
 	public static Block glowOre;
@@ -173,9 +179,10 @@ public class ExtraTools {
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
 		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
 
-		// Machines
+		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
 		glowFurnaceOn = new BlockGlowFurnace(Material.rock, true);
+		glowChest = new BlockGlowChest(Material.wood);
 
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock);
@@ -255,6 +262,7 @@ public class ExtraTools {
 		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
 		GameRegistry.registerBlock(glowFurnaceOff, "GlowFurnaceOff");
 		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
+		GameRegistry.registerBlock(glowChest, "GlowChest");
 		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
 	}
 
@@ -489,13 +497,20 @@ public class ExtraTools {
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
+		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
 	}
 
 	private void registerGuiHandler() {
-		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
-		else {
-			guiHandler = new GuiHandlerGlowFurnace();
-			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
+		if (guiHandlerGlowFurnace != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowFurnace);
+		else if (guiHandlerGlowFurnace == null) {
+			guiHandlerGlowFurnace = new GuiHandlerGlowFurnace();
+			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowFurnace);
+		}
+		
+		if (guiHandlerGlowChest != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowChest);
+		else if (guiHandlerGlowChest == null) {
+			guiHandlerGlowChest = new GuiHandlerGlowChest();
+			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowChest);
 		}
 	}
 
