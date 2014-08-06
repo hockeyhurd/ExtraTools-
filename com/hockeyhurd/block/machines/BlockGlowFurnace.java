@@ -53,8 +53,8 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
-		if (side == 3) return this.furnaceFront;
-		return side == 1 ? this.furnaceTop : (side == 0 ? this.furnaceTop : (side != metadata ? this.blockIcon : this.furnaceFront));
+		if (side == 3 && metadata == 0) return this.furnaceFront;
+		return side == 1 ? this.furnaceTop : (side == 0 ? this.furnaceTop : (side != metadata ? this.blockIcon : this.furnaceFront)); 
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {

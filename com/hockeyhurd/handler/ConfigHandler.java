@@ -47,19 +47,19 @@ public class ConfigHandler {
 
 	private String[] initWrenchablesArray() {
 		wrenchables = new Block[] {
-				Blocks.mob_spawner, Blocks.bookshelf, Blocks.beacon, Blocks.chest
+				Blocks.mob_spawner, Blocks.bookshelf, Blocks.beacon, Blocks.chest, Blocks.glass, Blocks.glass_pane, Blocks.dragon_egg
 		};
 
 		List<String> list = new ArrayList<String>();
 		Set<String> set = Block.blockRegistry.getKeys();
-		
+
 		for (String name : set) {
 			if (list.size() >= wrenchables.length) break;
 			for (int i = 0; i < wrenchables.length; i++) {
-				if (Block.getBlockFromName(name) == wrenchables[i]) list.add(name);					
+				if (Block.getBlockFromName(name) == wrenchables[i]) list.add(name);
 			}
 		}
-		
+
 		wrench = list.toArray(new String[list.size()]);
 		return wrench;
 	}
