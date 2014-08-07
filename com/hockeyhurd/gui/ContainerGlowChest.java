@@ -13,15 +13,17 @@ public class ContainerGlowChest extends Container {
 
 	private TileEntityGlowChest glowChest;
 	private IInventory lowerChestInventory;
+	private int numRows;
 
 	public ContainerGlowChest(InventoryPlayer inv, TileEntityGlowChest entity) {
 		this.glowChest = entity;
 		addSlots(inv, entity);
+		this.numRows = entity.getSizeInventory() / 9;
 	}
 
 	private void addSlots(InventoryPlayer inv, TileEntityGlowChest entity) {
 		// Adds the inventory to furnace's gui.
-		for (int y = 0; y < 9; y++) {
+		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
 				this.addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
 			}
@@ -36,41 +38,43 @@ public class ContainerGlowChest extends Container {
 
 	// Player shift-click a slot.
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-		ItemStack stack = null;
+		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(index);
+
 		if (slot != null && slot.getHasStack()) {
-			ItemStack slotStack = slot.getStack();
-			stack = slotStack.copy();
-			if (index < 8) {
-				if (!this.mergeItemStack(slotStack, 8, this.inventorySlots.size(), false)) return null;
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
+
+			if (index < this.numRows * 9) {
+				if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true)) { return null; }
 			}
+			else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false)) return null;
 
-			else if (!this.getSlot(0).isItemValid(slotStack) || !this.mergeItemStack(slotStack, 0, 4, false)) return null;
-
-			if (slotStack.stackSize == 0) slot.putStack((ItemStack) null);
+			if (itemstack1.stackSize == 0) slot.putStack((ItemStack) null);
 			else slot.onSlotChanged();
-
-			if (slotStack.stackSize == stack.stackSize) return null;
-			slot.onPickupFromSlot(player, slotStack);
 		}
 
-		return stack;
+		return itemstack;
 	}
-	
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-	}
-	
+
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
-	
+
 	public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) {
 		return super.mergeItemStack(stack, start, end, reverse);
 	}
-	
+
 	public IInventory getLowerChestInventory() {
-        return this.lowerChestInventory;
-    }
+		return this.lowerChestInventory;
+	}
+
+	/**
+	 * Called when the container is closed.
+	 */
+	public void onContainerClosed(EntityPlayer player) {
+		super.onContainerClosed(player);
+		this.lowerChestInventory.closeInventory();
+	}
 
 }

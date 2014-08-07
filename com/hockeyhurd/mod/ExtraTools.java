@@ -25,8 +25,7 @@ import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.gui.GuiHandlerGlowChest;
-import com.hockeyhurd.gui.GuiHandlerGlowFurnace;
+import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
@@ -76,8 +75,7 @@ public class ExtraTools {
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static GuiHandlerGlowFurnace guiHandlerGlowFurnace;
-	public static GuiHandlerGlowChest guiHandlerGlowChest;
+	public static GuiHandler guiHandler;
 
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
@@ -501,16 +499,10 @@ public class ExtraTools {
 	}
 
 	private void registerGuiHandler() {
-		if (guiHandlerGlowFurnace != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowFurnace);
-		else if (guiHandlerGlowFurnace == null) {
-			guiHandlerGlowFurnace = new GuiHandlerGlowFurnace();
-			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowFurnace);
-		}
-		
-		if (guiHandlerGlowChest != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowChest);
-		else if (guiHandlerGlowChest == null) {
-			guiHandlerGlowChest = new GuiHandlerGlowChest();
-			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerGlowChest);
+		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
+		else {
+			guiHandler = new GuiHandler();
+			NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 		}
 	}
 

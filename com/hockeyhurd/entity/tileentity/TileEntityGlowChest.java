@@ -123,7 +123,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 					IInventory iinventory = ((ContainerGlowChest) entityplayer.openContainer).getLowerChestInventory();
 
 					if (iinventory == this /* || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest)iinventory).isPartOfLargeChest(this) */) {
-						++this.numPlayersUsing;
+						this.numPlayersUsing++;
 					}
 				}
 			}
