@@ -54,13 +54,14 @@ public class ContainerGlowChest extends Container {
 		if (slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
-
+			final int mainInvSlotID = this.inventorySlots.size() - (9 * 4); 
+			
 			//merges the item into player inventory since its in the tileEntity
-			if (slot < this.inventorySlots.size() - (9 * 4)) {
-				if (!this.mergeItemStack(stackInSlot, 0, this.inventorySlots.size(), true)) return null; 
+			if (slot < mainInvSlotID) {
+				if (!this.mergeItemStack(stackInSlot, mainInvSlotID, this.inventorySlots.size(), true)) return null; 
 			}
 			// places it into the tileEntity is possible since its in the player inventory
-			else if (!this.mergeItemStack(stackInSlot, 0, this.inventorySlots.size() - (9 * 4), false)) return null;
+			else if (!this.mergeItemStack(stackInSlot, 0, mainInvSlotID, false)) return null;
 
 			if (stackInSlot.stackSize == 0) slotObject.putStack((ItemStack) null);
 			else slotObject.onSlotChanged();
