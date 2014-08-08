@@ -44,6 +44,21 @@ public class BlockGlowChest extends BlockContainer {
 		blockIcon = reg.registerIcon("planks_oak");
 		// TODO: register other block icons stuff.
 	}
+	
+	/*@SideOnly(Side.CLIENT)
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public int getRenderType() {
+		return 22;
+	}*/
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;

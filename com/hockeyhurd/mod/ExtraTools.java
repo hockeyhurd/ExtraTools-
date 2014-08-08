@@ -69,7 +69,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.11")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.12")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
