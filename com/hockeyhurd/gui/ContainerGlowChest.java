@@ -22,22 +22,32 @@ public class ContainerGlowChest extends Container {
 	}
 
 	private void addSlots(InventoryPlayer inv, TileEntityGlowChest entity) {
-		// Adds the inventory to furnace's gui.
+		int size = 18;
+		
+		// Adds the main inventory for the chest gui.
+		for (int y = 0; y < 7; y++) {
+			for (int x = 0; x < 9; x++) {
+				this.addSlotToContainer(new Slot(entity, x + y * 9 + 9, 8 + x * size, 18 + y * size));
+			}
+		}
+		
+		// Adds the 'player' inventory to chest's gui.
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				this.addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
+				this.addSlotToContainer(new Slot(inv, x + y * 9 + 9, 8 + x * size, 158 + y * size));
 			}
 		}
 
 		// Adds the hotbar slots to the gui.
 		for (int i = 0; i < 9; i++) {
-			this.addSlotToContainer(new Slot(inv, i, 8 + i * 18, 142)); // 198
+			this.addSlotToContainer(new Slot(inv, i, 8 + i * size, 216)); // 198
 		}
 
 	}
 
 	// Player shift-click a slot.
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
+		// Vanilla code reference
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.inventorySlots.get(index);
 
@@ -55,6 +65,8 @@ public class ContainerGlowChest extends Container {
 		}
 
 		return itemstack;
+		
+		
 	}
 
 	public boolean canInteractWith(EntityPlayer player) {
@@ -72,9 +84,9 @@ public class ContainerGlowChest extends Container {
 	/**
 	 * Called when the container is closed.
 	 */
-	public void onContainerClosed(EntityPlayer player) {
+	/*public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
 		this.lowerChestInventory.closeInventory();
-	}
+	}*/
 
 }

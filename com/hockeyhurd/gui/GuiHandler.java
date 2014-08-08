@@ -13,24 +13,18 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile_entity = world.getTileEntity(x, y, z);
-		switch (id) {
-			case 0:
-				return new ContainerGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
-			case 1:
-				return new ContainerGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
-		}
-		return null;
+		
+		if (tile_entity instanceof TileEntityGlowFurnace) return new ContainerGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
+		else if (tile_entity instanceof TileEntityGlowChest) return new ContainerGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
+		else return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile_entity = world.getTileEntity(x, y, z);
-		switch (id) {
-			case 0:
-				return new GuiGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
-			case 1:
-				return new ContainerGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
-		}
-		return null;
+
+		if (tile_entity instanceof TileEntityGlowFurnace) return new GuiGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
+		else if (tile_entity instanceof TileEntityGlowChest) return new GuiGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
+		else return null;
 	}
 }

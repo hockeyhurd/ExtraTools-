@@ -105,32 +105,6 @@ public class BlockGlowChest extends BlockContainer {
 		}
 	}
 
-	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
-		/*int l = world.getBlockMetadata(x, y, z);
-		float f = (float) x + 0.5F;
-		float f1 = (float) y + 0.0F + random.nextFloat() * 6.0F / 16.0F;
-		float f2 = (float) z + 0.5F;
-		float f3 = 0.52F;
-		float f4 = random.nextFloat() * 0.6F - 0.3F;
-
-		if (l == 4) {
-			world.spawnParticle("smoke", (double) (f - f3), (double) f1, (double) (f2 + f4), 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", (double) (f - f3), (double) f1, (double) (f2 + f4), 0.0D, 0.0D, 0.0D);
-		}
-		else if (l == 5) {
-			world.spawnParticle("smoke", (double) (f + f3), (double) f1, (double) (f2 + f4), 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", (double) (f + f3), (double) f1, (double) (f2 + f4), 0.0D, 0.0D, 0.0D);
-		}
-		else if (l == 2) {
-			world.spawnParticle("smoke", (double) (f + f4), (double) f1, (double) (f2 - f3), 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", (double) (f + f4), (double) f1, (double) (f2 - f3), 0.0D, 0.0D, 0.0D);
-		}
-		else if (l == 3) {
-			world.spawnParticle("smoke", (double) (f + f4), (double) f1, (double) (f2 + f3), 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", (double) (f + f4), (double) f1, (double) (f2 + f3), 0.0D, 0.0D, 0.0D);
-		}*/
-	}
-
 	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 		return new TileEntityGlowChest();
 	}
@@ -155,7 +129,7 @@ public class BlockGlowChest extends BlockContainer {
 		}
 
 		if (stack.hasDisplayName()) {
-			((TileEntityGlowChest) world.getTileEntity(x, y, z)).func_145951_a(stack.getDisplayName());
+			((TileEntityGlowChest) world.getTileEntity(x, y, z)).setCustomName(stack.getDisplayName());
 		}
 	}
 
@@ -182,9 +156,7 @@ public class BlockGlowChest extends BlockContainer {
 							stack.stackSize -= k1;
 							EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(stack.getItem(), k1, stack.getItemDamage()));
 
-							if (stack.hasTagCompound()) {
-								entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
-							}
+							if (stack.hasTagCompound()) entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 
 							float f3 = 0.05F;
 							entityitem.motionX = (double) ((float) this.chestRand.nextGaussian() * f3);

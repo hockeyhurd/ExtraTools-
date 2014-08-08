@@ -12,7 +12,8 @@ import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 
 public class GuiGlowChest extends GuiContainer {
 
-public static final ResourceLocation texture = new ResourceLocation("extratools", "textures/gui/GuiGlowChest.png");
+	public static final ResourceLocation texture = new ResourceLocation("extratools", "textures/gui/GuiGlowChest.png");
+	// public static final ResourceLocation texture = new ResourceLocation("textures/gui/container/generic_54.png");
 	
 	public TileEntityGlowChest glowChest;
 	
@@ -21,7 +22,7 @@ public static final ResourceLocation texture = new ResourceLocation("extratools"
 		
 		this.glowChest = entity;
 		this.xSize = 176;
-		this.ySize = 277;
+		this.ySize = 241; // 277;
 	}
 
 	public void drawGuiContainerForegroundLayer(int x, int y) {
