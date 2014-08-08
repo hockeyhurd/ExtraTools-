@@ -69,7 +69,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.10")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.11")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -180,7 +180,7 @@ public class ExtraTools {
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
 		glowFurnaceOn = new BlockGlowFurnace(Material.rock, true);
-		glowChest = new BlockGlowChest(Material.wood);
+		glowChest = new BlockGlowChest(Material.rock);
 
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock);

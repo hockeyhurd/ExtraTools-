@@ -23,14 +23,14 @@ public class ContainerGlowChest extends Container {
 
 	private void addSlots(InventoryPlayer inv, TileEntityGlowChest entity) {
 		int size = 18;
-		
+
 		// Adds the main inventory for the chest gui.
 		for (int y = 0; y < 7; y++) {
 			for (int x = 0; x < 9; x++) {
 				this.addSlotToContainer(new Slot(entity, x + y * 9 + 9, 8 + x * size, 18 + y * size));
 			}
 		}
-		
+
 		// Adds the 'player' inventory to chest's gui.
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
@@ -46,36 +46,39 @@ public class ContainerGlowChest extends Container {
 	}
 
 	// Player shift-click a slot.
-	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-		// Vanilla code reference
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(index);
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+		ItemStack stack = null;
+		Slot slotObject = (Slot) this.inventorySlots.get(slot);
 
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
+		// null checks and checks if the item can be stacked (maxStackSize > 1)
+		if (slotObject != null && slotObject.getHasStack()) {
+			ItemStack stackInSlot = slotObject.getStack();
+			stack = stackInSlot.copy();
 
-			if (index < this.numRows * 9) {
-				if (!this.mergeItemStack(itemstack1, this.numRows * 9, this.inventorySlots.size(), true)) { return null; }
+			//merges the item into player inventory since its in the tileEntity
+			if (slot < this.inventorySlots.size() - (9 * 4)) {
+				if (!this.mergeItemStack(stackInSlot, 0, this.inventorySlots.size(), true)) return null; 
 			}
-			else if (!this.mergeItemStack(itemstack1, 0, this.numRows * 9, false)) return null;
+			// places it into the tileEntity is possible since its in the player inventory
+			else if (!this.mergeItemStack(stackInSlot, 0, this.inventorySlots.size() - (9 * 4), false)) return null;
 
-			if (itemstack1.stackSize == 0) slot.putStack((ItemStack) null);
-			else slot.onSlotChanged();
+			if (stackInSlot.stackSize == 0) slotObject.putStack((ItemStack) null);
+			else slotObject.onSlotChanged();
+			
+			if (stackInSlot.stackSize == stack.stackSize) return null;
+			slotObject.onPickupFromSlot(player, stackInSlot);
 		}
 
-		return itemstack;
-		
-		
+		return stack;
 	}
 
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
 
-	public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) {
+	/*public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) {
 		return super.mergeItemStack(stack, start, end, reverse);
-	}
+	}*/
 
 	public IInventory getLowerChestInventory() {
 		return this.lowerChestInventory;
@@ -84,9 +87,8 @@ public class ContainerGlowChest extends Container {
 	/**
 	 * Called when the container is closed.
 	 */
-	/*public void onContainerClosed(EntityPlayer player) {
-		super.onContainerClosed(player);
-		this.lowerChestInventory.closeInventory();
-	}*/
+	/*
+	 * public void onContainerClosed(EntityPlayer player) { super.onContainerClosed(player); this.lowerChestInventory.closeInventory(); }
+	 */
 
 }
