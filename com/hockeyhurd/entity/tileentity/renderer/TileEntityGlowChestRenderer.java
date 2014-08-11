@@ -1,4 +1,4 @@
-package com.hockeyhurd.graphics;
+package com.hockeyhurd.entity.tileentity.renderer;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelChest;
@@ -17,14 +17,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GlowChestRenderer extends TileEntityChestRenderer {
+public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 
 	private static final ResourceLocation texture_ = new ResourceLocation("extratools", "textures/blocks/GlowChest.png");
 
 	private ModelChest field_147510_h = new ModelChest();
 	private static final String __OBFID = "CL_00000965";
 
-	public GlowChestRenderer() {
+	public TileEntityGlowChestRenderer() {
 	}
 
 	public void renderTileEntityAt(TileEntityGlowChest entity, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
