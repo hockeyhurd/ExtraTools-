@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,6 +26,7 @@ import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.entity.tileentity.renderer.TileEntityGlowChestRenderer;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.EventHookContainer;
@@ -43,6 +45,7 @@ import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.renderer.ItemRendererGlowChest;
 import com.hockeyhurd.item.tool.ItemDebugger;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
@@ -59,6 +62,7 @@ import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -496,6 +500,12 @@ public class ExtraTools {
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
 		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
+		
+		// Registering client specila renderers TODO: Move/organize things to make better use of proxies!
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGlowChest.class, new TileEntityGlowChestRenderer());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(glowChest), new ItemRendererGlowChest());
+		}
 	}
 
 	private void registerGuiHandler() {

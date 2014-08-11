@@ -3,7 +3,6 @@ package com.hockeyhurd.entity.tileentity;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -313,7 +312,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 
 	public int func_145980_j() {
 		if (this.cachedChestType == -1) {
-			if (this.worldObj == null || !(this.getBlockType() instanceof BlockChest)) return 0; 
+			if (this.worldObj == null || !(this.getBlockType() instanceof BlockGlowChest)) return 0; 
 
 			this.cachedChestType = 0;
 		}

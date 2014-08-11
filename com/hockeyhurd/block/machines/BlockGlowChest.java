@@ -36,6 +36,7 @@ public class BlockGlowChest extends BlockContainer {
 		super(material);
 		this.setBlockName("GlowChest");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
+		this.setHardness(2f);
 	}
 
 	@SideOnly(Side.CLIENT)

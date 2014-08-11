@@ -19,7 +19,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 
-	private static final ResourceLocation texture_ = new ResourceLocation("extratools", "textures/blocks/GlowChest.png");
+	// private static final ResourceLocation texture_ = new ResourceLocation("extratools", "textures/blocks/GlowChest.png");
+	private static final ResourceLocation texture_ = new ResourceLocation("textures/entity/chest/normal.png");
 
 	private ModelChest field_147510_h = new ModelChest();
 	private static final String __OBFID = "CL_00000965";
@@ -27,7 +28,7 @@ public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 	public TileEntityGlowChestRenderer() {
 	}
 
-	public void renderTileEntityAt(TileEntityGlowChest entity, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_) {
+	public void renderTileEntityAt(TileEntityGlowChest entity, double x, double y, double z, float p_147500_8_) {
 		int i;
 
 		if (!entity.hasWorldObj()) i = 0;
@@ -48,7 +49,6 @@ public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 		}
 
 		ModelChest modelchest;
-
 		modelchest = this.field_147510_h;
 
 		if (entity.func_145980_j() == 1) this.bindTexture(texture_);
@@ -56,7 +56,7 @@ public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glTranslatef((float) p_147500_2_, (float) p_147500_4_ + 1.0F, (float) p_147500_6_ + 1.0F);
+		GL11.glTranslatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
 		GL11.glScalef(1.0F, -1.0F, -1.0F);
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		short short1 = 0;
@@ -65,6 +65,9 @@ public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 		if (i == 3) short1 = 0;
 		if (i == 4) short1 = 90;
 		if (i == 5) short1 = -90;
+
+		// if (i == 2) GL11.glTranslatef(1.0F, 0.0F, 0.0F);
+		// if (i == 5) GL11.glTranslatef(0.0F, 0.0F, -1.0F);
 
 		GL11.glRotatef((float) short1, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
