@@ -72,6 +72,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.13")
 public class ExtraTools {
@@ -162,7 +164,7 @@ public class ExtraTools {
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
-		
+
 		ModsLoadedHelper.init();
 	}
 
@@ -241,6 +243,7 @@ public class ExtraTools {
 		// if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
 		registerTileEntities();
 		registerGuiHandler();
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) registerSpecialRenderers();
 	}
 
 	private void registerEventHandlers() {
@@ -285,7 +288,7 @@ public class ExtraTools {
 		GameRegistry.registerItem(itemReplacer, "ItemReplacer");
 		GameRegistry.registerItem(debugger, "ItemDebugger");
 		GameRegistry.registerItem(wrench, "GlowWrench");
-		
+
 		GameRegistry.registerItem(glowPickaxeUnbreakable, "GlowPickaxeUnbreakable");
 		GameRegistry.registerItem(glowHoeUnbreakable, "GlowHoeUnbreakable");
 		GameRegistry.registerItem(glowSwordUnbreakable, "GlowSwordUnbreakable");
@@ -373,10 +376,10 @@ public class ExtraTools {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
 				"xy", 'x', "dustGlow", 'y', Items.glass_bottle
 		}));
-		
+
 		// Crafting the GlowWrench
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wrench, 1), new Object[] {
-			"x x", "xxx", " x ", 'x', "ingotGlow"
+				"x x", "xxx", " x ", 'x', "ingotGlow"
 		}));
 
 		// Crafting the ItemReplacer Tool
@@ -500,12 +503,13 @@ public class ExtraTools {
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
 		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
-		
-		// Registering client specila renderers TODO: Move/organize things to make better use of proxies!
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGlowChest.class, new TileEntityGlowChestRenderer());
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(glowChest), new ItemRendererGlowChest());
-		}
+	}
+
+	// Registering client specila renderers TODO: Move/organize things to make better use of proxies!
+	@SideOnly(Side.CLIENT)
+	private void registerSpecialRenderers() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGlowChest.class, new TileEntityGlowChestRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(glowChest), new ItemRendererGlowChest());
 	}
 
 	private void registerGuiHandler() {

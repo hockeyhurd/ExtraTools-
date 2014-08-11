@@ -1,12 +1,16 @@
 package com.hockeyhurd.item.renderer;
 
-import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
-
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
+import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class ItemRendererGlowChest implements IItemRenderer {
 
 	private ModelChest chestModel;
