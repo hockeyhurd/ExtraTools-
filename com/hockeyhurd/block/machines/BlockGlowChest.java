@@ -40,25 +40,25 @@ public class BlockGlowChest extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		// blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowChest");
-		blockIcon = reg.registerIcon("planks_oak");
+		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowChest");
+		// blockIcon = reg.registerIcon("planks_oak");
 		// TODO: register other block icons stuff.
 	}
-	
-	/*@SideOnly(Side.CLIENT)
+
+	@SideOnly(Side.CLIENT)
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public int getRenderType() {
 		return 22;
-	}*/
+	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
@@ -145,6 +145,101 @@ public class BlockGlowChest extends BlockContainer {
 
 		if (stack.hasDisplayName()) {
 			((TileEntityGlowChest) world.getTileEntity(x, y, z)).setCustomName(stack.getDisplayName());
+		}
+	}
+
+	public void func_149954_e(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
+		if (!p_149954_1_.isRemote) {
+			Block block = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
+			Block block1 = p_149954_1_.getBlock(p_149954_2_, p_149954_3_, p_149954_4_ + 1);
+			Block block2 = p_149954_1_.getBlock(p_149954_2_ - 1, p_149954_3_, p_149954_4_);
+			Block block3 = p_149954_1_.getBlock(p_149954_2_ + 1, p_149954_3_, p_149954_4_);
+			boolean flag = true;
+			int l;
+			Block block4;
+			int i1;
+			Block block5;
+			boolean flag1;
+			byte b0;
+			int j1;
+
+			if (block != this && block1 != this) {
+				if (block2 != this && block3 != this) {
+					b0 = 3;
+
+					if (block.func_149730_j() && !block1.func_149730_j()) {
+						b0 = 3;
+					}
+
+					if (block1.func_149730_j() && !block.func_149730_j()) {
+						b0 = 2;
+					}
+
+					if (block2.func_149730_j() && !block3.func_149730_j()) {
+						b0 = 5;
+					}
+
+					if (block3.func_149730_j() && !block2.func_149730_j()) {
+						b0 = 4;
+					}
+				}
+				else {
+					l = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
+					block4 = p_149954_1_.getBlock(l, p_149954_3_, p_149954_4_ - 1);
+					i1 = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
+					block5 = p_149954_1_.getBlock(i1, p_149954_3_, p_149954_4_ + 1);
+					b0 = 3;
+					flag1 = true;
+
+					if (block2 == this) {
+						j1 = p_149954_1_.getBlockMetadata(p_149954_2_ - 1, p_149954_3_, p_149954_4_);
+					}
+					else {
+						j1 = p_149954_1_.getBlockMetadata(p_149954_2_ + 1, p_149954_3_, p_149954_4_);
+					}
+
+					if (j1 == 2) {
+						b0 = 2;
+					}
+
+					if ((block.func_149730_j() || block4.func_149730_j()) && !block1.func_149730_j() && !block5.func_149730_j()) {
+						b0 = 3;
+					}
+
+					if ((block1.func_149730_j() || block5.func_149730_j()) && !block.func_149730_j() && !block4.func_149730_j()) {
+						b0 = 2;
+					}
+				}
+			}
+			else {
+				l = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
+				block4 = p_149954_1_.getBlock(p_149954_2_ - 1, p_149954_3_, l);
+				i1 = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
+				block5 = p_149954_1_.getBlock(p_149954_2_ + 1, p_149954_3_, i1);
+				b0 = 5;
+				flag1 = true;
+
+				if (block == this) {
+					j1 = p_149954_1_.getBlockMetadata(p_149954_2_, p_149954_3_, p_149954_4_ - 1);
+				}
+				else {
+					j1 = p_149954_1_.getBlockMetadata(p_149954_2_, p_149954_3_, p_149954_4_ + 1);
+				}
+
+				if (j1 == 4) {
+					b0 = 4;
+				}
+
+				if ((block2.func_149730_j() || block4.func_149730_j()) && !block3.func_149730_j() && !block5.func_149730_j()) {
+					b0 = 5;
+				}
+
+				if ((block3.func_149730_j() || block5.func_149730_j()) && !block2.func_149730_j() && !block4.func_149730_j()) {
+					b0 = 4;
+				}
+			}
+
+			p_149954_1_.setBlockMetadataWithNotify(p_149954_2_, p_149954_3_, p_149954_4_, b0, 3);
 		}
 	}
 

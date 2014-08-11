@@ -3,7 +3,6 @@ package com.hockeyhurd.entity.tileentity;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
+import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.gui.ContainerGlowChest;
 
 import cpw.mods.fml.relauncher.Side;
@@ -20,9 +20,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityGlowChest extends TileEntity implements IInventory {
 
-	// Math: 7 rows * 9 col + 3 rows * 9 col + hotbar (1 row * 9 col). 
+	// Math: 7 rows * 9 col + 3 rows * 9 col + hotbar (1 row * 9 col).
 	private ItemStack[] chestContents = new ItemStack[(7 * 9) + (9 * 4)];
-	
+
 	/** Determines if the check for adjacent chests has taken place. */
 	// public boolean adjacentChestChecked;
 	/** Contains the chest tile located adjacent to this one (if any) */
@@ -198,14 +198,6 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 		}
 	}
 
-	private boolean func_145977_a(int x, int y, int z) {
-		if (this.worldObj == null) return false;
-		else {
-			Block block = this.worldObj.getBlock(x, y, z);
-			return block instanceof BlockChest && ((BlockChest) block).field_149956_a == this.func_145980_j();
-		}
-	}
-
 	public void updateEntity() {
 		super.updateEntity();
 		// this.checkForAdjacentChests();
@@ -225,7 +217,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 				if (entityplayer.openContainer instanceof ContainerGlowChest) {
 					IInventory iinventory = ((ContainerGlowChest) entityplayer.openContainer).getLowerChestInventory();
 
-					if (iinventory == this /*|| iinventory instanceof InventoryLargeChest && ((InventoryLargeChest) iinventory).isPartOfLargeChest(this)*/) this.numPlayersUsing++;
+					if (iinventory == this /* || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest) iinventory).isPartOfLargeChest(this) */) this.numPlayersUsing++;
 				}
 			}
 		}
@@ -234,7 +226,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 		f = 0.1F;
 		double d2;
 
-		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F /*&& this.adjacentChestZNeg == null && this.adjacentChestXNeg == null*/) {
+		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F /* && this.adjacentChestZNeg == null && this.adjacentChestXNeg == null */) {
 			double d1 = (double) this.xCoord + 0.5D;
 			d2 = (double) this.zCoord + 0.5D;
 
@@ -260,7 +252,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 
 			float f2 = 0.5F;
 
-			if (this.lidAngle < f2 && f1 >= f2 /*&& this.adjacentChestZNeg == null && this.adjacentChestXNeg == null*/) {
+			if (this.lidAngle < f2 && f1 >= f2 /* && this.adjacentChestZNeg == null && this.adjacentChestXNeg == null */) {
 				d2 = (double) this.xCoord + 0.5D;
 				double d0 = (double) this.zCoord + 0.5D;
 
@@ -295,7 +287,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 	}
 
 	public void closeInventory() {
-		if (this.getBlockType() instanceof BlockChest) {
+		if (this.getBlockType() instanceof BlockGlowChest) {
 			this.numPlayersUsing--;
 			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
@@ -321,9 +313,9 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 
 	public int func_145980_j() {
 		if (this.cachedChestType == -1) {
-			if (this.worldObj == null || !(this.getBlockType() instanceof BlockChest)) { return 0; }
+			if (this.worldObj == null || !(this.getBlockType() instanceof BlockChest)) return 0; 
 
-			this.cachedChestType = ((BlockChest) this.getBlockType()).field_149956_a;
+			this.cachedChestType = 0;
 		}
 
 		return this.cachedChestType;

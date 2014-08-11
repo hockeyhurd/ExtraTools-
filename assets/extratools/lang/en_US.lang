@@ -6,6 +6,9 @@ tile.GlowIngotBlock.name=Block of Glow
 tile.ExtraSmoothStone.name='Stone'
 
 tile.GlowFurnaceOff.name=Glow Furnace
+tile.GlowChest.name=Glow Chest
+
+container.glowchest=Glow Chest Inventory
 
 item.GlowDust.name=Glow Dust
 item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
