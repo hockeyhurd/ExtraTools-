@@ -19,8 +19,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 
-	// private static final ResourceLocation texture_ = new ResourceLocation("extratools", "textures/blocks/GlowChest.png");
-	private static final ResourceLocation texture_ = new ResourceLocation("textures/entity/chest/normal.png");
+	private static final ResourceLocation texture_ = new ResourceLocation("extratools", "textures/blocks/GlowChest.png");
+	// private static final ResourceLocation texture_ = new ResourceLocation("textures/entity/chest/normal.png");
 
 	private ModelChest field_147510_h = new ModelChest();
 	private static final String __OBFID = "CL_00000965";

@@ -43,7 +43,6 @@ public class BlockGlowChest extends BlockContainer {
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowChest");
 		// blockIcon = reg.registerIcon("planks_oak");
-		// TODO: register other block icons stuff.
 	}
 
 	@SideOnly(Side.CLIENT)
