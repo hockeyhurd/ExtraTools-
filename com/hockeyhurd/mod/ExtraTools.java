@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -69,6 +70,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -240,7 +242,7 @@ public class ExtraTools {
 		addFuelRegister();
 		addCraftingRecipes();
 		addFurnaceRecipes();
-		// if (Loader.isModLoaded("ThermalExpansion")) pulverizeRecipes();
+		if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
 		registerTileEntities();
 		registerGuiHandler();
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) registerSpecialRenderers();
@@ -489,16 +491,20 @@ public class ExtraTools {
 		GameRegistry.addSmelting(glowOre, new ItemStack(glowDust, 1), 100f);
 	}
 
-	/*
-	 * private void pulverizeRecipes() { // Code performing glowOre into 2*glowDust via Thermal Expansion // Pulverizer. NBTTagCompound toSend = new NBTTagCompound(); toSend.setInteger("energy", 1000); toSend.setCompoundTag("input", new NBTTagCompound()); toSend.setCompoundTag("primaryOutput", new
-	 * NBTTagCompound());
-	 * 
-	 * ItemStack inputStack = new ItemStack(glowOre, 1); inputStack.writeToNBT(toSend.getCompoundTag("input"));
-	 * 
-	 * ItemStack outputStack = new ItemStack(glowDust, 2); outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput")); FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
-	 * 
-	 * }
-	 */
+	private void pulverizeRecipes() { // Code performing glowOre into 2*glowDust via Thermal Expansion // Pulverizer.
+		NBTTagCompound toSend = new NBTTagCompound();
+		toSend.setInteger("energy", 1000);
+		toSend.setTag("input", new NBTTagCompound());
+		toSend.setTag("primaryOutput", new NBTTagCompound());
+
+		ItemStack inputStack = new ItemStack(glowOre, 1);
+		inputStack.writeToNBT(toSend.getCompoundTag("input"));
+
+		ItemStack outputStack = new ItemStack(glowDust, 2);
+		outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput"));
+		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
+
+	}
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
