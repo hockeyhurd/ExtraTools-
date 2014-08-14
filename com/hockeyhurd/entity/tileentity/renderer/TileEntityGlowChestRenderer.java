@@ -47,11 +47,11 @@ public class TileEntityGlowChestRenderer extends TileEntityChestRenderer {
 			}
 
 		}
-
+		
 		ModelChest modelchest;
 		modelchest = this.field_147510_h;
 
-		if (entity.func_145980_j() == 1) this.bindTexture(texture_);
+		if (entity.func_145980_j() == 0) this.bindTexture(texture_);
 
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
