@@ -101,8 +101,15 @@ public class EventHookContainer {
 			if (currentLeg == leg) {
 				legCheck = true;
 				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, 0));
-				player.stepHeight = 1.0f;
-				player.capabilities.setPlayerWalkSpeed(0.15f);
+				if (!player.isSneaking()) {
+					player.stepHeight = 1.0f;
+					player.capabilities.setPlayerWalkSpeed(0.15f);
+				}
+				
+				else {
+					player.stepHeight = 0.5f;
+					player.capabilities.setPlayerWalkSpeed(0.1f);
+				}
 			}
 
 			if (currentChest == chest) {
