@@ -47,6 +47,7 @@ import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -141,15 +142,26 @@ public class ExtraTools {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		FMLLog.info(modID, "Pre-init started, looking for config info!");
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
+		FMLLog.info(modID, "Config loaded successfully!");
 
+		FMLLog.info(modID, "Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
+		
+		for (int i = 0; i < ModsLoadedHelper.staticArray.length; i++) {
+			if (ModsLoadedHelper.staticArray[i]) FMLLog.info(modID, ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
+			else FMLLog.info(modID, ModsLoadedHelper.staticArray[i] + " not detected!");
+		}
+		
+		FMLLog.info(modID, "Pre-init finished succesfully!");
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
+		FMLLog.info(modID, "Init started");
 		loadObj();
 
 		// if (FMLCommonHandler.instance().getEffectiveSide().isClient()) proxy = new ClientProxy(new ExtraTools());
@@ -157,6 +169,8 @@ public class ExtraTools {
 		
 		proxy.init();
 		proxy.registerRenderInformation();
+		
+		FMLLog.info(modID, "Init finished successfully!");
 	}
 
 	private void loadObj() {
