@@ -154,6 +154,7 @@ public class EventHookContainer {
 		
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!" );
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
 		
 		else return;
 	}

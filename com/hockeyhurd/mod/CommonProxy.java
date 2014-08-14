@@ -63,6 +63,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
 		GameRegistry.registerBlock(glowChest, "GlowChest");
 		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
+		GameRegistry.registerBlock(safeGlass, "SafeGlass");
 	}
 
 	protected void registerItems() {
@@ -138,6 +139,11 @@ public class CommonProxy {
 		// Crafting the ExtraSmoothStone
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
+		}));
+		
+		// Crafting the SafeGlass
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(safeGlass, 8), new Object[] {
+			"xxx", "xyx", "xxx", 'x', "blockGlass", 'y', "dustGlow"
 		}));
 
 		// Nether Star Firery

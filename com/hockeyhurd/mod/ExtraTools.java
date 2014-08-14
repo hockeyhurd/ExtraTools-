@@ -13,6 +13,7 @@ import com.hockeyhurd.block.BlockExtraSmoothStone;
 import com.hockeyhurd.block.BlockGlowIngot;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
+import com.hockeyhurd.block.BlockSafeGlass;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.ores.BlockGlowOre;
@@ -46,7 +47,6 @@ import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -54,7 +54,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.14")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.15")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -76,6 +76,7 @@ public class ExtraTools {
 	public static Block glowTorch;
 	public static Block glowIngotBlock;
 	public static Block extraSmoothStone;
+	public static Block safeGlass;
 
 	// Machines/TileEntityBlocks
 	public static Block glowFurnaceOff;
@@ -164,6 +165,7 @@ public class ExtraTools {
 		glowTorch = new BlockGlowTorch();
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
 		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
+		safeGlass = new BlockSafeGlass(Material.glass, false);
 
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
