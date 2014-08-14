@@ -163,9 +163,6 @@ public class ExtraTools {
 	public void load(FMLInitializationEvent event) {
 		FMLLog.info(modID, "Init started");
 		loadObj();
-
-		// if (FMLCommonHandler.instance().getEffectiveSide().isClient()) proxy = new ClientProxy(new ExtraTools());
-		// else proxy = new CommonProxy(new ExtraTools());
 		
 		proxy.init();
 		proxy.registerRenderInformation();

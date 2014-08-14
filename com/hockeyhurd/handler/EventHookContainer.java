@@ -30,8 +30,8 @@ public class EventHookContainer {
 	private boolean chestCheck = false;
 	private boolean helmCheck = false;
 	private boolean canFly = false;
-	
-	private final float time = ( (float)TileEntityGlowFurnace.scaledTime / (float) TileEntityGlowFurnace.defaultCookTime) * 100;
+
+	private final float time = ((float) TileEntityGlowFurnace.scaledTime / (float) TileEntityGlowFurnace.defaultCookTime) * 100;
 
 	public EventHookContainer() {
 	}
@@ -100,8 +100,9 @@ public class EventHookContainer {
 
 			if (currentLeg == leg) {
 				legCheck = true;
-				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id,
-				// 2, 0));
+				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, 0));
+				player.stepHeight = 1.0f;
+				player.capabilities.setPlayerWalkSpeed(0.15f);
 			}
 
 			if (currentChest == chest) {
@@ -123,6 +124,8 @@ public class EventHookContainer {
 			else {
 				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) player.capabilities.allowFlying = false;
 				setAllowedFly(false);
+				player.stepHeight = 0.5f;
+				player.capabilities.setPlayerWalkSpeed(0.1f);
 			}
 
 			bootCheck = legCheck = chestCheck = helmCheck = false;
@@ -151,11 +154,11 @@ public class EventHookContainer {
 			event.toolTip.add("Unbreakable!");
 			if (currentItem == pick || currentItem == hammer) event.toolTip.add("Right click to place torches!");
 		}
-		
-		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!" );
+
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
-		
+
 		else return;
 	}
 

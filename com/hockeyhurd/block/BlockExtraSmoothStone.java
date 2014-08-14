@@ -22,6 +22,7 @@ public class BlockExtraSmoothStone extends Block {
 		super(material);
 		this.setBlockName("ExtraSmoothStone");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
+		this.setHardness(1.0f);
 	}
 	
 	@SideOnly(Side.CLIENT)
