@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -102,13 +103,13 @@ public class EventHookContainer {
 				legCheck = true;
 				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, 0));
 				if (!player.isSneaking()) {
-					player.stepHeight = 1.0f;
-					player.capabilities.setPlayerWalkSpeed(0.15f);
+					if (player.stepHeight < 1.0f) player.stepHeight = 1.0f;
+					// if (player.capabilities.getWalkSpeed() < 0.15f) player.capabilities.setPlayerWalkSpeed(0.15f);
 				}
 				
 				else {
-					player.stepHeight = 0.5f;
-					player.capabilities.setPlayerWalkSpeed(0.1f);
+					if (player.stepHeight > 0.5f) player.stepHeight = 0.5f;
+					// if (player.capabilities.getWalkSpeed() > 0.1f) player.capabilities.setPlayerWalkSpeed(0.1f);
 				}
 			}
 
@@ -131,8 +132,8 @@ public class EventHookContainer {
 			else {
 				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) player.capabilities.allowFlying = false;
 				setAllowedFly(false);
-				player.stepHeight = 0.5f;
-				player.capabilities.setPlayerWalkSpeed(0.1f);
+				if (player.stepHeight != 0.5f) player.stepHeight = 0.5f;
+				// if (player.capabilities.getWalkSpeed() != 0.1f) player.capabilities.setPlayerWalkSpeed(0.1f);
 			}
 
 			bootCheck = legCheck = chestCheck = helmCheck = false;
