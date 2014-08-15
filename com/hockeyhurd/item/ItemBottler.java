@@ -40,7 +40,7 @@ public class ItemBottler extends Item {
 		this.setMaxDamage(1);
 		if (new ItemStack(this).getItemDamage() > 0) this.setMaxStackSize(1);
 		else this.setMaxStackSize(64);
-		
+
 		this.bh = new BlockHelper();
 	}
 
@@ -111,23 +111,23 @@ public class ItemBottler extends Item {
 			bh.setWorldPlayer(world, player);
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
-			
+
 			Vector3IHelper vec = waila.getVector3I();
-			
+
 			if (vec != null) {
 				if (!bh.canMineBlock(0, 0, 0)) return stack;
 				if (!player.canPlayerEdit(vec.getX(), vec.getY(), vec.getZ(), vec.getSideHit(), stack)) return stack;
-				
+
 				if (bh.getBlock(vec.getX(), vec.getY(), vec.getZ()) instanceof BlockLiquid) {
 					Entity e = spawnCreature(stack, world, (double) vec.getX(), (double) vec.getY(), (double) vec.getZ());
-					
+
 					if (e != null) {
 						if (e instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) e).setCustomNameTag(stack.getDisplayName());
 						if (!player.capabilities.isCreativeMode) stack.stackSize--;
 					}
 				}
 			}
-			
+
 			return stack;
 		}
 	}
@@ -155,10 +155,10 @@ public class ItemBottler extends Item {
 	public Entity spawnCreature(ItemStack stack, World world, double x, double y, double z) {
 		Entity entity = null;
 		if (stack.getItemDamage() < 1) return entity;
-		
+
 		NBTTagCompound tag = null;
 		if (stack != null && stack.stackTagCompound != null) tag = stack.stackTagCompound;
-		
+
 		for (int j = 0; j < 1; j++) {
 			// entity = EntityList.createEntityByName(this.entityName, world);
 			String temp = tag.getString("Entity");
@@ -192,7 +192,7 @@ public class ItemBottler extends Item {
 
 		return slotNum;
 	}
-	
+
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		if (!(e instanceof EntityPlayer)) return;
 		if (stack.getItemDamage() < 1 || !this.updateInfo) return;
@@ -208,22 +208,9 @@ public class ItemBottler extends Item {
 		String savedText = stack.stackTagCompound.getString("Entity");
 		if (ExtraTools.lh.nullCheck(savedText)) this.entityName = savedText;
 	}
-	
+
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (stack.stackTagCompound == null) return;
-		else {
-			String ent = stack.stackTagCompound.getString("Entity");
-			if (ExtraTools.lh.nullCheck(ent)) {
-				if (!list.contains(this.entityName)) return;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) == this.entityName) {
-						list.remove(i);
-						break;
-					}
-				}
-			}
-			else list.add(EnumChatFormatting.GREEN + "Entity: " + ent);
-		}
+		if (this.hasEffect(stack) && ExtraTools.lh.nullCheck(this.entityName)) list.add(EnumChatFormatting.GREEN + "Entity: " + this.entityName);
 	}
-	
+
 }
