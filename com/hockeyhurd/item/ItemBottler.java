@@ -1,5 +1,7 @@
 package com.hockeyhurd.item;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -13,9 +15,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Facing;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
@@ -28,6 +31,7 @@ public class ItemBottler extends Item {
 	private Entity entityToSpawn;
 	private String entityName;
 	private BlockHelper bh;
+	private boolean updateInfo = false;
 
 	public ItemBottler() {
 		super();
@@ -49,36 +53,40 @@ public class ItemBottler extends Item {
 	}
 
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		if (!(entity instanceof EntityCreature) || stack.getItemDamage() > 0) return true;
+		if (!(entity instanceof EntityCreature) || stack.getItemDamage() > 0 || entity.worldObj.isRemote) return true;
 
 		Item item = stack.getItem();
 		ItemStack thisStack = new ItemStack(item, 1, 1);
-		thisStack.setStackDisplayName("Bottled: " + entity.toString());
+		// thisStack.setStackDisplayName("Bottled: " + entity.toString());
 
 		this.entityToSpawn = entity;
 		this.entityName = EntityList.getEntityString(entity);
 
+		// Search inventory for empty slot and get the first empty slot index.
 		int emptySlot = -1;
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
 				if (player.inventory.getStackInSlot(x + y * 9) == (ItemStack) null) {
-					emptySlot = x * y;
+					emptySlot = x + y * 9;
 					break;
 				}
 			}
 		}
 
+		// Search inventory hotbar for current used stack's index.
 		int slotNum = 0;
 		for (int i = 0; i < player.inventory.getHotbarSize(); i++) {
 			if (player.inventory.getStackInSlot(i) == stack) slotNum = i;
 			else if (emptySlot != -1 && player.inventory.getStackInSlot(i) == (ItemStack) null) emptySlot = i;
 		}
 
+		// Decrease the found stack index and size by -1.
 		decreaseStackSize(stack, slotNum, player);
 
 		if (emptySlot == -1) player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, thisStack));
 		else if (emptySlot > 0) player.inventory.setInventorySlotContents(emptySlot, thisStack);
 
+		updateInfo = true;
 		player.onUpdate();
 		entity.setDead();
 
@@ -111,7 +119,7 @@ public class ItemBottler extends Item {
 				if (!player.canPlayerEdit(vec.getX(), vec.getY(), vec.getZ(), vec.getSideHit(), stack)) return stack;
 				
 				if (bh.getBlock(vec.getX(), vec.getY(), vec.getZ()) instanceof BlockLiquid) {
-					Entity e = spawnCreature(world, (double) vec.getX(), (double) vec.getY(), (double) vec.getZ());
+					Entity e = spawnCreature(stack, world, (double) vec.getX(), (double) vec.getY(), (double) vec.getZ());
 					
 					if (e != null) {
 						if (e instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) e).setCustomNameTag(stack.getDisplayName());
@@ -134,7 +142,7 @@ public class ItemBottler extends Item {
 			double d0 = 0.0D;
 			if (p_77648_7_ == 1 && block.getRenderType() == 11) d0 = 0.5D;
 
-			Entity entity = spawnCreature(world, (double) x + 0.5D, (double) y + d0, (double) z + 0.5D);
+			Entity entity = spawnCreature(stack, world, (double) x + 0.5D, (double) y + d0, (double) z + 0.5D);
 			if (entity != null) {
 				if (entity instanceof EntityLivingBase && stack.hasDisplayName()) ((EntityLiving) entity).setCustomNameTag(stack.getDisplayName());
 				if (!player.capabilities.isCreativeMode) stack.stackSize--;
@@ -144,11 +152,17 @@ public class ItemBottler extends Item {
 		}
 	}
 
-	public Entity spawnCreature(World world, double x, double y, double z) {
+	public Entity spawnCreature(ItemStack stack, World world, double x, double y, double z) {
 		Entity entity = null;
-
+		if (stack.getItemDamage() < 1) return entity;
+		
+		NBTTagCompound tag = null;
+		if (stack != null && stack.stackTagCompound != null) tag = stack.stackTagCompound;
+		
 		for (int j = 0; j < 1; j++) {
-			entity = EntityList.createEntityByName(this.entityName, world);
+			// entity = EntityList.createEntityByName(this.entityName, world);
+			String temp = tag.getString("Entity");
+			entity = EntityList.createEntityByName(temp, world);
 
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLiving entityliving = (EntityLiving) entity;
@@ -159,7 +173,7 @@ public class ItemBottler extends Item {
 
 				System.out.println("Enitity: " + entity + ", Stored Entity: " + this.entityToSpawn);
 				world.spawnEntityInWorld(entity);
-				world.joinEntityInSurroundings(entity);
+				// world.joinEntityInSurroundings(entity);
 				entityliving.playLivingSound();
 			}
 		}
@@ -178,5 +192,38 @@ public class ItemBottler extends Item {
 
 		return slotNum;
 	}
+	
+	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
+		if (!(e instanceof EntityPlayer)) return;
+		if (stack.getItemDamage() < 1 || !this.updateInfo) return;
+		else {
+			stack.stackTagCompound = new NBTTagCompound();
+			stack.stackTagCompound.setString("Entity", this.entityName);
+			this.updateInfo = false;
+		}
+	}
 
+	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
+		stack.stackTagCompound = new NBTTagCompound();
+		String savedText = stack.stackTagCompound.getString("Entity");
+		if (ExtraTools.lh.nullCheck(savedText)) this.entityName = savedText;
+	}
+	
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		if (stack.stackTagCompound == null) return;
+		else {
+			String ent = stack.stackTagCompound.getString("Entity");
+			if (ExtraTools.lh.nullCheck(ent)) {
+				if (!list.contains(this.entityName)) return;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) == this.entityName) {
+						list.remove(i);
+						break;
+					}
+				}
+			}
+			else list.add(EnumChatFormatting.GREEN + "Entity: " + ent);
+		}
+	}
+	
 }

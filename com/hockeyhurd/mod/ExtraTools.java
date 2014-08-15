@@ -45,6 +45,7 @@ import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
+import com.hockeyhurd.util.LogicHelper;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.FMLLog;
@@ -55,7 +56,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.16")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.17")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -70,6 +71,7 @@ public class ExtraTools {
 
 	// Config object(s).
 	public static ConfigHandler ch;
+	public static LogicHelper lh;
 	public static String modID = "ExtraTools+";
 
 	// Blocks
@@ -143,6 +145,7 @@ public class ExtraTools {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		FMLLog.info(modID, "Pre-init started, looking for config info!");
+		lh = new LogicHelper();
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
