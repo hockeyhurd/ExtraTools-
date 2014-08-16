@@ -30,8 +30,8 @@ public class ItemBottler extends Item {
 
 	private Entity entityToSpawn;
 	private String entityName;
-	private BlockHelper bh;
 	private boolean updateInfo = false;
+	private BlockHelper bh;
 
 	public ItemBottler() {
 		super();
@@ -163,6 +163,7 @@ public class ItemBottler extends Item {
 			// entity = EntityList.createEntityByName(this.entityName, world);
 			String temp = tag.getString("Entity");
 			entity = EntityList.createEntityByName(temp, world);
+			tag.removeTag("Entity");
 
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLiving entityliving = (EntityLiving) entity;
@@ -199,6 +200,7 @@ public class ItemBottler extends Item {
 		else {
 			stack.stackTagCompound = new NBTTagCompound();
 			stack.stackTagCompound.setString("Entity", this.entityName);
+			
 			this.updateInfo = false;
 		}
 	}
@@ -210,7 +212,11 @@ public class ItemBottler extends Item {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (this.hasEffect(stack) && ExtraTools.lh.nullCheck(this.entityName)) list.add(EnumChatFormatting.GREEN + "Entity: " + this.entityName);
+		NBTTagCompound tag = null;
+		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
+		
+		String name = tag.getString("Entity");
+		if (this.hasEffect(stack) && ExtraTools.lh.nullCheck(this.entityName) && ExtraTools.lh.nullCheck(name)) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
 	}
 
 }
