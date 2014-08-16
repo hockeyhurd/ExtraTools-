@@ -104,12 +104,16 @@ public class ItemNetherSoulCollector extends Item {
 
 	// Move entity to player.
 	private void teleportEntityToPlayer(Entity item, EntityPlayer player) {
-		player.getLookVec();
-		double speed = 0.1d;
-		double x = player.posX + player.getLookVec().xCoord * speed;
-		double y = player.posY - player.height / 4f;
-		double z = player.posZ + player.getLookVec().zCoord * speed;
-		item.setPosition(x, y, z);
+		// player.getLookVec();
+		// double speed = 0.1d;
+		// double x = player.posX + player.getLookVec().xCoord * speed;
+		// double y = player.posY - player.height / 4f;
+		// double z = player.posZ + player.getLookVec().zCoord * speed;
+
+		double velocity = 0.1d;
+		item.motionX += (player.posX - item.posX) * velocity;
+		item.motionY += ((player.posY + 0.1d) - item.posY) * velocity;
+		item.motionZ += (player.posZ - item.posZ) * velocity;
 	}
 	
 	private boolean checkInvForRoom(ItemStack stack, EntityPlayer player) {
