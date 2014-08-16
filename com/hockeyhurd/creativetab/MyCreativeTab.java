@@ -1,9 +1,9 @@
 package com.hockeyhurd.creativetab;
 
-import com.hockeyhurd.mod.ExtraTools;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+
+import com.hockeyhurd.mod.ExtraTools;
 
 public class MyCreativeTab extends CreativeTabs {
 
@@ -17,6 +17,10 @@ public class MyCreativeTab extends CreativeTabs {
 	
 	public String getTranslatedTabLabel() {
 		return "ExtraTools+";
+	}
+	
+	public boolean hasSearchBar() {
+		return false;
 	}
 	
 }

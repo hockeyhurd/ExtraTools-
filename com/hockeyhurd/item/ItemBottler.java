@@ -204,7 +204,7 @@ public class ItemBottler extends Item {
 		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
 		
 		String name = tag.getString("Entity");
-		if (this.hasEffect(stack) && ExtraTools.lh.nullCheck(this.entityName) && ExtraTools.lh.nullCheck(name)) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
+		if (this.hasEffect(stack)) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
 	}
 
 }
