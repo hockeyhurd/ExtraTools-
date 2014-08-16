@@ -28,8 +28,8 @@ import com.hockeyhurd.util.Waila;
 
 public class ItemBottler extends Item {
 
-	private Entity entityToSpawn;
 	private String entityName;
+	private int slotID = -1;
 	private boolean updateInfo = false;
 	private BlockHelper bh;
 
@@ -57,32 +57,19 @@ public class ItemBottler extends Item {
 
 		Item item = stack.getItem();
 		ItemStack thisStack = new ItemStack(item, 1, 1);
-		// thisStack.setStackDisplayName("Bottled: " + entity.toString());
 
-		this.entityToSpawn = entity;
 		this.entityName = EntityList.getEntityString(entity);
-
-		// Search inventory for empty slot and get the first empty slot index.
-		int emptySlot = -1;
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				if (player.inventory.getStackInSlot(x + y * 9) == (ItemStack) null) {
-					emptySlot = x + y * 9;
-					break;
-				}
-			}
-		}
 
 		// Search inventory hotbar for current used stack's index.
 		int slotNum = 0;
 		for (int i = 0; i < player.inventory.getHotbarSize(); i++) {
 			if (player.inventory.getStackInSlot(i) == stack) slotNum = i;
-			else if (emptySlot != -1 && player.inventory.getStackInSlot(i) == (ItemStack) null) emptySlot = i;
 		}
 
 		// Decrease the found stack index and size by -1.
 		decreaseStackSize(stack, slotNum, player);
 
+		int emptySlot = slotID = player.inventory.getFirstEmptyStack();
 		if (emptySlot == -1) player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, thisStack));
 		else if (emptySlot > 0) player.inventory.setInventorySlotContents(emptySlot, thisStack);
 
@@ -160,10 +147,8 @@ public class ItemBottler extends Item {
 		if (stack != null && stack.stackTagCompound != null) tag = stack.stackTagCompound;
 
 		for (int j = 0; j < 1; j++) {
-			// entity = EntityList.createEntityByName(this.entityName, world);
 			String temp = tag.getString("Entity");
 			entity = EntityList.createEntityByName(temp, world);
-			tag.removeTag("Entity");
 
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLiving entityliving = (EntityLiving) entity;
@@ -172,7 +157,6 @@ public class ItemBottler extends Item {
 				entityliving.renderYawOffset = entityliving.rotationYaw;
 				entityliving.onSpawnWithEgg((IEntityLivingData) null);
 
-				System.out.println("Enitity: " + entity + ", Stored Entity: " + this.entityToSpawn);
 				world.spawnEntityInWorld(entity);
 				// world.joinEntityInSurroundings(entity);
 				entityliving.playLivingSound();
@@ -193,13 +177,16 @@ public class ItemBottler extends Item {
 
 		return slotNum;
 	}
-
+	
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		if (!(e instanceof EntityPlayer)) return;
-		if (stack.getItemDamage() < 1 || !this.updateInfo) return;
+		
+		EntityPlayer player = (EntityPlayer) e;
+		if (this.slotID == -1 || player.inventory.getStackInSlot(this.slotID) == null || player.inventory.getStackInSlot(this.slotID).getItemDamage() < 1 || !this.updateInfo) return;
 		else {
-			stack.stackTagCompound = new NBTTagCompound();
-			stack.stackTagCompound.setString("Entity", this.entityName);
+			ItemStack theStack = player.inventory.getStackInSlot(this.slotID);
+			theStack.stackTagCompound = new NBTTagCompound();
+			theStack.stackTagCompound.setString("Entity", this.entityName);
 			
 			this.updateInfo = false;
 		}
@@ -212,6 +199,7 @@ public class ItemBottler extends Item {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		if (!hasEffect(stack) || !ExtraTools.lh.nullCheck(this.entityName)) return;
 		NBTTagCompound tag = null;
 		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
 		
