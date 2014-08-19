@@ -4,13 +4,13 @@
 
 package com.hockeyhurd.util;
 
-import java.util.Iterator;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+
+import com.hockeyhurd.util.math.Vector3iHelper;
 
 public class BlockHelper {
 
@@ -50,7 +50,7 @@ public class BlockHelper {
 		return world.getBlock(x, y, z);
 	}
 	
-	public Block getBlock(Vector3IHelper vec) {
+	public Block getBlock(Vector3iHelper vec) {
 		return getBlock(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
@@ -62,11 +62,11 @@ public class BlockHelper {
 		return canMineBlock(this.player, x, y, z);
 	}
 	
-	public boolean canMineBlock(Vector3IHelper vec) {
+	public boolean canMineBlock(Vector3iHelper vec) {
 		return canMineBlock(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
-	public boolean canMineBlock(EntityPlayer player, Vector3IHelper vec) {
+	public boolean canMineBlock(EntityPlayer player, Vector3iHelper vec) {
 		return canMineBlock(player, vec.getX(), vec.getY(), vec.getZ());
 	}
 	
@@ -78,7 +78,7 @@ public class BlockHelper {
 		return world.blockExists(x, y, z);
 	}
 	
-	public boolean blockExists(Vector3IHelper vec) {
+	public boolean blockExists(Vector3iHelper vec) {
 		return blockExists(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
@@ -86,7 +86,7 @@ public class BlockHelper {
 		return world.getBlockMetadata(x, y, z);
 	}
 	
-	public int getBlockMetaData(Vector3IHelper vec) {
+	public int getBlockMetaData(Vector3iHelper vec) {
 		return getBlockMetaData(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
@@ -95,7 +95,7 @@ public class BlockHelper {
 		return world.getBlock(x, y, z).getMaterial();
 	}
 	
-	public Material getBlockMaterial(Vector3IHelper vec) {
+	public Material getBlockMaterial(Vector3iHelper vec) {
 		return getBlockMaterial(vec.getX(), vec.getY(), vec.getZ());
 	}
 	
@@ -132,11 +132,11 @@ public class BlockHelper {
 		world.func_147480_a(x, y, z, drop);
 	}
 	
-	public void destroyBlock(Vector3IHelper vec, boolean drop) {
+	public void destroyBlock(Vector3iHelper vec, boolean drop) {
 		destroyBlock(vec.getX(), vec.getY(), vec.getZ(), drop);
 	}
 	
-	public void destroyBlock(Vector3IHelper vec) {
+	public void destroyBlock(Vector3iHelper vec) {
 		destroyBlock(vec, true);
 	}
 	

@@ -1,12 +1,11 @@
 package com.hockeyhurd.item.tool;
 
+import ic2.core.block.TileEntityBlock;
+import ic2.core.block.wiring.TileEntityElectricBlock;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import ic2.api.tile.IEnergyStorage;
-import ic2.core.block.TileEntityBlock;
-import ic2.core.block.wiring.BlockElectric;
-import ic2.core.block.wiring.TileEntityElectricBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
@@ -21,8 +20,8 @@ import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.EntitySpawnerHelper;
 import com.hockeyhurd.util.TimerHelper;
-import com.hockeyhurd.util.Vector3IHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.math.Vector3iHelper;
 
 public class ItemWrenchIC2 extends AbstractToolWrench {
 
@@ -54,7 +53,7 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			if (!th.getUse() || th.excuser()) {
 				waila.finder(false);
-				Vector3IHelper vec = waila.getVector3I();
+				Vector3iHelper vec = waila.getVector3I();
 				int metaData = 0;
 
 				if (bh.blockExists(vec)) {

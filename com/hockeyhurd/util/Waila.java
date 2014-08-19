@@ -23,6 +23,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.math.Vector3iHelper;
 
 public class Waila {
 
@@ -42,7 +43,7 @@ public class Waila {
 	private int sideHit = 0;
 	private int offset;
 	private int metaData;
-	private Vector3IHelper vec;
+	private Vector3iHelper vec;
 	private boolean returnState = false;
 
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
@@ -254,12 +255,12 @@ public class Waila {
 		this.sideHit = sideHit;
 	}
 	
-	public Vector3IHelper getVector3I() {
+	public Vector3iHelper getVector3I() {
 		return this.vec;
 	}
 	
 	private void setVector3I(int x, int y, int z, int sideHit) {
-		this.vec = new Vector3IHelper(x, y, z, sideHit);
+		this.vec = new Vector3iHelper(x, y, z, sideHit);
 	}
 
 	public int getSideHit() {

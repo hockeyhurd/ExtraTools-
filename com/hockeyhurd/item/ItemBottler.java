@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
-import com.hockeyhurd.util.Vector3IHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.math.Vector3iHelper;
 
 public class ItemBottler extends Item {
 
@@ -49,7 +49,7 @@ public class ItemBottler extends Item {
 	}
 
 	public boolean hasEffect(ItemStack stack) {
-		return stack.getItemDamage() > 0 ? true : false;
+		return stack.getItemDamage() > 0;
 	}
 
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
@@ -99,7 +99,7 @@ public class ItemBottler extends Item {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
 
-			Vector3IHelper vec = waila.getVector3I();
+			Vector3iHelper vec = waila.getVector3I();
 
 			if (vec != null) {
 				if (!bh.canMineBlock(0, 0, 0)) return stack;

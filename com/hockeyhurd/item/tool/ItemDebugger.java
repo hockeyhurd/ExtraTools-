@@ -15,8 +15,8 @@ import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
-import com.hockeyhurd.util.Vector3IHelper;
 import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.math.Vector3iHelper;
 
 public class ItemDebugger extends Item {
 
@@ -44,7 +44,7 @@ public class ItemDebugger extends Item {
 		if (!world.isRemote && !th.use) {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
-			Vector3IHelper vec = waila.getVector3I();
+			Vector3iHelper vec = waila.getVector3I();
 			BlockHelper bh = new BlockHelper(world, player);
 			Block block = bh.getBlock(vec);
 			

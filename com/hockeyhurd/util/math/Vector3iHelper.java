@@ -1,18 +1,18 @@
-package com.hockeyhurd.util;
+package com.hockeyhurd.util.math;
 
-public class Vector3IHelper {
+public class Vector3iHelper {
 
 	private int x, y, z, sideHit;
 	
-	public Vector3IHelper() {
+	public Vector3iHelper() {
 		this(0, 0, 0, -1);
 	}
 	
-	public Vector3IHelper(int x, int y, int z) {
+	public Vector3iHelper(int x, int y, int z) {
 		this(x, y, z, -1);
 	}
 	
-	public Vector3IHelper(int x, int y, int z, int sideHit) {
+	public Vector3iHelper(int x, int y, int z, int sideHit) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -55,11 +55,11 @@ public class Vector3IHelper {
 		return this.sideHit;
 	}
 	
-	public Vector3IHelper add(Vector3IHelper vector) {
+	public Vector3iHelper add(Vector3iHelper vector) {
 		return add(vector, false);
 	}
 	
-	public Vector3IHelper add(Vector3IHelper vector, boolean changeSideHit) {
+	public Vector3iHelper add(Vector3iHelper vector, boolean changeSideHit) {
 		this.x += vector.x;
 		this.y += vector.y;
 		this.z += vector.z;
@@ -67,11 +67,11 @@ public class Vector3IHelper {
 		return this;
 	}
 	
-	public Vector3IHelper subtract(Vector3IHelper vector) {
+	public Vector3iHelper subtract(Vector3iHelper vector) {
 		return subtract(vector, false);
 	}
 	
-	public Vector3IHelper subtract(Vector3IHelper vector, boolean changeSideHit) {
+	public Vector3iHelper subtract(Vector3iHelper vector, boolean changeSideHit) {
 		this.x -= vector.x;
 		this.y -= vector.y;
 		this.z -= vector.z;
@@ -79,7 +79,7 @@ public class Vector3IHelper {
 		return this;
 	}
 	
-	public Vector3IHelper getVector3I(Vector3IHelper vec) {
+	public Vector3iHelper getVector3I(Vector3iHelper vec) {
 		this.x = vec.x;
 		this.y = vec.y;
 		this.z = vec.z;
@@ -87,13 +87,13 @@ public class Vector3IHelper {
 		return this;
 	}
 	
-	public Vector3IHelper copy() {
+	public Vector3iHelper copy() {
 		return this;
 	}
 	
 	public boolean equals(Object object) {
-		if (!(object instanceof Vector3IHelper)) return false;
-		Vector3IHelper vec = (Vector3IHelper) object;
+		if (!(object instanceof Vector3iHelper)) return false;
+		Vector3iHelper vec = (Vector3iHelper) object;
 		if (vec.getX() == this.getX() && vec.y == this.getY()) return true;
 		return false;
 	}
