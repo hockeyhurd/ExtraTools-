@@ -121,8 +121,14 @@ public class EventHookContainer {
 
 			if (currentHelm == helm) {
 				helmCheck = true;
-				if (player.isInWater()) player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 5, 0));
-				else player.removePotionEffect(Potion.waterBreathing.id);
+				if (player.isInWater()) {
+					player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 5, 0));
+					player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 1, 0));
+				}
+				else {
+					player.removePotionEffect(Potion.waterBreathing.id);
+					player.removePotionEffect(Potion.nightVision.id);
+				}
 			}
 
 			if (bootCheck && legCheck && chestCheck && helmCheck) {

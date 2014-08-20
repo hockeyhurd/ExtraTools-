@@ -1,9 +1,13 @@
 package com.hockeyhurd.item.armor;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 import com.hockeyhurd.mod.ExtraTools;
 
@@ -39,6 +43,14 @@ public class ArmorSetGlow extends ItemArmor {
 		if (armorType == 1) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowChestplate");
 		if (armorType == 2) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowLegging");
 		if (armorType == 3) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowBoot");
+	}
+	
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+		if (armorType == 0) list.add(EnumChatFormatting.DARK_RED + "Ability: Underwater vision and breathing!");
+		else if (armorType == 1) list.add(EnumChatFormatting.DARK_RED + "Ability: Protection from fire!");
+		else if (armorType == 2) list.add(EnumChatFormatting.DARK_RED + "Ability: Step assist!");
+		else if (armorType == 3) list.add(EnumChatFormatting.DARK_RED + "Ability: Protection from fall damage!");
+		list.add(EnumChatFormatting.GREEN + "Ability: Flight (when combined)!");
 	}
 
 }
