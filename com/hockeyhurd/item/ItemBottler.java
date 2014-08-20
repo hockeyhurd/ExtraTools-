@@ -102,7 +102,7 @@ public class ItemBottler extends Item {
 			Vector3iHelper vec = waila.getVector3I();
 
 			if (vec != null) {
-				if (!bh.canMineBlock(0, 0, 0)) return stack;
+				if (!bh.canMineBlock(vec)) return stack;
 				if (!player.canPlayerEdit(vec.getX(), vec.getY(), vec.getZ(), vec.getSideHit(), stack)) return stack;
 
 				if (bh.getBlock(vec.getX(), vec.getY(), vec.getZ()) instanceof BlockLiquid) {
