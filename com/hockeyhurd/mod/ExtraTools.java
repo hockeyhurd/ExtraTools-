@@ -11,6 +11,8 @@ import net.minecraftforge.common.util.EnumHelper;
 
 import com.hockeyhurd.block.BlockExtraSmoothStone;
 import com.hockeyhurd.block.BlockGlowIngot;
+import com.hockeyhurd.block.BlockGlowPressurePlate;
+import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
 import com.hockeyhurd.block.BlockGlowRock;
 import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.BlockSafeGlass;
@@ -80,6 +82,7 @@ public class ExtraTools {
 	public static Block glowIngotBlock;
 	public static Block extraSmoothStone;
 	public static Block safeGlass;
+	public static Block glowPressurePlate;
 
 	// Machines/TileEntityBlocks
 	public static Block glowFurnaceOff;
@@ -180,6 +183,7 @@ public class ExtraTools {
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
 		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
 		safeGlass = new BlockSafeGlass(Material.glass, false);
+		glowPressurePlate = new BlockGlowPressurePlate("glow_pressure_plate", Material.rock, Sensitivity.everything);
 
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);

@@ -46,10 +46,32 @@ public class Waila {
 	private Vector3iHelper vec;
 	private boolean returnState = false;
 
+	// TODO: ligten the parameters for the classes use and localize some code from each caller's instance.
+	
+	/**
+	 * 
+	 * @param itemStack = current stack in hand
+	 * @param world = world obj in reference
+	 * @param entityPlayer = player associated with itemstack
+	 * @param block = block wished to be placed, set to null if not neccessary
+	 * @param placeBlock = flag whether placing block is of desire
+	 * @param shiftClick = flag whether shift click is required
+	 */
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, boolean placeBlock, boolean shiftClick) {
 		this(itemStack, world, entityPlayer, block, 0, placeBlock, shiftClick);
 	}
 
+	/**
+	 * 
+	 * @param itemStack = current stack in hand
+	 * @param world = world obj in reference
+	 * @param entityPlayer = player associated with itemstack
+	 * @param block = block wished to be placed, set to null if not neccessary
+	 * @param metaData = metadata specific, may be left blank especially if no block is desired
+	 * @param placeBlock = flag whether placing block is of desire
+	 * @param shiftClick = flag whether shift click is required
+	 */
+	
 	public Waila(ItemStack itemStack, World world, EntityPlayer entityPlayer, Block block, int metaData, boolean placeBlock, boolean shiftClick) {
 		this.stack = itemStack;
 		this.world = world;

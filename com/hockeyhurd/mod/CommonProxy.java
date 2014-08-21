@@ -64,6 +64,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(glowChest, "GlowChest");
 		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
 		GameRegistry.registerBlock(safeGlass, "SafeGlass");
+		GameRegistry.registerBlock(glowPressurePlate, "GlowPressurePlate");
 	}
 
 	protected void registerItems() {
