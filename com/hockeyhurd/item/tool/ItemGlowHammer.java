@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
@@ -21,12 +22,11 @@ import com.hockeyhurd.util.Waila;
 import com.hockeyhurd.util.interfaces.IKeyBound;
 import com.hockeyhurd.util.interfaces.IToolToggle;
 
-public class ItemGlowHammer extends ItemPickaxe implements IToolToggle, IKeyBound {
+public class ItemGlowHammer extends ItemPickaxe implements IToolToggle {
 
 	private final Block torch = ExtraTools.glowTorch;
 	private Material[] mineAble;
 	private TimerHelper th;
-	private boolean toggle = false;
 	private ChatHelper ch;
 	
 	public int i = 0;
@@ -57,21 +57,23 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle, IKeyBoun
 		// if (!th.use && KeyEventHandler.keyValues = KeyEventHandler.)
 	}
 	
-	public void setToggle(boolean toggle) {
-		this.toggle = toggle;
+	public void writeToNBT(ItemStack stack, boolean value) {
+		NBTTagCompound nbt = stack.stackTagCompound;
+		if (nbt == null) nbt = stack.stackTagCompound = new NBTTagCompound();
+		nbt.setBoolean("Mode", value);
 	}
-	
-	public boolean getToggle() {
-		return this.toggle;
-	}
-	
-	public void toggler() {
-		setToggle(toggle ? false : true);
+
+	public boolean readValueFromNBT(ItemStack stack) {
+		NBTTagCompound nbt = stack.stackTagCompound;
+		if (nbt == null) nbt = stack.stackTagCompound = new NBTTagCompound();
+		if (!nbt.hasKey("Mode")) writeToNBT(stack, true);
+		return nbt.getBoolean("Mode");
 	}
 	
 	public void doKeyBindingAction(EntityPlayer player, ItemStack stack, int key) {
-		toggler();
-		player.addChatComponentMessage(ch.comp("Mode: " + (getToggle() ? "1x1 area." : "3x3 area."), EnumChatFormatting.GOLD));
+		boolean tempVal = readValueFromNBT(stack) ? false : true;
+		writeToNBT(stack, tempVal);
+		player.addChatComponentMessage(ch.comp("Mode: " + (!tempVal ? "1x1 area." : "3x3 area."), EnumChatFormatting.GOLD));
 	}
 	
 	// When player mines a block, mine a 3x3 area.
@@ -101,7 +103,7 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle, IKeyBoun
 		waila.setMatWhiteList(mineAble);
 
 		if (!world.isRemote && (!th.use || th.excuser())) {
-			if (!getToggle() && contains) waila.finder();
+			if (readValueFromNBT(stack) && contains) waila.finder();
 			th.setUse(true);
 		}
 
@@ -121,8 +123,10 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle, IKeyBoun
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		list.add("Unbreakable");
-		list.add("Mines a 3x3 area");
-		list.add("Right click to place GlowTorch");
+		list.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.WHITE + "Mines a 3x3 area");
+		list.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.WHITE + "Right click to place GlowTorch");
+		
+		list.add(EnumChatFormatting.GREEN + "Mode: " + EnumChatFormatting.WHITE + (!readValueFromNBT(stack) ? "1x1 area." : "3x3 area."));
 	}
 
 }

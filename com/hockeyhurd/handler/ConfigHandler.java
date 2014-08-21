@@ -96,6 +96,7 @@ public class ConfigHandler {
 
 		config.save();
 
+		// Make sure each block in the block list is a verified block in the game!
 		List<Block> blocks = new ArrayList<Block>();
 		for (int i = 0; i < wrench.length; i++) {
 			if (wrench[i] != null && !wrench[i].equals("")) blocks.add(Block.getBlockFromName(wrench[i]));

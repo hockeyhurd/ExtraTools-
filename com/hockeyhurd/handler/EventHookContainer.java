@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -156,22 +157,8 @@ public class EventHookContainer {
 	@SubscribeEvent
 	public void onItemHover(ItemTooltipEvent event) {
 		Item currentItem = event.itemStack.getItem();
-		Item pick = ExtraTools.glowPickaxeUnbreakable;
-		Item sword = ExtraTools.glowSwordUnbreakable;
-		Item axe = ExtraTools.glowAxeUnbreakable;
-		Item hoe = ExtraTools.glowHoeUnbreakable;
-		Item shovel = ExtraTools.glowShovelUnbreakable;
-		Item hammer = ExtraTools.glowHammerUnbreakable;
-		Item excavator = ExtraTools.glowExcavatorUnbreakable;
-		// int netherSoulCollectorID = new
-		// ItemStack(ExtraTools.netherSoulCollector, 1).itemID;
 
-		if (currentItem == pick || currentItem == sword || currentItem == axe || currentItem == hoe || currentItem == shovel || currentItem == hammer || currentItem == excavator) {
-			event.toolTip.add("Unbreakable!");
-			if (currentItem == pick || currentItem == hammer) event.toolTip.add("Right click to place torches!");
-		}
-
-		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
+		if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
 

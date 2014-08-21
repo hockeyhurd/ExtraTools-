@@ -94,8 +94,8 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 							if (te.getStackInSlot(i) != null) stacksToDrop.add(te.getStackInSlot(i));
 						}
 
-						for (int i = 0; i < stacksToDrop.size(); i++) {
-							world.spawnEntityInWorld(new EntityItem(world, vec.getX() + random.nextInt(2), vec.getY() + random.nextInt(2), vec.getZ() + random.nextInt(2), stacksToDrop.get(i)));
+						for (ItemStack subStack : stacksToDrop) {
+							world.spawnEntityInWorld(new EntityItem(world, vec.getX() + random.nextInt(2), vec.getY() + random.nextInt(2), vec.getZ() + random.nextInt(2), subStack));
 						}
 
 						bh.destroyBlock(vec, true);

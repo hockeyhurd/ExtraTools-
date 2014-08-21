@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.EnumChatFormatting;
 
 import com.hockeyhurd.mod.ExtraTools;
 
@@ -22,7 +23,7 @@ public class ItemGlowSword extends ItemSword {
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		
+		list.add("Unbreakable!");
 	}
 	
 }

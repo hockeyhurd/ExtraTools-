@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
@@ -58,7 +59,8 @@ public class ItemGlowHoe extends ItemHoe {
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		
+		list.add("Unbreakable!");
+		list.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.WHITE + "Shift + Right Click to till 3x3 area!");
 	}
 
 }

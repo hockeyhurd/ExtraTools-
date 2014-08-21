@@ -11,6 +11,9 @@ tile.GlowChest.name=Glow Chest
 
 container.glowchest=Glow Chest Inventory
 
+key.extratools+.category=ExtraTools+
+key.toggle.desc=Tool Mode Toggler
+
 item.GlowDust.name=Glow Dust
 item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
 item.GlowIngot.name=Glow Ingot
