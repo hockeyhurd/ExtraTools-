@@ -12,10 +12,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.world.World;
 
+import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.EntitySpawnerHelper;
@@ -89,6 +91,28 @@ public abstract class AbstractToolWrench extends Item {
 						bh.destroyBlock(vec, true);
 						return stack;
 					}
+					
+					else if (currentBlock == ExtraTools.glowChest && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityGlowChest) {
+						contains = true;
+						TileEntityGlowChest te = (TileEntityGlowChest) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
+						int numSlots = te.getSizeInventory();
+						List<ItemStack> stacksToDrop = new ArrayList<ItemStack>();
+						
+						for (int i = 0; i < numSlots; i++) {
+							if (te.getStackInSlot(i) != null) {
+								stacksToDrop.add(te.getStackInSlot(i));
+								te.setInventorySlotContents(i, (ItemStack) null);
+							}
+						}
+						
+						ItemStack theStack = new ItemStack(currentBlock, 1);
+						if (stacksToDrop.size() > 0) handleWrenchNBT(theStack, stacksToDrop, world, player);
+						
+						EntityItem eItem = new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), theStack);
+						world.spawnEntityInWorld(eItem);
+						bh.destroyBlock(vec, false);
+						return stack;
+					}
 
 					// If already handled, skip for loop.
 					if (!contains) {
@@ -110,6 +134,31 @@ public abstract class AbstractToolWrench extends Item {
 		}
 
 		return stack;
+	}
+	
+	protected void handleWrenchNBT(ItemStack stackInHand, List<ItemStack> stacks, World world, EntityPlayer player) {
+		NBTTagCompound nbt = stackInHand.stackTagCompound;
+		if (nbt == null) nbt = stackInHand.stackTagCompound = new NBTTagCompound();
+
+		int[] idArray = new int[(7 * 9)];
+		int[] stackSizeArray = new int[(7 * 9)];
+		int index = 0;
+		for (ItemStack stack : stacks) {
+			int i = stack.getItem() != null ? Item.getIdFromItem(stack.getItem()) : 0;
+			idArray[index] = i;
+			
+			int size = stack.getItem() != null ? stack.stackSize : 0;
+			stackSizeArray[index] = size;
+			
+			index++;
+		}
+		
+		nbt.setIntArray("Items", idArray);
+		nbt.setIntArray("Sizes", stackSizeArray);
+		
+		/*for (int i = 0; i < idArray.length; i++) {
+			System.out.println(idArray[i]);
+		}*/
 	}
 
 }

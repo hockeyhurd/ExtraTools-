@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.world.World;
 
+import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.EntitySpawnerHelper;
@@ -99,6 +100,28 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 						}
 
 						bh.destroyBlock(vec, true);
+						return stack;
+					}
+					
+					else if (currentBlock == ExtraTools.glowChest && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityGlowChest) {
+						contains = true;
+						TileEntityGlowChest te = (TileEntityGlowChest) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
+						int numSlots = te.getSizeInventory();
+						List<ItemStack> stacksToDrop = new ArrayList<ItemStack>();
+						
+						for (int i = 0; i < numSlots; i++) {
+							if (te.getStackInSlot(i) != null) {
+								stacksToDrop.add(te.getStackInSlot(i));
+								te.setInventorySlotContents(i, (ItemStack) null);
+							}
+						}
+						
+						ItemStack theStack = new ItemStack(currentBlock, 1);
+						if (stacksToDrop.size() > 0) handleWrenchNBT(theStack, stacksToDrop, world, player);
+						
+						EntityItem eItem = new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), theStack);
+						world.spawnEntityInWorld(eItem);
+						bh.destroyBlock(vec, false);
 						return stack;
 					}
 

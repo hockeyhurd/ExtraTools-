@@ -161,6 +161,18 @@ public class EventHookContainer {
 		if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowChest)) {
+			if (event.itemStack.hasTagCompound()) {
+				int maxSize = (7 * 9);
+				int has = 0;
+				int[] array = event.itemStack.stackTagCompound.getIntArray("Items");
+				for (int i = 0; i < array.length; i++) {
+					if (Item.getItemById(array[i]) != null) has++;  
+				}
+				
+				event.toolTip.add(EnumChatFormatting.GREEN + "Contents: " + EnumChatFormatting.WHITE + has + " / " + maxSize);
+			}
+		}
 
 		else return;
 	}

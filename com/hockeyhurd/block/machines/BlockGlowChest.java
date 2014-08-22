@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -150,6 +151,28 @@ public class BlockGlowChest extends BlockContainer {
 		if (stack.hasDisplayName()) {
 			((TileEntityGlowChest) world.getTileEntity(x, y, z)).setCustomName(stack.getDisplayName());
 		}
+
+		NBTTagCompound nbt = stack.stackTagCompound;
+		if (nbt == null) nbt = stack.stackTagCompound = new NBTTagCompound();
+		TileEntityGlowChest te = (TileEntityGlowChest) world.getTileEntity(x, y, z);
+		if (te == null) return;
+
+		int length = nbt.getIntArray("Items").length;
+		if (length <= 0) {
+			System.out.println("Has no data!");
+			return;
+		}
+		
+		int index = 0;
+		for (int i = 0; i < length; i++) {
+			int id = nbt.getIntArray("Items")[i];
+			int size = nbt.getIntArray("Sizes")[i];
+			if (id <= 0 || size <= 0) continue;
+			ItemStack tempStack = new ItemStack(Item.getItemById(id), size);
+			// if (Item.getItemById(id) != null) tempStack = new ItemStack(Item.getItemById(id), size);
+			te.setInventorySlotContents(9 + index++, tempStack);
+		}
+		
 	}
 
 	public void func_149954_e(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
@@ -262,10 +285,7 @@ public class BlockGlowChest extends BlockContainer {
 
 						while (stack.stackSize > 0) {
 							int k1 = this.chestRand.nextInt(21) + 10;
-
-							if (k1 > stack.stackSize) {
-								k1 = stack.stackSize;
-							}
+							if (k1 > stack.stackSize) k1 = stack.stackSize;
 
 							stack.stackSize -= k1;
 							EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(stack.getItem(), k1, stack.getItemDamage()));
