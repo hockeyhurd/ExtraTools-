@@ -9,7 +9,7 @@ tile.SafeGlass.name='Glass'
 tile.GlowFurnaceOff.name=Glow Furnace
 tile.GlowChest.name=Glow Chest
 
-container.glowchest=Glow Chest Inventory
+container.glowchest=Glow Chest
 
 key.extratools+.category=ExtraTools+
 key.toggle.desc=Tool Mode Toggler

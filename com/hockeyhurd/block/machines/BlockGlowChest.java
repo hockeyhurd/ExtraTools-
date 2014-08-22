@@ -65,7 +65,11 @@ public class BlockGlowChest extends BlockContainer {
 
 		else {
 			TileEntityGlowChest teGC = (TileEntityGlowChest) world.getTileEntity(x, y, z);
-			if (teGC != null) FMLNetworkHandler.openGui(player, ExtraTools.instance, ExtraTools.guiIDGlowChest, world, x, y, z);
+			if (teGC != null) {
+				FMLNetworkHandler.openGui(player, ExtraTools.instance, ExtraTools.guiIDGlowChest, world, x, y, z);
+				// player.openGui(ExtraTools.instance, ExtraTools.guiIDGlowChest, world, x, y, z);
+				teGC.openInventory();
+			}
 			return true;
 		}
 

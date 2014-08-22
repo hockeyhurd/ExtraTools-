@@ -26,8 +26,11 @@ public class GuiGlowChest extends GuiContainer {
 
 	public void drawGuiContainerForegroundLayer(int x, int y) {
 		String name = this.glowChest.hasCustomInventoryName() ? this.glowChest.getInventoryName() : I18n.format(this.glowChest.getInventoryName(), new Object[0]);
-		
-		this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+
+		// Centered text.		
+		// this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+		this.fontRendererObj.drawString(name, 8, 6, 4210752);
+        	
 		this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
 	}
 	

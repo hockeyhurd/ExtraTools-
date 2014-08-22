@@ -16,6 +16,7 @@ public class ContainerGlowChest extends Container {
 	private int numRows;
 
 	public ContainerGlowChest(InventoryPlayer inv, TileEntityGlowChest entity) {
+		this.lowerChestInventory = (IInventory) inv;
 		this.glowChest = entity;
 		addSlots(inv, entity);
 		this.numRows = entity.getSizeInventory() / 9;
@@ -54,18 +55,18 @@ public class ContainerGlowChest extends Container {
 		if (slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
-			final int mainInvSlotID = this.inventorySlots.size() - (9 * 4); 
-			
-			//merges the item into player inventory since its in the tileEntity
+			final int mainInvSlotID = this.inventorySlots.size() - (9 * 4);
+
+			// merges the item into player inventory since its in the tileEntity
 			if (slot < mainInvSlotID) {
-				if (!this.mergeItemStack(stackInSlot, mainInvSlotID, this.inventorySlots.size(), true)) return null; 
+				if (!this.mergeItemStack(stackInSlot, mainInvSlotID, this.inventorySlots.size(), true)) return null;
 			}
 			// places it into the tileEntity is possible since its in the player inventory
 			else if (!this.mergeItemStack(stackInSlot, 0, mainInvSlotID, false)) return null;
 
 			if (stackInSlot.stackSize == 0) slotObject.putStack((ItemStack) null);
 			else slotObject.onSlotChanged();
-			
+
 			if (stackInSlot.stackSize == stack.stackSize) return null;
 			slotObject.onPickupFromSlot(player, stackInSlot);
 		}
@@ -77,9 +78,9 @@ public class ContainerGlowChest extends Container {
 		return true;
 	}
 
-	/*public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) {
-		return super.mergeItemStack(stack, start, end, reverse);
-	}*/
+	/*
+	 * public boolean mergeItemStack(ItemStack stack, int start, int end, boolean reverse) { return super.mergeItemStack(stack, start, end, reverse); }
+	 */
 
 	public IInventory getLowerChestInventory() {
 		return this.lowerChestInventory;
@@ -88,8 +89,11 @@ public class ContainerGlowChest extends Container {
 	/**
 	 * Called when the container is closed.
 	 */
-	/*
-	 * public void onContainerClosed(EntityPlayer player) { super.onContainerClosed(player); this.lowerChestInventory.closeInventory(); }
-	 */
+
+	public void onContainerClosed(EntityPlayer player) {
+		super.onContainerClosed(player);
+		this.lowerChestInventory.closeInventory();
+		this.glowChest.closeInventory();
+	}
 
 }

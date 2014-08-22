@@ -269,7 +269,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 	 * Called when a client event is received with the event number and argument, see World.sendClientEvent
 	 */
 	public boolean receiveClientEvent(int eventID, int arg) {
-		if (eventID == 1) {
+		if (eventID == 2) {
 			this.numPlayersUsing = arg;
 			return true;
 		}
@@ -280,7 +280,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 		if (this.numPlayersUsing < 0) this.numPlayersUsing = 0;
 
 		this.numPlayersUsing++;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 2, this.numPlayersUsing);
 		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
 		this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
 	}
@@ -288,7 +288,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 	public void closeInventory() {
 		if (this.getBlockType() instanceof BlockGlowChest) {
 			this.numPlayersUsing--;
-			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 1, this.numPlayersUsing);
+			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType(), 2, this.numPlayersUsing);
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
 			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord - 1, this.zCoord, this.getBlockType());
 		}
@@ -312,7 +312,7 @@ public class TileEntityGlowChest extends TileEntity implements IInventory {
 
 	public int func_145980_j() {
 		if (this.cachedChestType == -1) {
-			if (this.worldObj == null || !(this.getBlockType() instanceof BlockGlowChest)) return 0; 
+			if (this.worldObj == null || !(this.getBlockType() instanceof BlockGlowChest)) return 0;
 
 			this.cachedChestType = 0;
 		}
