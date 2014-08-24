@@ -23,13 +23,13 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
-	
+
 	public CommonProxy() {
-	}	
+	}
 
 	public void registerRenderInformation() {
 	}
-	
+
 	public void init() {
 		registerEventHandlers();
 		registerWorldgen();
@@ -48,11 +48,11 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
 		PacketHandler.init();
 	}
-	
+
 	protected void registerWorldgen() {
 		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
 	}
-	
+
 	protected void registerBlocks() {
 		GameRegistry.registerBlock(glowRock, "GlowRock");
 		GameRegistry.registerBlock(glowOre, "GlowOre");
@@ -104,6 +104,7 @@ public class CommonProxy {
 		OreDictionary.registerOre("oreGlow", glowOreNether);
 		OreDictionary.registerOre("dustGlow", glowDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
+		OreDictionary.registerOre("blockGlow", glowIngotBlock);
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
 		OreDictionary.registerOre("itemRubber", rubber);
 		OreDictionary.registerOre("stone", extraSmoothStone);
@@ -136,20 +137,20 @@ public class CommonProxy {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
 				" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Blocks.furnace
 		}));
-		
+
 		// Crafting the Glow Chest
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowChest, 1), new Object[] {
-			"xyx", "yzy", "xyx", 'x', "stone", 'y', "ingotGlow", 'z', Blocks.chest
+				"xyx", "yzy", "xyx", 'x', "stone", 'y', "ingotGlow", 'z', Blocks.chest
 		}));
 
 		// Crafting the ExtraSmoothStone
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
 		}));
-		
+
 		// Crafting the SafeGlass
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(safeGlass, 8), new Object[] {
-			"xxx", "xyx", "xxx", 'x', "blockGlass", 'y', "dustGlow"
+				"xxx", "xyx", "xxx", 'x', "blockGlass", 'y', "dustGlow"
 		}));
 
 		// Nether Star Firery
@@ -158,9 +159,9 @@ public class CommonProxy {
 		});
 
 		if (ch.altFireStarRecipe) {
-			GameRegistry.addRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
-					"xxx", "xyx", "xxx", 'x', diamondSacrifice, 'y', Blocks.redstone_block
-			});
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(fireryNetherStar, 1), new Object[] {
+					"xxx", "xyx", "xxx", 'x', diamondSacrifice, 'y', "blockGlow"
+			}));
 		}
 
 		// DiamondNetherStarIngot recipe
@@ -174,9 +175,15 @@ public class CommonProxy {
 		});
 
 		// Crafting the 'Black Diamond'
-		GameRegistry.addRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
-				"xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod
-		});
+		/*
+		 * GameRegistry.addRecipe(new ItemStack(diamondSacrifice, 1), new Object[] { "xyx", "yzy", "xyx", 'x', Blocks.nether_brick, 'y', Items.diamond, 'z', Items.blaze_rod });
+		 */
+
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
+				"abc", "def", "hij", 'a', Blocks.nether_brick, 'b', "gemEmerald", 'c', Items.magma_cream, 
+				'd', "gemDiamond", 'e', Items.blaze_rod, 'f', "ingotGold", 
+				'h', Items.ender_eye, 'i', "ingotIron", 'j', Items.ghast_tear
+		})); 
 
 		// Crafting the 'Item Bottler'
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
@@ -289,7 +296,7 @@ public class CommonProxy {
 				"xxx", "x x", 'x', glowIngot
 		});
 	}
-	
+
 	protected void addFurnaceRecipes() {
 		// USE: args(use what block/item from id, (get what block/item from id, how much), how much xp should the player be rewarded.
 		GameRegistry.addSmelting(glowOre, new ItemStack(glowDust, 1), 100f);
@@ -322,5 +329,5 @@ public class CommonProxy {
 			NetworkRegistry.INSTANCE.registerGuiHandler(ExtraTools.instance, guiHandler);
 		}
 	}
-	
+
 }
