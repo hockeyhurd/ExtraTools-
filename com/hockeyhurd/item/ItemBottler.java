@@ -45,7 +45,7 @@ public class ItemBottler extends Item {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "EntityBottler");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "EntityBottler");
 	}
 
 	public boolean hasEffect(ItemStack stack) {

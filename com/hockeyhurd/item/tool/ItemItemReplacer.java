@@ -32,7 +32,7 @@ public class ItemItemReplacer extends Item {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "ItemReplacer");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "ItemReplacer");
 	}
 
 	// Makes sure the player can't press it more than once per second.

@@ -19,7 +19,7 @@ public class ItemHockeyStick extends ItemSword {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "HockeyStick");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "HockeyStick");
 	}
 
 	/*@Override

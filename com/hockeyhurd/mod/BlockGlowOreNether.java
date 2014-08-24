@@ -23,7 +23,7 @@ public class BlockGlowOreNether extends BlockGlowOre {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowOreNether");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowOreNether");
 	}
 
 }

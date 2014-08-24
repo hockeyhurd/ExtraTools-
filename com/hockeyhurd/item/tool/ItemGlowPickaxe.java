@@ -29,7 +29,7 @@ public class ItemGlowPickaxe extends ItemPickaxe {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowPickaxeUnbreakable");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowPickaxeUnbreakable");
 	}
 
 	// Makes sure the player can't press it more than once per second.

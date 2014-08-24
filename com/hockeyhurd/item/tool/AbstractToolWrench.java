@@ -155,10 +155,6 @@ public abstract class AbstractToolWrench extends Item {
 		
 		nbt.setIntArray("Items", idArray);
 		nbt.setIntArray("Sizes", stackSizeArray);
-		
-		/*for (int i = 0; i < idArray.length; i++) {
-			System.out.println(idArray[i]);
-		}*/
 	}
 
 }

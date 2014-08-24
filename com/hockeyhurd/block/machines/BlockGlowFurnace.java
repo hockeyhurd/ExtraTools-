@@ -46,9 +46,9 @@ public class BlockGlowFurnace extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowFurnace_side");
-		this.furnaceFront = reg.registerIcon(ExtraTools.modPrefix + (active ? "GlowFurnace_front_on" : "GlowFurnace_front_off"));
-		this.furnaceTop = reg.registerIcon(ExtraTools.modPrefix + "GlowFurnace_top");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowFurnace_side");
+		this.furnaceFront = reg.registerIcon(ExtraTools.assetsDir + (active ? "GlowFurnace_front_on" : "GlowFurnace_front_off"));
+		this.furnaceTop = reg.registerIcon(ExtraTools.assetsDir + "GlowFurnace_top");
 	}
 
 	@SideOnly(Side.CLIENT)

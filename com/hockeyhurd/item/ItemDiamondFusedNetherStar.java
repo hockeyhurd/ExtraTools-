@@ -18,7 +18,7 @@ public class ItemDiamondFusedNetherStar extends Item {
 	}
 	
 	public void registerIcons(IIconRegister iconReg){
-		itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "DiamondNetherStarIngot");
+		itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "DiamondNetherStarIngot");
 	}
 	
 	@Override

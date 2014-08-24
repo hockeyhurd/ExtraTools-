@@ -14,7 +14,7 @@ public class ItemRubber extends Item {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "Rubber");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "Rubber");
 	}
 
 }

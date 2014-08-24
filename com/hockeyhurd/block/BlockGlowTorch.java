@@ -19,7 +19,7 @@ public class BlockGlowTorch extends BlockTorch {
 	}
 	
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "torch_on");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "torch_on");
 	}
 	
 	public int quantityDropped(Random random) {

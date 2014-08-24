@@ -25,7 +25,7 @@ public class ItemGlowHoe extends ItemHoe {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowHoeUnbreakable");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowHoeUnbreakable");
 	}
 
 	@Override

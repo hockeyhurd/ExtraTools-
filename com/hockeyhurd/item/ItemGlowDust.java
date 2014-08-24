@@ -14,7 +14,7 @@ public class ItemGlowDust extends Item {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowDust");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowDust");
 	}
 
 }

@@ -47,10 +47,10 @@ import com.hockeyhurd.item.tool.ItemHockeyStick;
 import com.hockeyhurd.item.tool.ItemItemReplacer;
 import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
+import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.LogicHelper;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -58,7 +58,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.20")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.21")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -69,7 +69,7 @@ public class ExtraTools {
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
 
-	public static String modPrefix = "extratools:";
+	public static String assetsDir = "extratools:";
 
 	// Config object(s).
 	public static ConfigHandler ch;
@@ -147,33 +147,33 @@ public class ExtraTools {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		FMLLog.info(modID, "Pre-init started, looking for config info!");
+		LogHelper.info("Pre-init started, looking for config info!");
 		lh = new LogicHelper();
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
-		FMLLog.info(modID, "Config loaded successfully!");
+		LogHelper.info("Config loaded successfully!");
 
-		FMLLog.info(modID, "Detecting other soft-dependent mods.");
+		LogHelper.info("Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
 		
 		for (int i = 0; i < ModsLoadedHelper.staticArray.length; i++) {
-			if (ModsLoadedHelper.staticArray[i]) FMLLog.info(modID, ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
-			else FMLLog.info(modID, ModsLoadedHelper.staticArray[i] + " not detected!");
+			if (ModsLoadedHelper.staticArray[i]) LogHelper.info(ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
+			else LogHelper.info(ModsLoadedHelper.staticArray[i] + " not detected!");
 		}
 		
-		FMLLog.info(modID, "Pre-init finished succesfully!");
+		LogHelper.info("Pre-init finished succesfully!");
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		FMLLog.info(modID, "Init started");
+		LogHelper.info("Init started");
 		loadObj();
 		
 		proxy.init();
 		proxy.registerRenderInformation();
 		
-		FMLLog.info(modID, "Init finished successfully!");
+		LogHelper.info("Init finished successfully!");
 	}
 
 	private void loadObj() {

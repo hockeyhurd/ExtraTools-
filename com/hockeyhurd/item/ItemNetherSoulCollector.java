@@ -46,8 +46,8 @@ public class ItemNetherSoulCollector extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconReg) {
-		itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "NetherSoulCollector");
-		iconOverlay = iconReg.registerIcon(ExtraTools.modPrefix + "NetherSoulCollector_overlay");
+		itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "NetherSoulCollector");
+		iconOverlay = iconReg.registerIcon(ExtraTools.assetsDir + "NetherSoulCollector_overlay");
 	}
 
 	@Override

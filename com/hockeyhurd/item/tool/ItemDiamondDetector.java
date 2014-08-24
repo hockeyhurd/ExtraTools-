@@ -24,7 +24,7 @@ public class ItemDiamondDetector extends AbstractToolDetector {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "DiamondDetector");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "DiamondDetector");
 	}
 
 

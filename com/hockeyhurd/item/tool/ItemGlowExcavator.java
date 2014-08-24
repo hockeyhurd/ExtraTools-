@@ -42,7 +42,7 @@ public class ItemGlowExcavator extends ItemSpade implements IToolToggle {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowExcavator");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowExcavator");
 	}
 
 	// Makes sure the player can't press it more than once per second.

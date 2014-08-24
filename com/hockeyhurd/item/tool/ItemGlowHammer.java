@@ -46,7 +46,7 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowHammer");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowHammer");
 	}
 
 	// Makes sure the player can't press it more than once per second.

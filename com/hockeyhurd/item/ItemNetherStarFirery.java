@@ -15,7 +15,7 @@ public class ItemNetherStarFirery extends Item {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "FireryNetherStar");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "FireryNetherStar");
 	}
 	
 	public boolean hasEffect(ItemStack stack) {

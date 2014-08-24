@@ -18,7 +18,7 @@ public class ItemGlowCoal extends Item {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowCoal");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowCoal");
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

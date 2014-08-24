@@ -25,7 +25,7 @@ public class BlockGlowOre extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowOre");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowOre");
 	}
 
 	public Item getItemDropped(int par1, Random rand, int par3) {

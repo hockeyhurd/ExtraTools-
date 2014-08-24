@@ -20,7 +20,7 @@ public class BlockGlowIngot extends Block {
 	}
 	
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "BlockGlowIngot");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "BlockGlowIngot");
 	}
 
 }

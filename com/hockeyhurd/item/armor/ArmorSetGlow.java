@@ -31,18 +31,18 @@ public class ArmorSetGlow extends ItemArmor {
 	}
 
 	public String getArmorTexture(ItemStack stack, Entity e, int slot, String type) {
-		if (stack.toString().contains("leggings")) { return (ExtraTools.modPrefix + nameToAdd + "_2.png"); }
+		if (stack.toString().contains("leggings")) { return (ExtraTools.assetsDir + nameToAdd + "_2.png"); }
 
-		if (stack.toString().contains("Leggings") && stack.getItem() == ExtraTools.glowLegging) { return (ExtraTools.modPrefix + nameToAdd + "_2.png"); }
+		if (stack.toString().contains("Leggings") && stack.getItem() == ExtraTools.glowLegging) { return (ExtraTools.assetsDir + nameToAdd + "_2.png"); }
 
-		return (ExtraTools.modPrefix + nameToAdd + "_1.png");
+		return (ExtraTools.assetsDir + nameToAdd + "_1.png");
 	}
 
 	public void registerIcons(IIconRegister iconReg) {
-		if (armorType == 0) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowHelmet");
-		if (armorType == 1) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowChestplate");
-		if (armorType == 2) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowLegging");
-		if (armorType == 3) itemIcon = iconReg.registerIcon(ExtraTools.modPrefix + "GlowBoot");
+		if (armorType == 0) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowHelmet");
+		if (armorType == 1) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowChestplate");
+		if (armorType == 2) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowLegging");
+		if (armorType == 3) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowBoot");
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

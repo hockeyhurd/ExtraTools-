@@ -19,7 +19,7 @@ public class ItemGlowSword extends ItemSword {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowSwordUnbreakable");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowSwordUnbreakable");
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

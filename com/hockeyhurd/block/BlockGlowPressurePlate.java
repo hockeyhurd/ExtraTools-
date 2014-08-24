@@ -30,7 +30,7 @@ public class BlockGlowPressurePlate extends BlockBasePressurePlate {
 	
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowPressurePlate");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowPressurePlate");
 	}
 
 	protected int func_150065_e(World world, int x, int y, int z) {

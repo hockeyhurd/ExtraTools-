@@ -19,7 +19,7 @@ public class BlockGlowRock extends Block {
 	}
 	
 	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowRock");
+		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowRock");
 	}
 
 }

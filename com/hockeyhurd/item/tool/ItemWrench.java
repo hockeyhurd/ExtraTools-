@@ -14,7 +14,7 @@ public class ItemWrench extends AbstractToolWrench {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "Wrench");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "Wrench");
 	}
 
 }

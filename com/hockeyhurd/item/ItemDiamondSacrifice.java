@@ -15,7 +15,7 @@ public class ItemDiamondSacrifice extends Item {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "BlackDiamond");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "BlackDiamond");
 	}
 	
 }

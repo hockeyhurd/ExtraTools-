@@ -18,7 +18,7 @@ public class ItemGlowAxe extends ItemAxe {
 	}
 	
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "GlowAxeUnbreakable");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowAxeUnbreakable");
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {

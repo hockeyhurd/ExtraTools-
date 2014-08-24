@@ -43,7 +43,7 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 	}
 
 	public void registerIcons(IIconRegister reg) {
-		itemIcon = reg.registerIcon(ExtraTools.modPrefix + "Wrench");
+		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "Wrench");
 	}
 
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
