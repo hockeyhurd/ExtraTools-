@@ -56,7 +56,31 @@ public class Vector4Helper<N> {
 		return this.sideHit;
 	}
 	
-	public Vector4Helper getVector3I() {
+	public Vector4Helper<N> add(Vector4Helper<N> vec, boolean changeSideHit) {
+		float xx = ((Number)this.getX()).floatValue() + ((Number) vec.getX()).floatValue();
+		float yy = ((Number)this.getY()).floatValue() + ((Number) vec.getY()).floatValue();
+		float zz = ((Number)this.getZ()).floatValue() + ((Number) vec.getZ()).floatValue();
+		
+		setX((N) (Number) xx);
+		setY((N) (Number) yy);
+		setZ((N) (Number) zz);
+		
+		return this;
+	}
+	
+	public Vector4Helper<N> subtract(Vector4Helper<N> vec, boolean changeSideHit) {
+		float xx = ((Number)this.getX()).floatValue() - ((Number) vec.getX()).floatValue();
+		float yy = ((Number)this.getY()).floatValue() - ((Number) vec.getY()).floatValue();
+		float zz = ((Number)this.getZ()).floatValue() - ((Number) vec.getZ()).floatValue();
+		
+		setX((N) (Number) xx);
+		setY((N) (Number) yy);
+		setZ((N) (Number) zz);
+		
+		return this;
+	}
+	
+	public Vector4Helper getVector4i() {
 		int xx = ((Number)this.x).intValue();
 		int yy = ((Number)this.y).intValue();
 		int zz = ((Number)this.z).intValue();
@@ -70,7 +94,7 @@ public class Vector4Helper<N> {
 	public boolean equals(Object object) {
 		if (!(object instanceof Vector4Helper)) return false;
 		Vector4Helper vec = (Vector4Helper) object;
-		if (vec.getX() == this.getX() && vec.y == this.getY()) return true;
+		if (vec.getX() == this.getX() && vec.y == this.getY() && vec.getZ() == this.getZ()) return true;
 		return false;
 	}
 	

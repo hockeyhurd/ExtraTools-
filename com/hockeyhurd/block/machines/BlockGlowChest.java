@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
@@ -74,6 +75,17 @@ public class BlockGlowChest extends BlockContainer {
 			return true;
 		}
 
+	}
+
+	/**
+	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
+	 */
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+		if (world.getBlock(x, y, z - 1) == this) this.setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
+		else if (world.getBlock(x, y, z + 1) == this) this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
+		else if (world.getBlock(x - 1, y, z) == this) this.setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+		else if (world.getBlock(x + 1, y, z) == this) this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
+		else this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
 	}
 
 	public void onBlockAdded(World world, int x, int y, int z) {
@@ -162,7 +174,7 @@ public class BlockGlowChest extends BlockContainer {
 			System.out.println("Has no data!");
 			return;
 		}
-		
+
 		int index = 0;
 		for (int i = 0; i < length; i++) {
 			int id = nbt.getIntArray("Items")[i];
@@ -172,7 +184,7 @@ public class BlockGlowChest extends BlockContainer {
 			// if (Item.getItemById(id) != null) tempStack = new ItemStack(Item.getItemById(id), size);
 			te.setInventorySlotContents(9 + index++, tempStack);
 		}
-		
+
 	}
 
 	public void func_149954_e(World p_149954_1_, int p_149954_2_, int p_149954_3_, int p_149954_4_) {
