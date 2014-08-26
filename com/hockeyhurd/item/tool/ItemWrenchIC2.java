@@ -22,7 +22,7 @@ import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.EntitySpawnerHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
-import com.hockeyhurd.util.math.Vector3iHelper;
+import com.hockeyhurd.util.math.Vector4Helper;
 
 public class ItemWrenchIC2 extends AbstractToolWrench {
 
@@ -54,7 +54,7 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			if (!th.getUse() || th.excuser()) {
 				waila.finder(false);
-				Vector3iHelper vec = waila.getVector3I();
+				Vector4Helper<Integer> vec = waila.getVector3I();
 				int metaData = 0;
 
 				if (bh.blockExists(vec)) {

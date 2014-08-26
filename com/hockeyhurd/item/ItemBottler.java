@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.Waila;
-import com.hockeyhurd.util.math.Vector3iHelper;
+import com.hockeyhurd.util.math.Vector4Helper;
 
 public class ItemBottler extends Item {
 
@@ -99,7 +99,7 @@ public class ItemBottler extends Item {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
 
-			Vector3iHelper vec = waila.getVector3I();
+			Vector4Helper<Integer> vec = waila.getVector3I();
 
 			if (vec != null) {
 				if (!bh.canMineBlock(vec)) return stack;

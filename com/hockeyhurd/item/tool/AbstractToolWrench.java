@@ -23,7 +23,7 @@ import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.EntitySpawnerHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
-import com.hockeyhurd.util.math.Vector3iHelper;
+import com.hockeyhurd.util.math.Vector4Helper;
 
 public abstract class AbstractToolWrench extends Item {
 
@@ -56,7 +56,7 @@ public abstract class AbstractToolWrench extends Item {
 				Waila waila = new Waila(stack, world, player, null, false, false);
 				waila.finder();
 
-				Vector3iHelper vec = null;
+				Vector4Helper<Integer> vec = null;
 				if (waila.getVector3I() == null) return stack;
 				else vec = waila.getVector3I();
 
