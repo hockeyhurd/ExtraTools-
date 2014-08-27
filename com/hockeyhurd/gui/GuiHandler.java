@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -16,6 +17,7 @@ public class GuiHandler implements IGuiHandler {
 		
 		if (tile_entity instanceof TileEntityGlowFurnace) return new ContainerGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
 		else if (tile_entity instanceof TileEntityGlowChest) return new ContainerGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
+		else if (tile_entity instanceof TileEntityGlowPulverizer) return new ContainerGlowPulverizer(player.inventory, (TileEntityGlowPulverizer) tile_entity);
 		else return null;
 	}
 
@@ -25,6 +27,7 @@ public class GuiHandler implements IGuiHandler {
 
 		if (tile_entity instanceof TileEntityGlowFurnace) return new GuiGlowFurnace(player.inventory, (TileEntityGlowFurnace) tile_entity);
 		else if (tile_entity instanceof TileEntityGlowChest) return new GuiGlowChest(player.inventory, (TileEntityGlowChest) tile_entity);
+		else if (tile_entity instanceof TileEntityGlowPulverizer) return new GuiGlowPulverizer(player.inventory, (TileEntityGlowPulverizer) tile_entity);
 		else return null;
 	}
 }

@@ -18,10 +18,12 @@ import com.hockeyhurd.block.BlockGlowTorch;
 import com.hockeyhurd.block.BlockSafeGlass;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
+import com.hockeyhurd.block.machines.BlockGlowPulverizer;
 import com.hockeyhurd.block.ores.BlockGlowOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
+import com.hockeyhurd.handler.GuiIDHandler;
 import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.item.ItemBottler;
 import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
@@ -34,6 +36,7 @@ import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
 import com.hockeyhurd.item.tool.ItemDebugger;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
 import com.hockeyhurd.item.tool.ItemGlowAxe;
@@ -49,6 +52,7 @@ import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.LogicHelper;
+import com.hockeyhurd.util.PulverizeRecipes;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -58,7 +62,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.23")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.24")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -88,15 +92,21 @@ public class ExtraTools {
 	// Machines/TileEntityBlocks
 	public static Block glowFurnaceOff;
 	public static Block glowFurnaceOn;
+	public static Block glowPulverizerOn;
+	public static Block glowPulverizerOff;
 	public static Block glowChest;
 
 	// Gui stuff
-	public static final int guiIDGlowFurnace = 0;
-	public static final int guiIDGlowChest = 1;
+	public static final int guiIDGlowFurnace = GuiIDHandler.getNextAvailableID();
+	public static final int guiIDGlowChest = GuiIDHandler.getNextAvailableID();
+	public static final int guiIDGlowPulverizer = GuiIDHandler.getNextAvailableID();
 
 	// Ores
 	public static Block glowOre;
 	public static Block glowOreNether;
+	
+	// Ores pulverized.
+	public static Item pulverizedIron;
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
@@ -157,6 +167,7 @@ public class ExtraTools {
 
 		LogHelper.info("Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
+		PulverizeRecipes.init();
 		
 		for (int i = 0; i < ModsLoadedHelper.staticArray.length; i++) {
 			if (ModsLoadedHelper.staticArray[i]) LogHelper.info(ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
@@ -189,11 +200,16 @@ public class ExtraTools {
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
 		glowFurnaceOn = new BlockGlowFurnace(Material.rock, true);
+		glowPulverizerOn = new BlockGlowPulverizer(Material.rock, true);
+		glowPulverizerOff = new BlockGlowPulverizer(Material.rock, false);
 		glowChest = new BlockGlowChest(Material.rock);
 
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock);
 		glowOreNether = new BlockGlowOreNether(Material.rock);
+		
+		// Ores pulverized.
+		pulverizedIron = new ItemPulverizedIron();
 
 		// Items
 		glowDust = new ItemGlowDust();

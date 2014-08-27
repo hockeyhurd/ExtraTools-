@@ -24,7 +24,7 @@ public class ConfigHandler {
 	private HashMap<String, Integer> map;
 	private List<Block> blocks;
 	private List<Item> items;
-	private DefaultIDHandler dh;
+	private GuiIDHandler dh;
 	private BlockHelper bh;
 	private ItemHelper ih;
 
@@ -40,7 +40,7 @@ public class ConfigHandler {
 		this.event = event;
 		blocks = new ArrayList<Block>();
 		items = new ArrayList<Item>();
-		dh = new DefaultIDHandler();
+		dh = new GuiIDHandler();
 		bh = new BlockHelper();
 		ih = new ItemHelper();
 	}

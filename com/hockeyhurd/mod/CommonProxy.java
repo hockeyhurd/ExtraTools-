@@ -11,6 +11,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
@@ -61,6 +62,8 @@ public class CommonProxy {
 		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
 		GameRegistry.registerBlock(glowFurnaceOff, "GlowFurnaceOff");
 		GameRegistry.registerBlock(glowFurnaceOn, "GlowFurnaceOn");
+		GameRegistry.registerBlock(glowPulverizerOff, "GlowPulverizerOff");
+		GameRegistry.registerBlock(glowPulverizerOn, "GlowPulverizerOn");
 		GameRegistry.registerBlock(glowChest, "GlowChest");
 		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
 		GameRegistry.registerBlock(safeGlass, "SafeGlass");
@@ -78,6 +81,8 @@ public class CommonProxy {
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");
 		GameRegistry.registerItem(bottler, "Bottler");
+		
+		GameRegistry.registerItem(pulverizedIron, "PulverizedIron");
 
 		GameRegistry.registerItem(hockeyStick, "HockeyStick");
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
@@ -320,6 +325,7 @@ public class CommonProxy {
 	protected void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
 		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
+		GameRegistry.registerTileEntity(TileEntityGlowPulverizer.class, "tileEntityGlowPulverizer");
 	}
 
 	protected void registerGuiHandler() {
