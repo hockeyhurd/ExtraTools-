@@ -2,6 +2,7 @@ package com.hockeyhurd.util;
 
 import static com.hockeyhurd.mod.ExtraTools.glowDust;
 import static com.hockeyhurd.mod.ExtraTools.glowOre;
+import static com.hockeyhurd.mod.ExtraTools.glowOreNether;
 import static com.hockeyhurd.mod.ExtraTools.pulverizedGold;
 import static com.hockeyhurd.mod.ExtraTools.pulverizedIron;
 
@@ -29,11 +30,11 @@ public class PulverizeRecipes {
 		mapModded = new HashMap<String, String>();
 
 		// Normal mapping
-		put(glowOre, new ItemStack(glowDust, 2));
 		put(Blocks.iron_ore, new ItemStack(pulverizedIron, 2));
 		put(Blocks.gold_ore, new ItemStack(pulverizedGold, 2));
 
 		// Fall back mapping
+		mapModded.put("oreGlow", "dustGlow");
 		mapModded.put("oreCopper", "dustCopper");
 		mapModded.put("oreTin", "dustTin");
 		mapModded.put("oreAluminium", "dustAluminium");

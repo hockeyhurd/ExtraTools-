@@ -8,7 +8,7 @@ import com.hockeyhurd.block.machines.BlockGlowPulverizer;
 import com.hockeyhurd.util.PulverizeRecipes;
 
 public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
-
+	
 	public TileEntityGlowPulverizer() {
 		initContentsArray();
 		initSlotsArray();

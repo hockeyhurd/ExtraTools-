@@ -31,6 +31,10 @@ public class TimerHelper {
 		this.use = use;
 	}
 	
+	public void trigger() {
+		setUse(true);
+	}
+	
 	public boolean getUse() {
 		return this.use;
 	}
