@@ -2,13 +2,6 @@ package com.hockeyhurd.block.machines;
 
 import java.util.Random;
 
-import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
-import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
-import com.hockeyhurd.mod.ExtraTools;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,6 +15,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
+import com.hockeyhurd.mod.ExtraTools;
+
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockGlowPulverizer extends AbstractBlockMachine {
 
@@ -40,24 +40,12 @@ public class BlockGlowPulverizer extends AbstractBlockMachine {
 		return new TileEntityGlowPulverizer();
 	}
 
-	
-	/*@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		// blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowPulverizer");
-		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowFurnace");
-	}*/
-
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister reg) {
 		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowFurnace_side");
 		this.pulverizerFront = reg.registerIcon(ExtraTools.assetsDir + (active ? "GlowPulverizer_front_on" : "GlowPulverizer_front_off"));
 		this.pulverizerTop = reg.registerIcon(ExtraTools.assetsDir + "GlowFurnace_top");
 	}
-	
-	/*@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int metaData) {
-		return this.blockIcon;
-	}*/
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {

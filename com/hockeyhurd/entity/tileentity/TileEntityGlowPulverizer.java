@@ -1,14 +1,10 @@
 package com.hockeyhurd.entity.tileentity;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
-import com.hockeyhurd.mod.ExtraTools;
-import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.PulverizeRecipes;
 
 public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
@@ -147,7 +143,7 @@ public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 	}
 
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
-		// super.writeToNBT(par1NBTTagCompound);
+		super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setShort("BurnTime", (short) this.burnTime);
 		par1NBTTagCompound.setShort("CookTime", (short) this.cookTime);
 		NBTTagList nbttaglist = new NBTTagList();

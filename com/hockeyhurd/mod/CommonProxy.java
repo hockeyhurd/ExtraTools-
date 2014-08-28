@@ -1,5 +1,50 @@
 package com.hockeyhurd.mod;
 
+import static com.hockeyhurd.mod.ExtraTools.bottler;
+import static com.hockeyhurd.mod.ExtraTools.ch;
+import static com.hockeyhurd.mod.ExtraTools.debugger;
+import static com.hockeyhurd.mod.ExtraTools.diamondDetector;
+import static com.hockeyhurd.mod.ExtraTools.diamondFusedNetherStar;
+import static com.hockeyhurd.mod.ExtraTools.diamondSacrifice;
+import static com.hockeyhurd.mod.ExtraTools.extraSmoothStone;
+import static com.hockeyhurd.mod.ExtraTools.fireryNetherStar;
+import static com.hockeyhurd.mod.ExtraTools.glowAxeUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowBoot;
+import static com.hockeyhurd.mod.ExtraTools.glowChest;
+import static com.hockeyhurd.mod.ExtraTools.glowChestplate;
+import static com.hockeyhurd.mod.ExtraTools.glowCoal;
+import static com.hockeyhurd.mod.ExtraTools.glowDust;
+import static com.hockeyhurd.mod.ExtraTools.glowExcavatorUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowFurnaceOff;
+import static com.hockeyhurd.mod.ExtraTools.glowFurnaceOn;
+import static com.hockeyhurd.mod.ExtraTools.glowHammerUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowHelmet;
+import static com.hockeyhurd.mod.ExtraTools.glowHoeUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowIngot;
+import static com.hockeyhurd.mod.ExtraTools.glowIngotBlock;
+import static com.hockeyhurd.mod.ExtraTools.glowLegging;
+import static com.hockeyhurd.mod.ExtraTools.glowOre;
+import static com.hockeyhurd.mod.ExtraTools.glowOreNether;
+import static com.hockeyhurd.mod.ExtraTools.glowPickaxeUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowPressurePlate;
+import static com.hockeyhurd.mod.ExtraTools.glowPulverizerOff;
+import static com.hockeyhurd.mod.ExtraTools.glowPulverizerOn;
+import static com.hockeyhurd.mod.ExtraTools.glowRock;
+import static com.hockeyhurd.mod.ExtraTools.glowShovelUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowSwordUnbreakable;
+import static com.hockeyhurd.mod.ExtraTools.glowTorch;
+import static com.hockeyhurd.mod.ExtraTools.guiHandler;
+import static com.hockeyhurd.mod.ExtraTools.hockeyPuck;
+import static com.hockeyhurd.mod.ExtraTools.hockeyStick;
+import static com.hockeyhurd.mod.ExtraTools.instance;
+import static com.hockeyhurd.mod.ExtraTools.itemReplacer;
+import static com.hockeyhurd.mod.ExtraTools.netherSoulCollector;
+import static com.hockeyhurd.mod.ExtraTools.pulverizedGold;
+import static com.hockeyhurd.mod.ExtraTools.pulverizedIron;
+import static com.hockeyhurd.mod.ExtraTools.rubber;
+import static com.hockeyhurd.mod.ExtraTools.safeGlass;
+import static com.hockeyhurd.mod.ExtraTools.worldgenGlowOre;
+import static com.hockeyhurd.mod.ExtraTools.wrench;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,14 +64,17 @@ import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.handler.PacketHandler;
 import com.hockeyhurd.util.PulverizeRecipes;
 
-import static com.hockeyhurd.mod.ExtraTools.*;
-
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 
+	/* TODO: Add pulverizable ores to ore dictionary
+	 * add all ores to pulverize recipes mapping
+	 * set crafting recipe for glow pulverizer.
+	 */
+	
 	public CommonProxy() {
 	}
 

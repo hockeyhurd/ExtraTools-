@@ -105,7 +105,7 @@ public abstract class AbstractTileEntityGlow extends TileEntity implements ISide
 	
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
-		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items", 10);
+		/*NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items", 10);
 		this.invContents = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -119,7 +119,7 @@ public abstract class AbstractTileEntityGlow extends TileEntity implements ISide
 
 		this.burnTime = par1NBTTagCompound.getShort("BurnTime");
 		this.cookTime = par1NBTTagCompound.getShort("CookTime");
-		this.currentBurnTime = getItemBurnTime(this.invContents[1]);
+		this.currentBurnTime = getItemBurnTime(this.invContents[1]); */
 
 		if (par1NBTTagCompound.hasKey("CustomName")) {
 			this.customName = par1NBTTagCompound.getString("CustomName");
@@ -128,7 +128,7 @@ public abstract class AbstractTileEntityGlow extends TileEntity implements ISide
 
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setShort("BurnTime", (short) this.burnTime);
+		/*par1NBTTagCompound.setShort("BurnTime", (short) this.burnTime);
 		par1NBTTagCompound.setShort("CookTime", (short) this.cookTime);
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -141,7 +141,7 @@ public abstract class AbstractTileEntityGlow extends TileEntity implements ISide
 			}
 		}
 
-		par1NBTTagCompound.setTag("Items", nbttaglist);
+		par1NBTTagCompound.setTag("Items", nbttaglist);*/
 
 		if (this.hasCustomInventoryName()) par1NBTTagCompound.setString("CustomName", this.customName);
 	}
