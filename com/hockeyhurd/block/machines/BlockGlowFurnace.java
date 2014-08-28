@@ -213,7 +213,7 @@ public class BlockGlowFurnace extends AbstractBlockMachine {
 			}
 		}
 
-		super.breakBlock(world, x, y, z, oldBlock, oldBlockMetaData);
+		// super.breakBlock(world, x, y, z, oldBlock, oldBlockMetaData);
 	}
 
 	public boolean hasComparatorInputOverride() {

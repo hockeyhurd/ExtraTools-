@@ -42,6 +42,8 @@ public abstract class AbstractTileEntityGlow extends TileEntity implements ISide
 	public static int scaledTime = (defaultCookTime / 10) * 5;
 	
 	public AbstractTileEntityGlow() {
+		initContentsArray();
+		initSlotsArray();
 	}
 	
 	protected abstract void initContentsArray();

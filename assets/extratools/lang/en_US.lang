@@ -7,8 +7,10 @@ tile.ExtraSmoothStone.name='Stone'
 tile.SafeGlass.name='Glass'
 
 tile.GlowFurnaceOff.name=Glow Furnace
+tile.GlowPulverizer.name=Glow Pulverizer
 tile.GlowChest.name=Glow Chest
 
+container.glowpulverizer=Glow Pulverizer
 container.glowchest=Glow Chest
 
 key.extratools+.category=ExtraTools+

@@ -17,7 +17,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
 import com.hockeyhurd.mod.ExtraTools;
 
 import cpw.mods.fml.relauncher.Side;
@@ -126,7 +126,7 @@ public abstract class AbstractBlockMachine extends BlockContainer {
 		}
 
 		if (stack.hasDisplayName()) {
-			((TileEntityGlowFurnace) world.getTileEntity(x, y, z)).func_145951_a(stack.getDisplayName());
+			((AbstractTileEntityGlow) world.getTileEntity(x, y, z)).setCustomName(stack.getDisplayName());
 		}
 	}
 	
@@ -136,11 +136,11 @@ public abstract class AbstractBlockMachine extends BlockContainer {
 	 */
 	public void breakBlock(World world, int x, int y, int z, Block oldBlock, int oldBlockMetaData) {
 		if (!keepInventory) {
-			TileEntityGlowFurnace tileEntityGlowFurnace = (TileEntityGlowFurnace) world.getTileEntity(x, y, z);
+			AbstractTileEntityGlow tileEntityGlow = (AbstractTileEntityGlow) world.getTileEntity(x, y, z);
 
-			if (tileEntityGlowFurnace != null) {
-				for (int j1 = 0; j1 < tileEntityGlowFurnace.getSizeInventory(); j1++) {
-					ItemStack stack = tileEntityGlowFurnace.getStackInSlot(j1);
+			if (tileEntityGlow != null) {
+				for (int j1 = 0; j1 < tileEntityGlow.getSizeInventory(); j1++) {
+					ItemStack stack = tileEntityGlow.getStackInSlot(j1);
 
 					if (stack != null) {
 						float f = this.random.nextFloat() * 0.8F + 0.1F;

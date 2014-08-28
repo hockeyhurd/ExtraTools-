@@ -4,7 +4,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 
-import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
 
 public class ContainerGlowPulverizer extends AbstractContainerGlow {

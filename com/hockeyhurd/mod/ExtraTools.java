@@ -36,6 +36,7 @@ import com.hockeyhurd.item.ItemNetherSoulCollector;
 import com.hockeyhurd.item.ItemNetherStarFirery;
 import com.hockeyhurd.item.ItemRubber;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.pulverized.ItemPulverizedGold;
 import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
 import com.hockeyhurd.item.tool.ItemDebugger;
 import com.hockeyhurd.item.tool.ItemDiamondDetector;
@@ -52,7 +53,6 @@ import com.hockeyhurd.item.tool.ItemWrench;
 import com.hockeyhurd.item.tool.ItemWrenchIC2;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.LogicHelper;
-import com.hockeyhurd.util.PulverizeRecipes;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -107,6 +107,7 @@ public class ExtraTools {
 	
 	// Ores pulverized.
 	public static Item pulverizedIron;
+	public static Item pulverizedGold;
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
@@ -167,7 +168,6 @@ public class ExtraTools {
 
 		LogHelper.info("Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
-		PulverizeRecipes.init();
 		
 		for (int i = 0; i < ModsLoadedHelper.staticArray.length; i++) {
 			if (ModsLoadedHelper.staticArray[i]) LogHelper.info(ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
@@ -210,6 +210,7 @@ public class ExtraTools {
 		
 		// Ores pulverized.
 		pulverizedIron = new ItemPulverizedIron();
+		pulverizedGold = new ItemPulverizedGold();
 
 		// Items
 		glowDust = new ItemGlowDust();

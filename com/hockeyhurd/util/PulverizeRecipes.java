@@ -18,11 +18,17 @@ public class PulverizeRecipes {
 	
 	public static void init() {
 		map = new HashMap<Block, ItemStack>();
+		put(glowOre, new ItemStack(glowDust, 2));
 		put(Blocks.iron_ore, new ItemStack(pulverizedIron, 2));
+		put(Blocks.gold_ore, new ItemStack(pulverizedGold, 2));
 	}
 	
 	private static void put(Block block, ItemStack val) {
 		map.put(block, val);
+	}
+	
+	public static HashMap<Block, ItemStack> getMap() {
+		return map;
 	}
 	
 	public static ItemStack pulverizeList(ItemStack stack) {

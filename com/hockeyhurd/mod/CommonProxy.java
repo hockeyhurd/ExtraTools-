@@ -17,6 +17,8 @@ import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.FuelHandler;
 import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.handler.PacketHandler;
+import com.hockeyhurd.util.PulverizeRecipes;
+
 import static com.hockeyhurd.mod.ExtraTools.*;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -43,6 +45,7 @@ public class CommonProxy {
 		if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
 		registerTileEntities();
 		registerGuiHandler();
+		registerRegisters();
 	}
 
 	protected void registerEventHandlers() {
@@ -83,6 +86,7 @@ public class CommonProxy {
 		GameRegistry.registerItem(bottler, "Bottler");
 		
 		GameRegistry.registerItem(pulverizedIron, "PulverizedIron");
+		GameRegistry.registerItem(pulverizedGold, "PulverizedGold");
 
 		GameRegistry.registerItem(hockeyStick, "HockeyStick");
 		GameRegistry.registerItem(diamondDetector, "DiamondDetector");
@@ -305,6 +309,8 @@ public class CommonProxy {
 	protected void addFurnaceRecipes() {
 		// USE: args(use what block/item from id, (get what block/item from id, how much), how much xp should the player be rewarded.
 		GameRegistry.addSmelting(glowOre, new ItemStack(glowDust, 1), 100f);
+		GameRegistry.addSmelting(pulverizedIron, new ItemStack(Items.iron_ingot, 1), 100f);
+		GameRegistry.addSmelting(pulverizedGold, new ItemStack(Items.gold_ingot, 1), 100f);
 	}
 
 	protected void pulverizeRecipes() { // Code performing glowOre into 2*glowDust via Thermal Expansion // Pulverizer.
@@ -329,11 +335,15 @@ public class CommonProxy {
 	}
 
 	protected void registerGuiHandler() {
-		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(ExtraTools.instance, guiHandler);
+		if (guiHandler != null) NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 		else {
 			guiHandler = new GuiHandler();
-			NetworkRegistry.INSTANCE.registerGuiHandler(ExtraTools.instance, guiHandler);
+			NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 		}
+	}
+	
+	protected void registerRegisters() {
+		PulverizeRecipes.init();
 	}
 
 }

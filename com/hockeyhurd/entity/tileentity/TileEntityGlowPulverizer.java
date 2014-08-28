@@ -1,15 +1,21 @@
 package com.hockeyhurd.entity.tileentity;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
+import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.PulverizeRecipes;
 
 public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 
 	public TileEntityGlowPulverizer() {
+		initContentsArray();
+		initSlotsArray();
 	}
 
 	protected void initContentsArray() {
@@ -29,6 +35,14 @@ public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 			1
 		};
 	}
+	
+	public int getSizeInventory() {
+		return this.invContents.length;
+	}
+	
+	public ItemStack getStackInSlot(int slot) {
+		return this.invContents[slot];
+	}
 
 	protected boolean canSmelt() {
 		if (this.invContents[0] == null) return false;
@@ -44,6 +58,25 @@ public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 			
 			// Make sure we aren't going over the set stack limit's size.
 			return (result <= getInventoryStackLimit() && result <= stack.getMaxStackSize());
+		}
+	}
+	
+	public void smeltItem() {
+		if (this.canSmelt()) {
+			ItemStack itemstack = PulverizeRecipes.pulverizeList(this.invContents[0]);
+
+			if (this.invContents[2] == null) {
+				this.invContents[2] = itemstack.copy();
+			}
+			else if (this.invContents[2].isItemEqual(itemstack)) {
+				invContents[2].stackSize += itemstack.stackSize;
+			}
+
+			this.invContents[0].stackSize--;
+
+			if (this.invContents[0].stackSize <= 0) {
+				this.invContents[0] = null;
+			}
 		}
 	}
 	
@@ -114,7 +147,7 @@ public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 	}
 
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeToNBT(par1NBTTagCompound);
+		// super.writeToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setShort("BurnTime", (short) this.burnTime);
 		par1NBTTagCompound.setShort("CookTime", (short) this.cookTime);
 		NBTTagList nbttaglist = new NBTTagList();
@@ -131,6 +164,18 @@ public class TileEntityGlowPulverizer extends AbstractTileEntityGlow {
 		par1NBTTagCompound.setTag("Items", nbttaglist);
 
 		if (this.hasCustomInventoryName()) par1NBTTagCompound.setString("CustomName", this.customName);
+	}
+	
+	public String getInventoryName() {
+		return this.hasCustomInventoryName() ? this.customName : "container.glowpulverizer";
+	}
+	
+	public boolean hasCustomInventoryName() {
+		return this.customName != null && this.customName.length() > 0;
+	}
+	
+	public void setCustomName(String text) {
+		this.customName = text;
 	}
 	
 }

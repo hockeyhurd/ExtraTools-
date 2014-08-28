@@ -13,7 +13,7 @@ public class TimerHelper {
 			this.buffer = buffer;
 		}
 		else {
-			System.err.println("Constructor value is less than 0! Defaulting timer to 20 ticks or 1 second with no buffer!");
+			LogHelper.warn("Constructor value is less than 0! Defaulting timer to 20 ticks or 1 second with no buffer!");
 			this.resetVal = this.tick = 20;
 			this.buffer = 0;
 		}
