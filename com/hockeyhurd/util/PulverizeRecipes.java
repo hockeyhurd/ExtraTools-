@@ -12,13 +12,14 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class PulverizeRecipes {
 
-	private static HashMap<Block, ItemStack> mapVanilla;
+	private static HashMap<ItemStack, ItemStack> mapVanilla;
 	private static HashMap<String, String> mapModded;
 	private static Set<Entry<String, String>> mapSet;
 
@@ -26,20 +27,30 @@ public class PulverizeRecipes {
 	}
 
 	public static void init() {
-		mapVanilla = new HashMap<Block, ItemStack>();
+		mapVanilla = new HashMap<ItemStack, ItemStack>();
 		mapModded = new HashMap<String, String>();
 
 		// Normal mapping
-		put(Blocks.iron_ore, new ItemStack(pulverizedIron, 2));
-		put(Blocks.gold_ore, new ItemStack(pulverizedGold, 2));
+		mapVanilla.put(new ItemStack(Blocks.iron_ore, 1), new ItemStack(pulverizedIron, 2));
+		mapVanilla.put(new ItemStack(Blocks.gold_ore, 1), new ItemStack(pulverizedGold, 2));
+		mapVanilla.put(new ItemStack(Items.iron_ingot, 1), new ItemStack(pulverizedIron, 1));
+		mapVanilla.put(new ItemStack(Items.gold_ingot, 1), new ItemStack(pulverizedGold, 1));
 
 		// Fall back mapping
 		mapModded.put("oreGlow", "dustGlow");
+		mapModded.put("ingotGlow", "dustGlow");
 		mapModded.put("oreCopper", "dustCopper");
+		mapModded.put("ingotCopper", "dustCopper");
+		mapModded.put("oreBronze", "dustBronze");
+		mapModded.put("ingotBronze", "dustBronze");
 		mapModded.put("oreTin", "dustTin");
+		mapModded.put("ingotTin", "dustTin");
 		mapModded.put("oreAluminium", "dustAluminium");
+		mapModded.put("ingotAluminium", "dustAluminium");
 		mapModded.put("oreLead", "dustLead");
+		mapModded.put("ingotLead", "dustLead");
 		mapModded.put("oreSilver", "dustSilver");
+		mapModded.put("ingotSilver", "dustSilver");
 
 		initEntries();
 	}
@@ -48,11 +59,7 @@ public class PulverizeRecipes {
 		mapSet = mapModded.entrySet();
 	}
 
-	private static void put(Block block, ItemStack val) {
-		mapVanilla.put(block, val);
-	}
-
-	public static HashMap<Block, ItemStack> getMap() {
+	public static HashMap<ItemStack, ItemStack> getMap() {
 		return mapVanilla;
 	}
 
@@ -60,16 +67,22 @@ public class PulverizeRecipes {
 		boolean flag = false;
 		ItemStack temp = null;
 
-		for (Block block : mapVanilla.keySet()) {
-			if (stack.getItem() == Item.getItemFromBlock(block)) {
-				temp = mapVanilla.get(block);
+		/* First attempt to see we have data handling for the given stack
+		 * in the vanilla mapping, if not continue and use the fallback mapping
+		 * (modded).
+		 */
+		for (ItemStack currentStack : mapVanilla.keySet()) {
+			if (stack.getItem() == currentStack.getItem()) {
+				temp = mapVanilla.get(currentStack);
 				flag = true;
 				break;
 			}
 		}
 
+		// If found data in vanilla mapping, return now, no need to continue.
 		if (flag && temp != null) return temp;
 
+		// Else not found, prepare data for collection from the Ore Dictionary.
 		int currentID = OreDictionary.getOreID(stack);
 		String current = "", current2 = "";
 		for (int i = 0; i < OreDictionary.getOreNames().length; i++) {
@@ -85,13 +98,24 @@ public class PulverizeRecipes {
 			}
 
 			if (flag) {
-				Block block = Block.getBlockById(OreDictionary.getOreID(current));
+				Block block = null;
+				Item item = null;
+				
+				/* Checks if the stack is instance of Block or instance of Item.
+				 * In theory, only one of the two objects should be null at a given instance;
+				 * hence returning the correct stack size below.
+				 */
+				if (current.contains("ore")) block = Block.getBlockById(OreDictionary.getOreID(current));
+				else if (current.contains("ingot")) item = Item.getItemById(OreDictionary.getOreID(current));
 				temp = OreDictionary.getOres(current2).get(0);
-				temp.stackSize = 2;
+				
+				// Somewhat overly complicated but makes more sense writing like this imo.
+				temp.stackSize = block != null && item == null ? 2 : (block == null && item != null ? 1 : 1);
 				break;
 			}
 		}
 
+		// If found and stored in variable temp while != null, return data.
 		return flag && temp != null ? temp : (ItemStack) null;
 	}
 
