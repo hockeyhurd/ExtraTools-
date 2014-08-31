@@ -19,6 +19,15 @@ public class LogHelper {
 		log(Level.INFO, object);
 	}
 	
+	public static void info(Object... objects) {
+		String text = "";
+		for (Object obj : objects) {
+			text += obj + " ";
+		}
+		
+		info(text);
+	}
+	
 	public static void warn(Object object) {
 		log(Level.WARN, object);
 	}

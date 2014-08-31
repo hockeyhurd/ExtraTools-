@@ -199,6 +199,11 @@ public class CommonProxy {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowChest, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', "stone", 'y', "ingotGlow", 'z', Blocks.chest
 		}));
+		
+		// Crafting the GlowPressurePlate.
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowPressurePlate, 1), new Object[] {
+			" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Blocks.stone_pressure_plate 
+		}));
 
 		// Crafting the ExtraSmoothStone
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {

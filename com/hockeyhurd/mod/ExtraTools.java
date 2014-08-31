@@ -62,7 +62,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.25")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.26")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -195,7 +195,7 @@ public class ExtraTools {
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
 		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
 		safeGlass = new BlockSafeGlass(Material.glass, false);
-		glowPressurePlate = new BlockGlowPressurePlate("glow_pressure_plate", Material.rock, Sensitivity.everything);
+		glowPressurePlate = new BlockGlowPressurePlate("glow_pressure_plate", Material.rock, Sensitivity.players);
 
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);

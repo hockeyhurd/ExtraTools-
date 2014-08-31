@@ -160,6 +160,10 @@ public class EventHookContainer {
 		if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowPressurePlate)) {
+			event.toolTip.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.WHITE + "Provides a touch of Glow!");
+			event.toolTip.add(EnumChatFormatting.WHITE + "Only Players may use it!");
+		}
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowChest)) {
 			if (event.itemStack.hasTagCompound()) {
 				int maxSize = (7 * 9);

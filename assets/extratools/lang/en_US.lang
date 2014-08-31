@@ -3,6 +3,7 @@ tile.GlowOre.name=Glow Ore
 tile.BlockGlowOreNether.name=Glow Ore
 tile.GlowTorch.name=Glow Torch
 tile.GlowIngotBlock.name=Block of Glow
+tile.GlowPressurePlate.name=Glow Pressure Plate
 tile.ExtraSmoothStone.name='Stone'
 tile.SafeGlass.name='Glass'
 

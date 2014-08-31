@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.LogHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,6 +27,8 @@ public class BlockGlowPressurePlate extends BlockBasePressurePlate {
 		this.setBlockName("GlowPressurePlate");
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 		this.setHardness(1.0f);
+		this.setLightLevel(0.5f);
+		this.sensitivityLevel = sensitivity;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -36,17 +39,9 @@ public class BlockGlowPressurePlate extends BlockBasePressurePlate {
 	protected int func_150065_e(World world, int x, int y, int z) {
 		List list = null;
 
-		if (this.sensitivityLevel == Sensitivity.everything) {
-			list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, this.func_150061_a(x, y, z));
-		}
-
-		if (this.sensitivityLevel == Sensitivity.mobs) {
-			list = world.getEntitiesWithinAABB(EntityLivingBase.class, this.func_150061_a(x, y, z));
-		}
-
-		if (this.sensitivityLevel == Sensitivity.players) {
-			list = world.getEntitiesWithinAABB(EntityPlayer.class, this.func_150061_a(x, y, z));
-		}
+		if (this.sensitivityLevel == Sensitivity.everything) list = world.getEntitiesWithinAABBExcludingEntity((Entity) null, this.func_150061_a(x, y, z));
+		if (this.sensitivityLevel == Sensitivity.mobs) list = world.getEntitiesWithinAABB(EntityLivingBase.class, this.func_150061_a(x, y, z));
+		if (this.sensitivityLevel == Sensitivity.players) list = world.getEntitiesWithinAABB(EntityPlayer.class, this.func_150061_a(x, y, z));
 
 		if (list != null && !list.isEmpty()) {
 			Iterator iterator = list.iterator();
@@ -54,7 +49,7 @@ public class BlockGlowPressurePlate extends BlockBasePressurePlate {
 			while (iterator.hasNext()) {
 				Entity entity = (Entity) iterator.next();
 
-				if (!entity.doesEntityNotTriggerPressurePlate()) { return 15; }
+				if (!entity.doesEntityNotTriggerPressurePlate()) return 15;
 			}
 		}
 
