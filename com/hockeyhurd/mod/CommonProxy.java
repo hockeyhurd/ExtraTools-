@@ -69,11 +69,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
-
-	/* TODO: Add pulverizable ores to ore dictionary
-	 * add all ores to pulverize recipes mapping
-	 * set crafting recipe for glow pulverizer.
-	 */
 	
 	public CommonProxy() {
 	}
@@ -162,9 +157,12 @@ public class CommonProxy {
 		OreDictionary.registerOre("dustGlow", glowDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
 		OreDictionary.registerOre("blockGlow", glowIngotBlock);
+		OreDictionary.registerOre("dustIron", pulverizedIron);
+		OreDictionary.registerOre("dustGold", pulverizedGold);
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
 		OreDictionary.registerOre("itemRubber", rubber);
 		OreDictionary.registerOre("stone", extraSmoothStone);
+		OreDictionary.registerOre("blockGlass", safeGlass);
 	}
 
 	protected void addFuelRegister() {
