@@ -195,11 +195,11 @@ public class ItemBottler extends Item {
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		stack.stackTagCompound = new NBTTagCompound();
 		String savedText = stack.stackTagCompound.getString("Entity");
-		if (ExtraTools.lh.nullCheck(savedText)) this.entityName = savedText;
+		if (ExtraTools.lh.nullCheckString(savedText)) this.entityName = savedText;
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (!hasEffect(stack) || !ExtraTools.lh.nullCheck(this.entityName)) return;
+		if (!hasEffect(stack) || !ExtraTools.lh.nullCheckString(this.entityName)) return;
 		NBTTagCompound tag = null;
 		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
 		
