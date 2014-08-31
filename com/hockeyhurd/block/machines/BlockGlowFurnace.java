@@ -32,7 +32,7 @@ public class BlockGlowFurnace extends AbstractBlockMachine {
 		super(material);
 		this.active = active;
 		this.setBlockName(active ? "GlowFurnaceOn" : "GlowFurnaceOff");
-		this.setCreativeTab(ExtraTools.myCreativeTab);
+		this.setCreativeTab(!active ? ExtraTools.myCreativeTab : null);
 	}
 
 	public Item getItemDropped(int par1, Random random, int par3) {

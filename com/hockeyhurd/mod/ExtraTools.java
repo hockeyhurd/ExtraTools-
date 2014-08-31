@@ -62,7 +62,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.26")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.27")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -110,7 +110,7 @@ public class ExtraTools {
 	public static Item pulverizedGold;
 
 	// World generation.
-	public static OreGlowWorldgen worldgenGlowOre = new OreGlowWorldgen();
+	public static OreGlowWorldgen worldgenGlowOre;
 
 	// Items
 	public static Item glowDust;
@@ -244,6 +244,8 @@ public class ExtraTools {
 		glowChestplate = new ArmorSetGlow(glowArmorMat, 0, 1, "Glow", 1).setUnlocalizedName("GlowChestplate");
 		glowLegging = new ArmorSetGlow(glowArmorMat, 0, 2, "Glow", 2).setUnlocalizedName("GlowLeggings");
 		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
+		
+		worldgenGlowOre = new OreGlowWorldgen();
 	}
 
 	public ExtraTools() {

@@ -31,7 +31,7 @@ public class BlockGlowPulverizer extends AbstractBlockMachine {
 	public BlockGlowPulverizer(Material material, boolean active) {
 		super(material);
 		this.active = active;
-		this.setCreativeTab(ExtraTools.myCreativeTab);
+		this.setCreativeTab(!active ? ExtraTools.myCreativeTab : null);
 		this.setBlockName("GlowPulverizer");
 		this.setHardness(1.0f);
 	}

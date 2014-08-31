@@ -18,6 +18,8 @@ key.extratools+.category=ExtraTools+
 key.toggle.desc=Tool Mode Toggler
 
 item.GlowDust.name=Glow Dust
+item.PulverizedIron.name=Pulverized Iron
+item.PulverizedGold.name=Pulverized Gold
 item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
 item.GlowIngot.name=Glow Ingot
 item.NetherSoulCollector.name=Soul Collector of The Nether
