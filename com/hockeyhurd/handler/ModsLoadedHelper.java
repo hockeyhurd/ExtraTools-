@@ -1,5 +1,9 @@
 package com.hockeyhurd.handler;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import cpw.mods.fml.common.Loader;
 
 public class ModsLoadedHelper {
@@ -7,7 +11,7 @@ public class ModsLoadedHelper {
 	public static boolean ic2Loaded = false;
 	public static boolean te4Loaded = false;
 	
-	public static boolean[] staticArray;
+	private static HashMap<String, Boolean> mapping;
 	
 	public ModsLoadedHelper() {
 	}
@@ -16,13 +20,18 @@ public class ModsLoadedHelper {
 		if (Loader.isModLoaded("IC2")) ic2Loaded = true;
 		if (Loader.isModLoaded("ThermalExpansion")) te4Loaded = true;
 		
-		initStaticArray();
+		initMapping();
 	}
 	
-	private static void initStaticArray() {
-		staticArray = new boolean[] {
-				ic2Loaded, te4Loaded,	
-		};
+	private static void initMapping() {
+		mapping = new HashMap<String, Boolean>();
+		
+		mapping.put("ic2", ic2Loaded);
+		mapping.put("Thermal Expansion", te4Loaded);
+	}
+	
+	public static final Set<Entry<String, Boolean>> getEntries() {
+		return mapping.entrySet();
 	}
 	
 }

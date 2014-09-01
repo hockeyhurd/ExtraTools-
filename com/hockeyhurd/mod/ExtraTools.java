@@ -1,5 +1,8 @@
 package com.hockeyhurd.mod;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -104,7 +107,7 @@ public class ExtraTools {
 	// Ores
 	public static Block glowOre;
 	public static Block glowOreNether;
-	
+
 	// Ores pulverized.
 	public static Item pulverizedIron;
 	public static Item pulverizedGold;
@@ -168,12 +171,15 @@ public class ExtraTools {
 
 		LogHelper.info("Detecting other soft-dependent mods.");
 		ModsLoadedHelper.init();
-		
-		for (int i = 0; i < ModsLoadedHelper.staticArray.length; i++) {
-			if (ModsLoadedHelper.staticArray[i]) LogHelper.info(ModsLoadedHelper.staticArray[i] + " detected! Wrapping into mod!");
-			else LogHelper.info(ModsLoadedHelper.staticArray[i] + " not detected!");
+
+		Iterator iter = ModsLoadedHelper.getEntries().iterator();
+		do {
+			Entry<String, Boolean> current = (Entry<String, Boolean>) iter.next();
+			if (current.getValue()) LogHelper.info(current.getKey() + " detected! Wrapping into mod!");
+			else LogHelper.warn(current.getKey() + " not detected!");
 		}
-		
+		while (iter.hasNext());
+
 		LogHelper.info("Pre-init finished succesfully!");
 	}
 
@@ -181,10 +187,10 @@ public class ExtraTools {
 	public void load(FMLInitializationEvent event) {
 		LogHelper.info("Init started");
 		loadObj();
-		
+
 		proxy.init();
 		proxy.registerRenderInformation();
-		
+
 		LogHelper.info("Init finished successfully!");
 	}
 
@@ -207,7 +213,7 @@ public class ExtraTools {
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock);
 		glowOreNether = new BlockGlowOreNether(Material.rock);
-		
+
 		// Ores pulverized.
 		pulverizedIron = new ItemPulverizedIron();
 		pulverizedGold = new ItemPulverizedGold();
@@ -244,7 +250,7 @@ public class ExtraTools {
 		glowChestplate = new ArmorSetGlow(glowArmorMat, 0, 1, "Glow", 1).setUnlocalizedName("GlowChestplate");
 		glowLegging = new ArmorSetGlow(glowArmorMat, 0, 2, "Glow", 2).setUnlocalizedName("GlowLeggings");
 		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
-		
+
 		worldgenGlowOre = new OreGlowWorldgen();
 	}
 
