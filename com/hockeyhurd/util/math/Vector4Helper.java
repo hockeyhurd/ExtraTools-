@@ -5,6 +5,8 @@ public class Vector4Helper<N> {
 	private N x, y, z;
 	private int sideHit;
 	
+	public static Vector4Helper zero = new Vector4Helper();
+	
 	public Vector4Helper() {
 		this((N) (Number) 0, (N) (Number) 0, (N) (Number) 0, -1);
 	}
@@ -80,14 +82,48 @@ public class Vector4Helper<N> {
 		return this;
 	}
 	
-	public Vector4Helper getVector4i() {
+	public Vector4Helper<N> getDifference(Vector4Helper<N> vec1, Vector4Helper<N> vec2) {
+		float xx0 = toNumber(vec1.getX()).floatValue();
+		float yy0 = toNumber(vec1.getY()).floatValue();
+		float zz0 = toNumber(vec1.getZ()).floatValue();
+		
+		float xx1 = toNumber(vec2.getX()).floatValue();
+		float yy1 = toNumber(vec2.getY()).floatValue();
+		float zz1 = toNumber(vec2.getZ()).floatValue();
+		
+		float xTot = xx0 - xx1;
+		float yTot = yy0 - yy1;
+		float zTot = zz0 - zz1;
+		
+		return new Vector4Helper<N>((N) (Number) xTot, (N) (Number) yTot, (N) (Number) zTot);
+	}
+	
+	private Number toNumber(N num) {
+		return (Number) num;
+	}
+	
+	public Vector4Helper<Integer> getVector4i() {
 		int xx = ((Number)this.x).intValue();
 		int yy = ((Number)this.y).intValue();
 		int zz = ((Number)this.z).intValue();
 		return new Vector4Helper<Integer>(xx, yy, zz);
 	}
 	
-	public Vector4Helper copy() {
+	public Vector4Helper<Float> getVector4f() {
+		float xx = toNumber(this.x).floatValue();
+		float yy = toNumber(this.y).floatValue();
+		float zz = toNumber(this.z).floatValue();
+		return new Vector4Helper<Float>(xx, yy, zz);
+	}
+	
+	public Vector4Helper<Double> getVector4d() {
+		double xx = toNumber(this.x).doubleValue();
+		double yy = toNumber(this.y).doubleValue();
+		double zz = toNumber(this.z).doubleValue();
+		return new Vector4Helper<Double>(xx, yy, zz);
+	}
+	
+	public Vector4Helper<N> copy() {
 		return this;
 	}
 	

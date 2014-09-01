@@ -15,7 +15,7 @@ public class LogicHelper {
 	
 	/**
 	 * Tests set String array and iterates through. If a single element is null, this will return false, else return true.
-	 * @param text = inputted text based String array.
+	 * @param text = inputed text based String array.
 	 * @return
 	 */
 	public static boolean nullCheckString(String[] text) {
