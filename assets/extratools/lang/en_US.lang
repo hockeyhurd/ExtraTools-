@@ -5,6 +5,9 @@ tile.GlowTorch.name=Glow Torch
 tile.GlowIngotBlock.name=Block of Glow
 tile.GlowPressurePlate.name=Glow Pressure Plate
 tile.ExtraSmoothStone.name='Stone'
+tile.StoneBricksDefault.name=Bricks of Stone
+tile.StoneBricksWide.name=Bricks of Stone Wide
+tile.StoneBricksRed.name=Bricks of Stone Red
 tile.SafeGlass.name='Glass'
 
 tile.GlowFurnaceOff.name=Glow Furnace

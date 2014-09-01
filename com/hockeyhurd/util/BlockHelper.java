@@ -109,7 +109,7 @@ public class BlockHelper {
 		return block != null ? block.getLocalizedName() : "This is not a block!";
 	}
 	
-	public String getUnlocalizedName(Block block) {
+	public String getUnlocalized(Block block) {
 		return block != null ? block.getUnlocalizedName() : "This is not a block!";
 	}
 	
@@ -138,6 +138,27 @@ public class BlockHelper {
 	
 	public void destroyBlock(Vector4Helper vec) {
 		destroyBlock(vec, true);
+	}
+	
+	public void setBlock(int x, int y, int z, Block block, int metaData) {
+		boolean flag = false;
+		Block checkBlock = getBlock(x, y, z);
+		int tempData = getBlockMetaData(x, y, z);
+		if (checkBlock == block && tempData == metaData) flag = true;
+		if (!flag) world.setBlock(x, y, z, block, metaData, 3);
+		else LogHelper.warn("Couldn't place block:", getUnlocalized(block), "into world at", x, y, z, "with metadata:", metaData);
+	}
+	
+	public void setBlock(int x, int y, int z, Block block) {
+		setBlock(x, y, z, block, 0);
+	}
+	
+	public void setBlock(Vector4Helper<Integer> vec, Block block, int metaData) {
+		setBlock(vec.getX(), vec.getY(), vec.getZ(), block, metaData);
+	}
+	
+	public void setBlock(Vector4Helper<Integer> vec, Block block) {
+		setBlock(vec, block, 0);
 	}
 	
 }
