@@ -25,7 +25,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
-	
+
 	public CommonProxy() {
 	}
 
@@ -72,6 +72,8 @@ public class CommonProxy {
 		GameRegistry.registerBlock(stoneBricksWide, "StoneBricksWide");
 		GameRegistry.registerBlock(stoneBricksRed, "stoneBricksRed");
 		GameRegistry.registerBlock(stoneBricksBlue, "stoneBricksBlue");
+		GameRegistry.registerBlock(stoneBricksGreen, "stoneBricksGreen");
+		GameRegistry.registerBlock(stoneBricksPurple, "stoneBricksPurple");
 		GameRegistry.registerBlock(safeGlass, "SafeGlass");
 		GameRegistry.registerBlock(glowPressurePlate, "GlowPressurePlate");
 	}
@@ -87,7 +89,7 @@ public class CommonProxy {
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");
 		GameRegistry.registerItem(bottler, "Bottler");
-		
+
 		GameRegistry.registerItem(pulverizedIron, "PulverizedIron");
 		GameRegistry.registerItem(pulverizedGold, "PulverizedGold");
 
@@ -122,6 +124,12 @@ public class CommonProxy {
 		OreDictionary.registerOre("oreGlowCoal", glowCoal);
 		OreDictionary.registerOre("itemRubber", rubber);
 		OreDictionary.registerOre("stone", extraSmoothStone);
+		OreDictionary.registerOre("stoneBricks", stoneBricksDefault);
+		OreDictionary.registerOre("stoneBricks", stoneBricksWide);
+		OreDictionary.registerOre("stoneBricks", stoneBricksRed);
+		OreDictionary.registerOre("stoneBricks", stoneBricksBlue);
+		OreDictionary.registerOre("stoneBricks", stoneBricksGreen);
+		OreDictionary.registerOre("stoneBricks", stoneBricksPurple);
 		OreDictionary.registerOre("blockGlass", safeGlass);
 	}
 
@@ -150,28 +158,62 @@ public class CommonProxy {
 
 		// Crafting the glow furnace
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowFurnaceOff, 1), new Object[] {
-				" x ", "x x", "xyx", 'x', "ingotGlow", 'y', Blocks.furnace
+				"wxw", "xzx", "xyx", 'w', "blockRedstone", 'x', "ingotGlow", 'y', Blocks.furnace, 'z', "oreGlowCoal"
+		}));
+
+		// Crafting the glow pulverizer
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowPulverizerOff, 1), new Object[] {
+				"wxw", "xzx", "xyx", 'w', "blockRedstone", 'x', "ingotGlow", 'y', Blocks.furnace, 'z', Items.diamond_pickaxe
 		}));
 
 		// Crafting the Glow Chest
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowChest, 1), new Object[] {
 				"xyx", "yzy", "xyx", 'x', "stone", 'y', "ingotGlow", 'z', Blocks.chest
 		}));
-		
+
 		// Crafting the GlowPressurePlate.
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowPressurePlate, 1), new Object[] {
-			" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Blocks.stone_pressure_plate 
+				" x ", "xyx", " x ", 'x', "ingotGlow", 'y', Blocks.stone_pressure_plate
 		}));
 
 		// Crafting the ExtraSmoothStone
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(extraSmoothStone, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stone", 'y', "dustGlow"
 		}));
-		
+
 		// Crafting the stoneBricks
 		GameRegistry.addRecipe(new ItemStack(stoneBricksDefault, 8), new Object[] {
-			"xxx", "x x", "xxx", 'x', Blocks.stonebrick
+				"xxx", "x x", "xxx", 'x', Blocks.stonebrick
 		});
+
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksDefault, 1), new Object[] {
+				"xy", 'x', "stoneBricks", 'y', "dyeWhite"
+		}));
+
+		// Crafting the stoneBricks_wide
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksWide, 2), new Object[] {
+				"xx", 'x', stoneBricksDefault
+		}));
+
+		// Crafting the stoneBricks_red
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksRed, 8), new Object[] {
+				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeRed"
+		}));
+
+		// Crafting the stoneBricks_blue
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksBlue, 8), new Object[] {
+				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeBlue"
+		}));
+
+		// Crafting the stoneBricks_green
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksGreen, 8), new Object[] {
+				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeGreen"
+		}));
+
+		// Crafting the stoneBricks_green
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksPurple, 8), new Object[] {
+				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyePurple"
+		}));
 
 		// Crafting the SafeGlass
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(safeGlass, 8), new Object[] {
@@ -205,10 +247,8 @@ public class CommonProxy {
 		 */
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diamondSacrifice, 1), new Object[] {
-				"abc", "def", "hij", 'a', Blocks.nether_brick, 'b', "gemEmerald", 'c', Items.magma_cream, 
-				'd', "gemDiamond", 'e', Items.blaze_rod, 'f', "ingotGold", 
-				'h', Items.ender_eye, 'i', "ingotIron", 'j', Items.ghast_tear
-		})); 
+				"abc", "def", "hij", 'a', Blocks.nether_brick, 'b', "gemEmerald", 'c', Items.magma_cream, 'd', "gemDiamond", 'e', Items.blaze_rod, 'f', "ingotGold", 'h', Items.ender_eye, 'i', "ingotIron", 'j', Items.ghast_tear
+		}));
 
 		// Crafting the 'Item Bottler'
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
@@ -346,8 +386,8 @@ public class CommonProxy {
 
 	protected void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
-		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
 		GameRegistry.registerTileEntity(TileEntityGlowPulverizer.class, "tileEntityGlowPulverizer");
+		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
 	}
 
 	protected void registerGuiHandler() {
@@ -357,7 +397,7 @@ public class CommonProxy {
 			NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 		}
 	}
-	
+
 	protected void registerRegisters() {
 		PulverizeRecipes.init();
 	}

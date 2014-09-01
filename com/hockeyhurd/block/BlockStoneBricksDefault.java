@@ -12,6 +12,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockStoneBricksDefault extends Block {
 	
+	protected static final String prefix = ExtraTools.assetsDir + "StoneBricks";
+	
 	public BlockStoneBricksDefault(Material material) {
 		super(material);
 		this.setCreativeTab(ExtraTools.myCreativeTab);

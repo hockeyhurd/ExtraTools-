@@ -12,10 +12,7 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
-import com.hockeyhurd.block.BlockExtraSmoothStone;
-import com.hockeyhurd.block.BlockGlowIngot;
-import com.hockeyhurd.block.BlockGlowPressurePlate;
-import com.hockeyhurd.block.BlockStoneBricksBlue;
+import com.hockeyhurd.block.*;
 import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
 import com.hockeyhurd.block.*;
 import com.hockeyhurd.block.machines.BlockGlowChest;
@@ -92,6 +89,8 @@ public class ExtraTools {
 	public static Block stoneBricksWide;
 	public static Block stoneBricksRed;
 	public static Block stoneBricksBlue;
+	public static Block stoneBricksGreen;
+	public static Block stoneBricksPurple;
 	public static Block safeGlass;
 	public static Block glowPressurePlate;
 
@@ -207,14 +206,16 @@ public class ExtraTools {
 		stoneBricksWide = new BlockStoneBricksWide(Material.rock);
 		stoneBricksRed = new BlockStoneBricksRed(Material.rock);
 		stoneBricksBlue = new BlockStoneBricksBlue(Material.rock);
+		stoneBricksGreen = new BlockStoneBricksGreen(Material.rock);
+		stoneBricksPurple = new BlockStoneBricksPurple(Material.rock);
 		safeGlass = new BlockSafeGlass(Material.glass, false);
 		glowPressurePlate = new BlockGlowPressurePlate("glow_pressure_plate", Material.rock, Sensitivity.players);
 
 		// Machines/TileEntityBlocks
 		glowFurnaceOff = new BlockGlowFurnace(Material.rock, false);
 		glowFurnaceOn = new BlockGlowFurnace(Material.rock, true);
-		glowPulverizerOn = new BlockGlowPulverizer(Material.rock, true);
 		glowPulverizerOff = new BlockGlowPulverizer(Material.rock, false);
+		glowPulverizerOn = new BlockGlowPulverizer(Material.rock, true);
 		glowChest = new BlockGlowChest(Material.rock);
 
 		// Ores
