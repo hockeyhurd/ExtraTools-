@@ -71,6 +71,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(stoneBricksDefault, "StoneBricksDefault");
 		GameRegistry.registerBlock(stoneBricksWide, "StoneBricksWide");
 		GameRegistry.registerBlock(stoneBricksRed, "stoneBricksRed");
+		GameRegistry.registerBlock(stoneBricksBlue, "stoneBricksBlue");
 		GameRegistry.registerBlock(safeGlass, "SafeGlass");
 		GameRegistry.registerBlock(glowPressurePlate, "GlowPressurePlate");
 	}

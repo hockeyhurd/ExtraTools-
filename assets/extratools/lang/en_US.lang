@@ -8,6 +8,7 @@ tile.ExtraSmoothStone.name='Stone'
 tile.StoneBricksDefault.name=Bricks of Stone
 tile.StoneBricksWide.name=Bricks of Stone Wide
 tile.StoneBricksRed.name=Bricks of Stone Red
+tile.StoneBricksBlue.name=Bricks of Stone Blue
 tile.SafeGlass.name='Glass'
 
 tile.GlowFurnaceOff.name=Glow Furnace
