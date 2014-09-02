@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TileEntityGlowChest extends TileEntity implements IInventory {
 
 	// Math: 7 rows * 9 col + 3 rows * 9 col + hotbar (1 row * 9 col).
-	private ItemStack[] chestContents = new ItemStack[(7 * 9) + (9 * 4)];
+	private ItemStack[] chestContents = new ItemStack[(7 * 9) /*+ (9 * 4)*/];
 
 	/** Determines if the check for adjacent chests has taken place. */
 	// public boolean adjacentChestChecked;

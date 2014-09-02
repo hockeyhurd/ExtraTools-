@@ -182,7 +182,7 @@ public class BlockGlowChest extends BlockContainer {
 			if (id <= 0 || size <= 0) continue;
 			ItemStack tempStack = new ItemStack(Item.getItemById(id), size);
 			// if (Item.getItemById(id) != null) tempStack = new ItemStack(Item.getItemById(id), size);
-			te.setInventorySlotContents(9 + index++, tempStack);
+			te.setInventorySlotContents(index++, tempStack);
 		}
 
 	}

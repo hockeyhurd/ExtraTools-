@@ -18,17 +18,17 @@ public class ContainerGlowChest extends Container {
 	public ContainerGlowChest(InventoryPlayer inv, TileEntityGlowChest entity) {
 		this.lowerChestInventory = (IInventory) inv;
 		this.glowChest = entity;
-		addSlots(inv, entity);
 		this.numRows = entity.getSizeInventory() / 9;
+		addSlots(inv, entity);
 	}
 
 	private void addSlots(InventoryPlayer inv, TileEntityGlowChest entity) {
 		int size = 18;
 
 		// Adds the main inventory for the chest gui.
-		for (int y = 0; y < 7; y++) {
+		for (int y = 0; y < this.numRows; y++) {
 			for (int x = 0; x < 9; x++) {
-				this.addSlotToContainer(new Slot(entity, x + y * 9 + 9, 8 + x * size, 18 + y * size));
+				this.addSlotToContainer(new Slot(entity, x + y * 9, 8 + x * size, 18 + y * size));
 			}
 		}
 
@@ -55,7 +55,7 @@ public class ContainerGlowChest extends Container {
 		if (slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
-			final int mainInvSlotID = this.inventorySlots.size() - (9 * 4);
+			final int mainInvSlotID = this.numRows * 9;
 
 			// merges the item into player inventory since its in the tileEntity
 			if (slot < mainInvSlotID) {
@@ -89,7 +89,6 @@ public class ContainerGlowChest extends Container {
 	/**
 	 * Called when the container is closed.
 	 */
-
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
 		this.lowerChestInventory.closeInventory();
