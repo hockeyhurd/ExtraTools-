@@ -277,7 +277,7 @@ public class Waila {
 		this.sideHit = sideHit;
 	}
 	
-	public Vector4Helper getVector3I() {
+	public Vector4Helper getVector4i() {
 		return this.vec;
 	}
 	

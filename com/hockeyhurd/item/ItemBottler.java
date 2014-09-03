@@ -99,7 +99,7 @@ public class ItemBottler extends Item {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
 
-			Vector4Helper<Integer> vec = waila.getVector3I();
+			Vector4Helper<Integer> vec = waila.getVector4i();
 
 			if (vec != null) {
 				if (!bh.canMineBlock(vec)) return stack;

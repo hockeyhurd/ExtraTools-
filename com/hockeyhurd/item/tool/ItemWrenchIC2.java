@@ -16,12 +16,13 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.world.World;
 
+import com.hockeyhurd.block.machines.AbstractBlockMachine;
+import com.hockeyhurd.block.machines.BlockGlowFurnace;
+import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
+import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
 import com.hockeyhurd.mod.ExtraTools;
-import com.hockeyhurd.util.BlockHelper;
-import com.hockeyhurd.util.EntitySpawnerHelper;
-import com.hockeyhurd.util.TimerHelper;
-import com.hockeyhurd.util.Waila;
+import com.hockeyhurd.util.*;
 import com.hockeyhurd.util.math.Vector4Helper;
 
 public class ItemWrenchIC2 extends AbstractToolWrench {
@@ -54,7 +55,7 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			if (!th.getUse() || th.excuser()) {
 				waila.finder(false);
-				Vector4Helper<Integer> vec = waila.getVector3I();
+				Vector4Helper<Integer> vec = waila.getVector4i();
 				int metaData = 0;
 
 				if (bh.blockExists(vec)) {
@@ -102,26 +103,33 @@ public class ItemWrenchIC2 extends AbstractToolWrench {
 						bh.destroyBlock(vec, true);
 						return stack;
 					}
-					
+
 					else if (currentBlock == ExtraTools.glowChest && world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityGlowChest) {
 						contains = true;
 						TileEntityGlowChest te = (TileEntityGlowChest) world.getTileEntity(vec.getX(), vec.getY(), vec.getZ());
 						int numSlots = te.getSizeInventory();
 						List<ItemStack> stacksToDrop = new ArrayList<ItemStack>();
-						
+
 						for (int i = 0; i < numSlots; i++) {
 							if (te.getStackInSlot(i) != null) {
 								stacksToDrop.add(te.getStackInSlot(i));
 								te.setInventorySlotContents(i, (ItemStack) null);
 							}
 						}
-						
+
 						ItemStack theStack = new ItemStack(currentBlock, 1);
 						if (stacksToDrop.size() > 0) handleWrenchNBT(theStack, stacksToDrop, world, player);
-						
+
 						EntityItem eItem = new EntityItem(world, vec.getX(), vec.getY(), vec.getZ(), theStack);
 						world.spawnEntityInWorld(eItem);
 						bh.destroyBlock(vec, false);
+						return stack;
+					}
+
+					else if ((currentBlock instanceof BlockGlowFurnace || currentBlock instanceof AbstractBlockMachine)
+							&& (world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof AbstractTileEntityGlow || (world.getTileEntity(vec.getX(), vec.getY(), vec.getZ()) instanceof TileEntityGlowFurnace))) {
+						LogHelper.info("Attempting to handle glow machine!");
+						handleGlowMachines(stack, currentBlock, vec, world);
 						return stack;
 					}
 

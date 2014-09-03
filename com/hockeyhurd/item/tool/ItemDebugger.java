@@ -44,7 +44,7 @@ public class ItemDebugger extends Item {
 		if (!world.isRemote && !th.use) {
 			Waila waila = new Waila(stack, world, player, null, false, false);
 			waila.finder(false);
-			Vector4Helper vec = waila.getVector3I();
+			Vector4Helper vec = waila.getVector4i();
 			BlockHelper bh = new BlockHelper(world, player);
 			Block block = bh.getBlock(vec);
 			
