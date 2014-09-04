@@ -14,7 +14,6 @@ import net.minecraftforge.common.util.EnumHelper;
 
 import com.hockeyhurd.block.*;
 import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
-import com.hockeyhurd.block.*;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
@@ -24,34 +23,14 @@ import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
 import com.hockeyhurd.handler.GuiIDHandler;
 import com.hockeyhurd.handler.ModsLoadedHelper;
-import com.hockeyhurd.item.ItemBottler;
-import com.hockeyhurd.item.ItemDiamondFusedNetherStar;
-import com.hockeyhurd.item.ItemDiamondSacrifice;
-import com.hockeyhurd.item.ItemGlowCoal;
-import com.hockeyhurd.item.ItemGlowDust;
-import com.hockeyhurd.item.ItemGlowIngot;
-import com.hockeyhurd.item.ItemHockeyPuck;
-import com.hockeyhurd.item.ItemNetherSoulCollector;
-import com.hockeyhurd.item.ItemNetherStarFirery;
-import com.hockeyhurd.item.ItemRubber;
+import com.hockeyhurd.item.*;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
 import com.hockeyhurd.item.pulverized.ItemPulverizedGold;
 import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
-import com.hockeyhurd.item.tool.ItemDebugger;
-import com.hockeyhurd.item.tool.ItemDiamondDetector;
-import com.hockeyhurd.item.tool.ItemGlowAxe;
-import com.hockeyhurd.item.tool.ItemGlowExcavator;
-import com.hockeyhurd.item.tool.ItemGlowHammer;
-import com.hockeyhurd.item.tool.ItemGlowHoe;
-import com.hockeyhurd.item.tool.ItemGlowPickaxe;
-import com.hockeyhurd.item.tool.ItemGlowShovel;
-import com.hockeyhurd.item.tool.ItemGlowSword;
-import com.hockeyhurd.item.tool.ItemHockeyStick;
-import com.hockeyhurd.item.tool.ItemItemReplacer;
-import com.hockeyhurd.item.tool.ItemWrench;
-import com.hockeyhurd.item.tool.ItemWrenchIC2;
+import com.hockeyhurd.item.tool.*;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.LogicHelper;
+import com.hockeyhurd.util.math.TimeLapse;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -61,7 +40,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.32")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.33")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -73,7 +52,7 @@ public class ExtraTools {
 	@Instance("ExtraTools+")
 	public static ExtraTools instance;
 
-	public static String assetsDir = "extratools:";
+	public static final String assetsDir = "extratools:";
 
 	// Config object(s).
 	public static ConfigHandler ch;
@@ -165,6 +144,9 @@ public class ExtraTools {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		LogHelper.info("Pre-init started, looking for config info!");
+		
+		TimeLapse tl = new TimeLapse();
+		
 		lh = new LogicHelper();
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
@@ -182,18 +164,21 @@ public class ExtraTools {
 		}
 		while (iter.hasNext());
 
-		LogHelper.info("Pre-init finished succesfully!");
+		LogHelper.info("Pre-init finished succesfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		LogHelper.info("Init started");
+		
+		TimeLapse tl = new TimeLapse();
+		
 		loadObj();
 
 		proxy.init();
 		proxy.registerRenderInformation();
 
-		LogHelper.info("Init finished successfully!");
+		LogHelper.info("Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 
 	private void loadObj() {
