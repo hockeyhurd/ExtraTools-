@@ -38,9 +38,10 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.33")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.34")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -144,9 +145,9 @@ public class ExtraTools {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		LogHelper.info("Pre-init started, looking for config info!");
-		
+
 		TimeLapse tl = new TimeLapse();
-		
+
 		lh = new LogicHelper();
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
@@ -168,11 +169,11 @@ public class ExtraTools {
 	}
 
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 		LogHelper.info("Init started");
-		
+
 		TimeLapse tl = new TimeLapse();
-		
+
 		loadObj();
 
 		proxy.init();
@@ -245,6 +246,14 @@ public class ExtraTools {
 		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
 
 		worldgenGlowOre = new OreGlowWorldgen();
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		LogHelper.info("Post-Init started");
+		TimeLapse tl = new TimeLapse();
+
+		LogHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 
 	public ExtraTools() {
