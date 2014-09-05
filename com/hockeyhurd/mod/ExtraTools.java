@@ -58,7 +58,7 @@ public class ExtraTools {
 	// Config object(s).
 	public static ConfigHandler ch;
 	public static LogicHelper lh;
-	public static String modID = "ExtraTools+";
+	public static final String modID = "ExtraTools+";
 
 	// Blocks
 	public static Block glowRock;
@@ -110,9 +110,9 @@ public class ExtraTools {
 	public static Item bottler;
 
 	// Tool materials.
-	public static ToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
-	public static ToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
-	public static ToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
+	public static final ToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
+	public static final ToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
+	public static final ToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
 
 	// Tool sets
 	public static Item glowPickaxeUnbreakable;
@@ -129,7 +129,7 @@ public class ExtraTools {
 	public static Item debugger;
 
 	// Armor materials.
-	public static ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
+	public static final ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
 			3, 8, 6, 3
 	}, 25);
 
