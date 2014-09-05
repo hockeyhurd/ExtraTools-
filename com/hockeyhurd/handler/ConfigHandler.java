@@ -3,7 +3,6 @@ package com.hockeyhurd.handler;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +19,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigHandler {
 
+	private final String PATH;
+	
 	private FMLPreInitializationEvent event;
 	private HashMap<String, Integer> map;
 	private List<Block> blocks;
@@ -38,6 +39,8 @@ public class ConfigHandler {
 
 	public ConfigHandler(FMLPreInitializationEvent event) {
 		this.event = event;
+		PATH = event.getModConfigurationDirectory() + File.separator + ExtraTools.modID + File.separator;
+		
 		blocks = new ArrayList<Block>();
 		items = new ArrayList<Item>();
 		dh = new GuiIDHandler();
@@ -73,7 +76,7 @@ public class ConfigHandler {
 	public void handleConfiguration() {
 		map = new HashMap<String, Integer>();
 
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		Configuration config = new Configuration(new File(PATH + event.getSuggestedConfigurationFile().getName()));
 		config.load();
 
 		easyRecipes = config.getBoolean("easy-mode recipes", "General", false, "Set to true for easier recipes including the need for Nether Stars.");
@@ -86,7 +89,9 @@ public class ConfigHandler {
 	}
 
 	public void handleWrenchablesConfiguration() {
-		String PATH = event.getModConfigurationDirectory() + File.separator + ExtraTools.modID;
+		File folder = new File(PATH);
+		if (!folder.exists()) folder.mkdir();
+		
 		File file = new File(PATH + "wrenchables.cfg");
 		Configuration config = new Configuration(file);
 		config.load();
