@@ -138,14 +138,13 @@ public class EventHookContainer {
 			else {
 				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) {
 					if (player.capabilities.allowFlying) player.capabilities.allowFlying = false;
+					if (currentLeg != leg && player.stepHeight != 0.5f) player.stepHeight = 0.5f;
 				}
 				setAllowedFly(false);
-				if (player.stepHeight != 0.5f) player.stepHeight = 0.5f;
 				// if (player.capabilities.getWalkSpeed() != 0.1f) player.capabilities.setPlayerWalkSpeed(0.1f);
 			}
 
 			bootCheck = legCheck = chestCheck = helmCheck = false;
-
 		}
 
 	}

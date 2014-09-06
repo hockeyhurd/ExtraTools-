@@ -42,6 +42,7 @@ public class CommonProxy {
 		addCraftingRecipes();
 		addFurnaceRecipes();
 		if (ModsLoadedHelper.te4Loaded) pulverizeRecipes();
+		if (ModsLoadedHelper.ic2Loaded) maceratorRecipes();
 		registerTileEntities();
 		registerGuiHandler();
 		registerRegisters();
@@ -382,6 +383,10 @@ public class CommonProxy {
 		outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput"));
 		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
 
+	}
+	
+	protected void maceratorRecipes() {
+		// Recipes.macerator.addRecipe(, null, new ItemStack(glowDust, 2));
 	}
 
 	protected void registerTileEntities() {
