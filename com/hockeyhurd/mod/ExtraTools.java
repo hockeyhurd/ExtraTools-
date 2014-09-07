@@ -17,7 +17,9 @@ import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
+import com.hockeyhurd.block.ores.BlockFermiteOre;
 import com.hockeyhurd.block.ores.BlockGlowOre;
+import com.hockeyhurd.block.ores.BlockTanzaniteOre;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
@@ -25,6 +27,7 @@ import com.hockeyhurd.handler.GuiIDHandler;
 import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.item.*;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.metalic.*;
 import com.hockeyhurd.item.pulverized.ItemPulverizedGold;
 import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
 import com.hockeyhurd.item.tool.*;
@@ -41,7 +44,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.35")
+@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.36")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -89,6 +92,8 @@ public class ExtraTools {
 	// Ores
 	public static Block glowOre;
 	public static Block glowOreNether;
+	public static Block fermiteOre;
+	public static Block tanzaniteOre;
 
 	// Ores pulverized.
 	public static Item pulverizedIron;
@@ -97,9 +102,15 @@ public class ExtraTools {
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre;
 
-	// Items
+	// Metals and dusts.
 	public static Item glowDust;
+	public static Item fermiteDust;
+	public static Item tanzaniteDust;
 	public static Item glowIngot;
+	public static Item fermiteIngot;
+	public static Item tanzaniteIngot;
+	
+	// Items
 	public static Item diamondFusedNetherStar;
 	public static Item netherSoulCollector;
 	public static Item fireryNetherStar;
@@ -205,16 +216,24 @@ public class ExtraTools {
 		glowChest = new BlockGlowChest(Material.rock);
 
 		// Ores
-		glowOre = new BlockGlowOre(Material.rock);
-		glowOreNether = new BlockGlowOreNether(Material.rock);
+		glowOre = new BlockGlowOre(Material.rock, "GlowOre");
+		glowOreNether = new BlockGlowOreNether(Material.rock, "GlowOreNether");
+		fermiteOre = new BlockFermiteOre(Material.rock, "FermiteOre");
+		tanzaniteOre = new BlockTanzaniteOre(Material.rock, "TanzaniteOre");
 
 		// Ores pulverized.
 		pulverizedIron = new ItemPulverizedIron();
 		pulverizedGold = new ItemPulverizedGold();
 
+		// Metals and Dusts.
+		glowDust = new ItemGlowDust("GlowDust");
+		fermiteDust = new ItemFermiteDust("FermiteDust");
+		tanzaniteDust = new ItemTanzaniteDust("TanzaniteDust");
+		glowIngot = new ItemGlowIngot("GlowIngot");
+		fermiteIngot = new ItemFermiteIngot("FermiteIngot");
+		tanzaniteIngot = new ItemTanzaniteIngot("TanzaniteIngot");
+		
 		// Items
-		glowDust = new ItemGlowDust();
-		glowIngot = new ItemGlowIngot();
 		diamondFusedNetherStar = new ItemDiamondFusedNetherStar();
 		netherSoulCollector = new ItemNetherSoulCollector();
 		fireryNetherStar = new ItemNetherStarFirery();

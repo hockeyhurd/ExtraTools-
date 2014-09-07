@@ -15,15 +15,8 @@ public class BlockGlowOreNether extends BlockGlowOre {
 	private IIcon overlay;
 	private int pass = 0;
 
-	public BlockGlowOreNether(Material material) {
-		super(material);
-		this.setBlockName("BlockGlowOreNether");
-		// this.setCreativeTab(ExtraTools.myCreativeTab);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg) {
-		blockIcon = reg.registerIcon(ExtraTools.assetsDir + "GlowOreNether");
+	public BlockGlowOreNether(Material material, String name) {
+		super(material, name);
 	}
 
 }

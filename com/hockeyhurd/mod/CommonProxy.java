@@ -58,9 +58,14 @@ public class CommonProxy {
 	}
 
 	protected void registerBlocks() {
-		GameRegistry.registerBlock(glowRock, "GlowRock");
+		// Ores
 		GameRegistry.registerBlock(glowOre, "GlowOre");
 		GameRegistry.registerBlock(glowOreNether, "GlowOreNether");
+		GameRegistry.registerBlock(fermiteOre, "FermiteOre");
+		GameRegistry.registerBlock(tanzaniteOre, "TanzaniteOre");
+		
+		// Other
+		GameRegistry.registerBlock(glowRock, "GlowRock");
 		GameRegistry.registerBlock(glowTorch, "GlowTorchOn");
 		GameRegistry.registerBlock(glowIngotBlock, "GlowIngotBlock");
 		GameRegistry.registerBlock(glowFurnaceOff, "GlowFurnaceOff");
@@ -80,8 +85,14 @@ public class CommonProxy {
 	}
 
 	protected void registerItems() {
-		GameRegistry.registerItem(glowIngot, "GlowIngot");
+		// Metals and dusts.
 		GameRegistry.registerItem(glowDust, "Glow Dust");
+		GameRegistry.registerItem(fermiteDust, "Fermite Dust");
+		GameRegistry.registerItem(tanzaniteDust, "Tanzanite Dust");
+		GameRegistry.registerItem(glowIngot, "GlowIngot");
+		GameRegistry.registerItem(fermiteIngot, "FermiteIngot");
+		GameRegistry.registerItem(tanzaniteIngot, "TanzaniteIngot");
+		
 		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
 		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
 		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");

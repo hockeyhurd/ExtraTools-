@@ -32,7 +32,7 @@ public class EventHookContainer {
 	private boolean helmCheck = false;
 	private boolean canFly = false;
 
-	private final float time = ((float) TileEntityGlowFurnace.scaledTime / (float) TileEntityGlowFurnace.defaultCookTime) * 100;
+	private final float glowCalcTime = ((float) TileEntityGlowFurnace.scaledTime / (float) TileEntityGlowFurnace.defaultCookTime) * 100;
 
 	public EventHookContainer() {
 	}
@@ -47,14 +47,21 @@ public class EventHookContainer {
 
 	@SubscribeEvent
 	public void onOreBreak(BreakEvent event) {
-
-		if (event.block == ExtraTools.glowOre) {
-			World world = event.getPlayer().worldObj;
-			Random random = new Random();
-			int chance = 15;
-
-			int val = 1 + random.nextInt(99);
+		World world = event.getPlayer().worldObj;
+		Random random = new Random();
+		int chance = 15;
+		int val = 1 + random.nextInt(99);
+		
+		if (event.block == ExtraTools.glowOre || event.block == ExtraTools.glowOreNether) {
 			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.glowDust)));
+		}
+		
+		else if (event.block == ExtraTools.fermiteOre) {
+			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.fermiteDust)));
+		}
+		
+		else if (event.block == ExtraTools.tanzaniteOre) {
+			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.tanzaniteDust)));
 		}
 
 		else return;
@@ -156,7 +163,7 @@ public class EventHookContainer {
 	public void onItemHover(ItemTooltipEvent event) {
 		Item currentItem = event.itemStack.getItem();
 
-		if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) time + "% faster rate!");
+		if (currentItem == Item.getItemFromBlock(ExtraTools.glowFurnaceOff)) event.toolTip.add("Smelts items at " + (int) glowCalcTime + "% faster rate!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.extraSmoothStone)) event.toolTip.add("Smooth, as without silk");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.safeGlass)) event.toolTip.add("Stepping on broken glass, a thing of the past!");
 		else if (currentItem == Item.getItemFromBlock(ExtraTools.glowPressurePlate)) {

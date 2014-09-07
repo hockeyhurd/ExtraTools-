@@ -1,6 +1,6 @@
 tile.GlowRock.name=Glow Rock
 tile.GlowOre.name=Glow Ore
-tile.BlockGlowOreNether.name=Glow Ore
+tile.GlowOreNether.name=Glow Ore
 tile.GlowTorch.name=Glow Torch
 tile.GlowIngotBlock.name=Block of Glow
 tile.GlowPressurePlate.name=Glow Pressure Plate
@@ -13,6 +13,11 @@ tile.StoneBricksGreen.name=Bricks of Stone Green
 tile.StoneBricksPurple.name=Bricks of Stone Purple
 tile.SafeGlass.name='Glass'
 
+tile.GlowOre.name=Glow Ore
+tile.GlowOreNether.name=Glow Ore
+tile.FermiteOre.name=Fermite Ore
+tile.TanzaniteOre.name=Tanzanite Ore
+
 tile.GlowFurnaceOff.name=Glow Furnace
 tile.GlowPulverizer.name=Glow Pulverizer
 tile.GlowChest.name=Glow Chest
@@ -23,11 +28,16 @@ container.glowchest=Glow Chest
 key.extratools+.category=ExtraTools+
 key.toggle.desc=Tool Mode Toggler
 
-item.GlowDust.name=Glow Dust
 item.PulverizedIron.name=Pulverized Iron
 item.PulverizedGold.name=Pulverized Gold
-item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
+item.GlowDust.name=Glow Dust
+item.FermiteDust.name=Fermite Dust
+item.TanzaniteDust.name=Tanzanite Dust
 item.GlowIngot.name=Glow Ingot
+item.FermiteIngot.name=Fermite Ingot
+item.TanzaniteIngot.name=Tanzanite Ingot
+
+item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
 item.NetherSoulCollector.name=Soul Collector of The Nether
 item.GlowCoal.name=Glow Coal
 item.Rubber.name=Rubber
