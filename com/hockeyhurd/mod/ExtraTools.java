@@ -33,6 +33,7 @@ import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
 import com.hockeyhurd.item.tool.*;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.LogicHelper;
+import com.hockeyhurd.util.Reference;
 import com.hockeyhurd.util.math.TimeLapse;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
 
@@ -44,7 +45,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "ExtraTools+", name = "ExtraTools+", version = "v1.1.36")
+@Mod(modid = Reference.modName, name = Reference.modName, version = Reference.version)
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -53,7 +54,7 @@ public class ExtraTools {
 	// GuiHandler object(s)
 	public static GuiHandler guiHandler;
 
-	@Instance("ExtraTools+")
+	@Instance(Reference.modName)
 	public static ExtraTools instance;
 
 	public static final String assetsDir = "extratools:";
@@ -61,7 +62,7 @@ public class ExtraTools {
 	// Config object(s).
 	public static ConfigHandler ch;
 	public static LogicHelper lh;
-	public static final String modID = "ExtraTools+";
+	public static final String modID = Reference.modName;
 
 	// Blocks
 	public static Block glowRock;
@@ -272,6 +273,9 @@ public class ExtraTools {
 		LogHelper.info("Post-Init started");
 		TimeLapse tl = new TimeLapse();
 
+		if (proxy.updateChecker()) LogHelper.warn("Found an update!");
+		else LogHelper.info("Everything is up to date!");
+		
 		LogHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");
 	}
 

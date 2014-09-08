@@ -14,10 +14,7 @@ import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
 import com.hockeyhurd.gui.GuiHandler;
-import com.hockeyhurd.handler.EventHookContainer;
-import com.hockeyhurd.handler.FuelHandler;
-import com.hockeyhurd.handler.ModsLoadedHelper;
-import com.hockeyhurd.handler.PacketHandler;
+import com.hockeyhurd.handler.*;
 import com.hockeyhurd.util.PulverizeRecipes;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -26,6 +23,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 
+	public boolean updateFlag;
+	
 	public CommonProxy() {
 	}
 
@@ -416,6 +415,13 @@ public class CommonProxy {
 
 	protected void registerRegisters() {
 		PulverizeRecipes.init();
+	}
+	
+	public boolean updateChecker() {
+		UpdateHandler uh = new UpdateHandler();
+		uh.check();
+		updateFlag = uh.hasUpdate();
+		return updateFlag;
 	}
 
 }

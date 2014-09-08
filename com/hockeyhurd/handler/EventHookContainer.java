@@ -155,7 +155,7 @@ public class EventHookContainer {
 		}
 
 	}
-
+	
 	/*
 	 * Event called when user hovers over my items at the end of the <List>.
 	 */
@@ -178,7 +178,7 @@ public class EventHookContainer {
 				for (int i = 0; i < array.length; i++) {
 					if (Item.getItemById(array[i]) != null) has++;  
 				}
-				
+
 				event.toolTip.add(EnumChatFormatting.GREEN + "Contents: " + EnumChatFormatting.WHITE + has + " / " + maxSize);
 			}
 		}
