@@ -1,6 +1,12 @@
 package com.hockeyhurd.mod;
 
 import static com.hockeyhurd.mod.ExtraTools.*;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -24,6 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class CommonProxy {
 
 	public boolean updateFlag = false;
+	protected HashMap<Short, String> map;
 	
 	public CommonProxy() {
 	}
@@ -420,7 +427,12 @@ public class CommonProxy {
 	public void updateChecker() {
 		UpdateHandler uh = new UpdateHandler();
 		uh.check();
+		map = uh.getMap();
 		this.updateFlag = uh.getUpToDate();
+	}
+	
+	public Set<Entry<Short, String>> getEntry() {
+		return map.entrySet();
 	}
 
 }

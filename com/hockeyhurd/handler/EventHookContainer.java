@@ -1,6 +1,8 @@
 package com.hockeyhurd.handler;
 
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Map.Entry;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +19,6 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.mod.CommonProxy;
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.ChatHelper;
 
@@ -166,7 +167,23 @@ public class EventHookContainer {
 		else {
 			EntityPlayerMP player = (EntityPlayerMP) event.entity;
 			System.err.println(ExtraTools.instance.proxy.updateFlag);
-			if (ExtraTools.instance.proxy.updateFlag) player.addChatComponentMessage(new ChatHelper().comp("[ExtraTools+] Found an update!"));
+			if (!ExtraTools.instance.proxy.updateFlag) {
+				ChatHelper helper = new ChatHelper();
+				player.addChatComponentMessage(helper.comp("[ExtraTools+] Found an update!"));
+
+				short build = -1;
+				String url = "";
+				Iterator iter = ExtraTools.proxy.getEntry().iterator();
+				while (iter.hasNext()) {
+					Entry<Short, String> current = (Entry<Short, String>) iter.next();
+					build = current.getKey();
+					url = current.getValue();
+					break;
+				}
+				
+				player.addChatComponentMessage(helper.comp("Latest build: " + build));
+				player.addChatComponentMessage(helper.compURL("You can get this at:", url));
+			}
 		}
 	}
 	

@@ -274,7 +274,7 @@ public class ExtraTools {
 		TimeLapse tl = new TimeLapse();
 
 		proxy.updateChecker();
-		if (proxy.updateFlag) LogHelper.warn("Found an update!");
+		if (!proxy.updateFlag) LogHelper.warn("Found an update!");
 		else LogHelper.info("Everything is up to date!");
 		
 		LogHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");

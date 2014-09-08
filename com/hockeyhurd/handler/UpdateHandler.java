@@ -2,6 +2,9 @@ package com.hockeyhurd.handler;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.hockeyhurd.util.Reference;
 
@@ -19,20 +22,23 @@ public class UpdateHandler {
 	}
 
 	public void check() {
-		short copyVersion = currentBuild;
+		short copyBuild = currentBuild;
 		String lastUrl;
 		String copyUrl = lastUrl = url;
-		copyUrl += copyVersion + ".jar";
+		copyUrl += copyBuild + ".jar";
 		
 		// Loop while there are still more 'updates found'
 		while (exists(copyUrl)) {
 			copyUrl = lastUrl;
-			copyUrl += ++copyVersion + ".jar";
+			copyUrl += ++copyBuild + ".jar";
 		}
+		
+		copyUrl = lastUrl;
+		copyUrl += --copyBuild + ".jar";
 
 		// Make sure the 'latest update' is not fake and if not, report 'not up to date'.
-		if (copyVersion != currentBuild && exists(copyUrl)) upToDate = false;
-		this.latestBuild = copyVersion;
+		if (copyBuild > currentBuild && exists(copyUrl)) upToDate = false;
+		this.latestBuild = copyBuild;
 		this.latestUrl = copyUrl;
 	}
 	
@@ -40,8 +46,18 @@ public class UpdateHandler {
 		return upToDate;
 	}
 	
+	public short getLatestBuild() {
+		return latestBuild;
+	}
+	
 	public String getLatestURL() {
 		return this.latestUrl;
+	}
+	
+	public HashMap<Short,String> getMap() {
+		HashMap<Short, String> ent = new HashMap<Short, String>();
+		ent.put(getLatestBuild(), getLatestURL());
+		return ent;
 	}
 	
 	private boolean exists(String urlCheck) {
