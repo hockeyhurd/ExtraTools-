@@ -4,18 +4,22 @@ import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
+import com.hockeyhurd.mod.CommonProxy;
 import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.util.ChatHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -154,6 +158,16 @@ public class EventHookContainer {
 			bootCheck = legCheck = chestCheck = helmCheck = false;
 		}
 
+	}
+	
+	@SubscribeEvent
+	public void onEntityJoin(EntityJoinWorldEvent event) {
+		if (!(event.entity instanceof EntityPlayerMP)) return;
+		else {
+			EntityPlayerMP player = (EntityPlayerMP) event.entity;
+			System.err.println(ExtraTools.instance.proxy.updateFlag);
+			if (ExtraTools.instance.proxy.updateFlag) player.addChatComponentMessage(new ChatHelper().comp("[ExtraTools+] Found an update!"));
+		}
 	}
 	
 	/*

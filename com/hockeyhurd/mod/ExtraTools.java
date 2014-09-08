@@ -58,7 +58,7 @@ public class ExtraTools {
 	public static ExtraTools instance;
 
 	public static final String assetsDir = "extratools:";
-
+	
 	// Config object(s).
 	public static ConfigHandler ch;
 	public static LogicHelper lh;
@@ -273,7 +273,8 @@ public class ExtraTools {
 		LogHelper.info("Post-Init started");
 		TimeLapse tl = new TimeLapse();
 
-		if (proxy.updateChecker()) LogHelper.warn("Found an update!");
+		proxy.updateChecker();
+		if (proxy.updateFlag) LogHelper.warn("Found an update!");
 		else LogHelper.info("Everything is up to date!");
 		
 		LogHelper.info("Post-Init finished successfully after", tl.getEffectiveTimeSince(), "ms!");

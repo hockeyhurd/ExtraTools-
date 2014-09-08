@@ -23,7 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 
-	public boolean updateFlag;
+	public boolean updateFlag = false;
 	
 	public CommonProxy() {
 	}
@@ -417,11 +417,10 @@ public class CommonProxy {
 		PulverizeRecipes.init();
 	}
 	
-	public boolean updateChecker() {
+	public void updateChecker() {
 		UpdateHandler uh = new UpdateHandler();
 		uh.check();
-		updateFlag = uh.hasUpdate();
-		return updateFlag;
+		this.updateFlag = uh.getUpToDate();
 	}
 
 }

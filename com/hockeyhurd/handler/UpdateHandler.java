@@ -36,8 +36,8 @@ public class UpdateHandler {
 		this.latestUrl = copyUrl;
 	}
 	
-	public boolean hasUpdate() {
-		return !upToDate ? true : false;
+	public boolean getUpToDate() {
+		return upToDate;
 	}
 	
 	public String getLatestURL() {
