@@ -166,7 +166,6 @@ public class EventHookContainer {
 		if (!(event.entity instanceof EntityPlayerMP)) return;
 		else {
 			EntityPlayerMP player = (EntityPlayerMP) event.entity;
-			System.err.println(ExtraTools.instance.proxy.updateFlag);
 			if (!ExtraTools.instance.proxy.updateFlag) {
 				ChatHelper helper = new ChatHelper();
 				player.addChatComponentMessage(helper.comp("[ExtraTools+] Found an update!"));

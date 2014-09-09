@@ -37,6 +37,7 @@ public abstract class AbstractToolDetector extends Item {
 	}
 
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if (world.isRemote) return stack;
 		if (!th.getUse()) {
 			ChunkHelper chunkHelper = new ChunkHelper(world, player);
 			chunkHelper.searchChunk(this.blockToFind);

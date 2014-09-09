@@ -1,11 +1,13 @@
 package com.hockeyhurd.handler;
 
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.Reference;
 
 public class UpdateHandler {
@@ -26,6 +28,13 @@ public class UpdateHandler {
 		String lastUrl;
 		String copyUrl = lastUrl = url;
 		copyUrl += copyBuild + ".jar";
+		
+		if (!exists(copyUrl)) {
+			upToDate = true;
+			this.latestBuild = copyBuild;
+			this.latestUrl = "dev_build";
+			return;
+		}
 		
 		// Loop while there are still more 'updates found'
 		while (exists(copyUrl)) {
@@ -65,14 +74,29 @@ public class UpdateHandler {
 			HttpURLConnection.setFollowRedirects(false);
 			// note : you may also need
 			// HttpURLConnection.setInstanceFollowRedirects(false)
-			// System.err.println("Checking url: " + urlCheck);
 			HttpURLConnection con = (HttpURLConnection) new URL(urlCheck).openConnection();
 			con.setRequestMethod("HEAD");
 			
-			return (con.getResponseCode() == HttpURLConnection.HTTP_OK); 
+			// seconds length
+			float seconds = 1.0f;
+			// Convert to ms.
+			seconds *= 1000;
+			// Convert to int.
+			int timeout = (int) seconds;
+			
+			con.setConnectTimeout(timeout);
+			con.setReadTimeout(timeout);
+			
+			boolean exists = con.getResponseCode() == HttpURLConnection.HTTP_OK;
+			
+			// Make sure we disconnect connection to server.
+			con.disconnect();
+			return exists; 
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LogHelper.warn("Could not find requested url!", urlCheck);
+			LogHelper.warn("Update server must be down or this build has not yet been released properly!");
 			return false;
 		}
 	}
