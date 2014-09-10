@@ -12,7 +12,7 @@ import com.hockeyhurd.util.Reference;
 
 public class UpdateHandler {
 
-	private final short currentBuild = Reference.build;
+	private final short currentBuild = Reference.BUILD;
 	private short latestBuild;
 	private boolean upToDate = true;
 	

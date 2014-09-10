@@ -45,7 +45,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.modName, name = Reference.modName, version = Reference.version)
+@Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
@@ -54,7 +54,7 @@ public class ExtraTools {
 	// GuiHandler object(s)
 	public static GuiHandler guiHandler;
 
-	@Instance(Reference.modName)
+	@Instance(Reference.MOD_NAME)
 	public static ExtraTools instance;
 
 	public static final String assetsDir = "extratools:";
@@ -62,7 +62,7 @@ public class ExtraTools {
 	// Config object(s).
 	public static ConfigHandler ch;
 	public static LogicHelper lh;
-	public static final String modID = Reference.modName;
+	public static final String modID = Reference.MOD_NAME;
 
 	// Blocks
 	public static Block glowRock;
