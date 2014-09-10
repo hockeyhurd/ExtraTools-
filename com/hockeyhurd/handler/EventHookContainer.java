@@ -167,11 +167,10 @@ public class EventHookContainer {
 		else {
 			EntityPlayerMP player = (EntityPlayerMP) event.entity;
 			if (!ExtraTools.instance.proxy.updateFlag) {
-				ChatHelper helper = new ChatHelper();
-				player.addChatComponentMessage(helper.comp("[ExtraTools+] Found an update!"));
-
 				short build = -1;
 				String url = "";
+				
+				// Grabbing first index of entry's keys and values and store this data.
 				Iterator iter = ExtraTools.proxy.getEntry().iterator();
 				while (iter.hasNext()) {
 					Entry<Short, String> current = (Entry<Short, String>) iter.next();
@@ -180,7 +179,9 @@ public class EventHookContainer {
 					break;
 				}
 				
-				player.addChatComponentMessage(helper.comp("Latest build: " + build));
+				// Output info to joining player.
+				ChatHelper helper = new ChatHelper();
+				player.addChatComponentMessage(helper.comp("[ExtraTools+] Found an update! Latest build: " + build));
 				player.addChatComponentMessage(helper.compURL("You can get this at:", url));
 			}
 		}
