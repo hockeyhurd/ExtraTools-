@@ -5,12 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -23,6 +18,7 @@ import net.minecraft.world.World;
 
 import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
+import com.hockeyhurd.util.LogicHelper;
 import com.hockeyhurd.util.Waila;
 import com.hockeyhurd.util.math.Vector4Helper;
 
@@ -195,16 +191,17 @@ public class ItemBottler extends Item {
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		stack.stackTagCompound = new NBTTagCompound();
 		String savedText = stack.stackTagCompound.getString("Entity");
-		if (ExtraTools.lh.nullCheckString(savedText)) this.entityName = savedText;
+		if (LogicHelper.nullCheckString(savedText)) this.entityName = savedText;
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-		if (!hasEffect(stack) || !ExtraTools.lh.nullCheckString(this.entityName)) return;
+		boolean effect = hasEffect(stack);
+		if (!effect) return;
 		NBTTagCompound tag = null;
 		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
 		
 		String name = tag.getString("Entity");
-		if (this.hasEffect(stack)) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
+		if (effect) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
 	}
 
 }

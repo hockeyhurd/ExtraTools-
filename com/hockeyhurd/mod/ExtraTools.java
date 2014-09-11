@@ -32,7 +32,6 @@ import com.hockeyhurd.item.pulverized.ItemPulverizedGold;
 import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
 import com.hockeyhurd.item.tool.*;
 import com.hockeyhurd.util.LogHelper;
-import com.hockeyhurd.util.LogicHelper;
 import com.hockeyhurd.util.Reference;
 import com.hockeyhurd.util.math.TimeLapse;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
@@ -61,7 +60,6 @@ public class ExtraTools {
 	
 	// Config object(s).
 	public static ConfigHandler ch;
-	public static LogicHelper lh;
 	public static final String modID = Reference.MOD_NAME;
 
 	// Blocks
@@ -160,7 +158,6 @@ public class ExtraTools {
 
 		TimeLapse tl = new TimeLapse();
 
-		lh = new LogicHelper();
 		ch = new ConfigHandler(event);
 		ch.handleConfiguration();
 		ch.handleWrenchablesConfiguration();
