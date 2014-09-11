@@ -101,6 +101,7 @@ public class ExtraTools {
 
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre;
+	public static OreXyniteWorldgen worldgenXyniteOre;
 
 	// Metals and dusts.
 	public static Item glowDust;
@@ -269,6 +270,7 @@ public class ExtraTools {
 		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
 
 		worldgenGlowOre = new OreGlowWorldgen();
+		worldgenXyniteOre = new OreXyniteWorldgen(xyniteOre, null, 5, -1, 4, 7, 12, 24);
 	}
 
 	@EventHandler

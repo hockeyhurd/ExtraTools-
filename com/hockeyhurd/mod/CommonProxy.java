@@ -61,6 +61,7 @@ public class CommonProxy {
 
 	protected void registerWorldgen() {
 		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
+		GameRegistry.registerWorldGenerator(worldgenXyniteOre, 1);
 	}
 
 	protected void registerBlocks() {
