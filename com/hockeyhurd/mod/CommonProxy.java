@@ -69,6 +69,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(glowOreNether, "GlowOreNether");
 		GameRegistry.registerBlock(fermiteOre, "FermiteOre");
 		GameRegistry.registerBlock(tanzaniteOre, "TanzaniteOre");
+		GameRegistry.registerBlock(xyniteOre, "XyniteOre");
 		
 		// Other
 		GameRegistry.registerBlock(glowRock, "GlowRock");
@@ -92,17 +93,19 @@ public class CommonProxy {
 
 	protected void registerItems() {
 		// Metals and dusts.
-		GameRegistry.registerItem(glowDust, "Glow Dust");
-		GameRegistry.registerItem(fermiteDust, "Fermite Dust");
-		GameRegistry.registerItem(tanzaniteDust, "Tanzanite Dust");
+		GameRegistry.registerItem(glowDust, "GlowDust");
+		GameRegistry.registerItem(fermiteDust, "FermiteDust");
+		GameRegistry.registerItem(tanzaniteDust, "TanzaniteDust");
+		GameRegistry.registerItem(xyniteDust, "XyniteDust");
 		GameRegistry.registerItem(glowIngot, "GlowIngot");
 		GameRegistry.registerItem(fermiteIngot, "FermiteIngot");
 		GameRegistry.registerItem(tanzaniteIngot, "TanzaniteIngot");
+		GameRegistry.registerItem(xyniteIngot, "XyniteIngot");
 		
 		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
 		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
 		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");
-		GameRegistry.registerItem(diamondSacrifice, "Sacriment to The Nether");
+		GameRegistry.registerItem(diamondSacrifice, "SacrimentToTheNether");
 		GameRegistry.registerItem(glowCoal, "GlowCoal");
 		GameRegistry.registerItem(hockeyPuck, "HockeyPuck");
 		GameRegistry.registerItem(rubber, "Rubber");

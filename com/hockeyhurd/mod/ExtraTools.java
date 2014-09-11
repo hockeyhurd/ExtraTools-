@@ -93,6 +93,7 @@ public class ExtraTools {
 	public static Block glowOreNether;
 	public static Block fermiteOre;
 	public static Block tanzaniteOre;
+	public static Block xyniteOre;
 
 	// Ores pulverized.
 	public static Item pulverizedIron;
@@ -105,9 +106,11 @@ public class ExtraTools {
 	public static Item glowDust;
 	public static Item fermiteDust;
 	public static Item tanzaniteDust;
+	public static Item xyniteDust;
 	public static Item glowIngot;
 	public static Item fermiteIngot;
 	public static Item tanzaniteIngot;
+	public static Item xyniteIngot;
 	
 	// Items
 	public static Item diamondFusedNetherStar;
@@ -218,6 +221,7 @@ public class ExtraTools {
 		glowOreNether = new BlockGlowOreNether(Material.rock, "GlowOreNether");
 		fermiteOre = new BlockFermiteOre(Material.rock, "FermiteOre");
 		tanzaniteOre = new BlockTanzaniteOre(Material.rock, "TanzaniteOre");
+		xyniteOre = new BlockXyniteOre(Material.rock, "XyniteOre");
 
 		// Ores pulverized.
 		pulverizedIron = new ItemPulverizedIron();
@@ -227,9 +231,11 @@ public class ExtraTools {
 		glowDust = new ItemGlowDust("GlowDust");
 		fermiteDust = new ItemFermiteDust("FermiteDust");
 		tanzaniteDust = new ItemTanzaniteDust("TanzaniteDust");
+		xyniteDust = new ItemXyniteDust("XyniteDust");
 		glowIngot = new ItemGlowIngot("GlowIngot");
 		fermiteIngot = new ItemFermiteIngot("FermiteIngot");
 		tanzaniteIngot = new ItemTanzaniteIngot("TanzaniteIngot");
+		xyniteIngot = new ItemXyniteIngot("XyniteIngot");
 		
 		// Items
 		diamondFusedNetherStar = new ItemDiamondFusedNetherStar();

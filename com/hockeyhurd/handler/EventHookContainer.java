@@ -68,6 +68,10 @@ public class EventHookContainer {
 		else if (event.block == ExtraTools.tanzaniteOre) {
 			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.tanzaniteDust)));
 		}
+		
+		else if (event.block == ExtraTools.xyniteOre) {
+			if (val <= chance) world.spawnEntityInWorld(new EntityItem(world, (double) event.x, (double) event.y, (double) event.z, new ItemStack(ExtraTools.xyniteDust)));
+		}
 
 		else return;
 	}

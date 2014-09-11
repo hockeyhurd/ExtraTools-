@@ -17,6 +17,7 @@ tile.GlowOre.name=Glow Ore
 tile.GlowOreNether.name=Glow Ore
 tile.FermiteOre.name=Fermite Ore
 tile.TanzaniteOre.name=Tanzanite Ore
+tile.XyniteOre.name=Xynite Ore
 
 tile.GlowFurnaceOff.name=Glow Furnace
 tile.GlowPulverizer.name=Glow Pulverizer
@@ -33,9 +34,11 @@ item.PulverizedGold.name=Pulverized Gold
 item.GlowDust.name=Glow Dust
 item.FermiteDust.name=Fermite Dust
 item.TanzaniteDust.name=Tanzanite Dust
+item.XyniteDust.name=Xynite Dust
 item.GlowIngot.name=Glow Ingot
 item.FermiteIngot.name=Fermite Ingot
 item.TanzaniteIngot.name=Tanzanite Ingot
+item.XyniteIngot.name=Xynite Ingot
 
 item.DiamondFusedNetherStar.name=Encaptured Soul of The Nether
 item.NetherSoulCollector.name=Soul Collector of The Nether
