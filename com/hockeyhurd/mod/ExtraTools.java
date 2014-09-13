@@ -17,9 +17,7 @@ import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
-import com.hockeyhurd.block.ores.BlockFermiteOre;
-import com.hockeyhurd.block.ores.BlockGlowOre;
-import com.hockeyhurd.block.ores.BlockTanzaniteOre;
+import com.hockeyhurd.block.ores.*;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.ConfigHandler;
@@ -35,6 +33,7 @@ import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.Reference;
 import com.hockeyhurd.util.math.TimeLapse;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
+import com.hockeyhurd.worldgen.OreXyniteWorldgen;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

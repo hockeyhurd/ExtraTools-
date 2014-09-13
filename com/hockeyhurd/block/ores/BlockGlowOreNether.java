@@ -1,4 +1,4 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.block.ores;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

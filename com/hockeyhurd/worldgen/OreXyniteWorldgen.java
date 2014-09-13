@@ -1,8 +1,6 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.worldgen;
 
 import net.minecraft.block.Block;
-
-import com.hockeyhurd.worldgen.AbstractWorldGen;
 
 public class OreXyniteWorldgen extends AbstractWorldGen {
 

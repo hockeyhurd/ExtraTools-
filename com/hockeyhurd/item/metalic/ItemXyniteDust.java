@@ -1,4 +1,4 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.item.metalic;
 
 import com.hockeyhurd.item.metalic.AbstractItemMetalic;
 

@@ -3,7 +3,6 @@ package com.hockeyhurd.mod;
 import static com.hockeyhurd.mod.ExtraTools.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
