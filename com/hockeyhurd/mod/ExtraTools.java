@@ -32,7 +32,9 @@ import com.hockeyhurd.item.tool.*;
 import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.Reference;
 import com.hockeyhurd.util.math.TimeLapse;
+import com.hockeyhurd.worldgen.OreFermiteWorldgen;
 import com.hockeyhurd.worldgen.OreGlowWorldgen;
+import com.hockeyhurd.worldgen.OreTanzaniteWorldgen;
 import com.hockeyhurd.worldgen.OreXyniteWorldgen;
 
 import cpw.mods.fml.common.Mod;
@@ -101,6 +103,8 @@ public class ExtraTools {
 	// World generation.
 	public static OreGlowWorldgen worldgenGlowOre;
 	public static OreXyniteWorldgen worldgenXyniteOre;
+	public static OreFermiteWorldgen worldgenFermiteOre;
+	public static OreTanzaniteWorldgen worldgenTanzaniteOre;
 
 	// Metals and dusts.
 	public static Item glowDust;
@@ -270,6 +274,8 @@ public class ExtraTools {
 
 		worldgenGlowOre = new OreGlowWorldgen();
 		worldgenXyniteOre = new OreXyniteWorldgen(xyniteOre, null, 5, -1, 4, 7, 12, 24);
+		worldgenFermiteOre = new OreFermiteWorldgen(fermiteOre, null, 7, -1, 4, 8, 24, 40);
+		worldgenTanzaniteOre = new OreTanzaniteWorldgen(tanzaniteOre, null, 9, -1, 5, 9, 32, 56);
 	}
 
 	@EventHandler

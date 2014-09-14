@@ -39,10 +39,10 @@ public class CommonProxy {
 
 	public void init() {
 		registerEventHandlers();
-		registerWorldgen();
 		registerBlocks();
 		registerItems();
 		addOreDict();
+		registerWorldgen();
 		addFuelRegister();
 		addCraftingRecipes();
 		addFurnaceRecipes();
@@ -56,11 +56,6 @@ public class CommonProxy {
 	protected void registerEventHandlers() {
 		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
 		PacketHandler.init();
-	}
-
-	protected void registerWorldgen() {
-		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
-		GameRegistry.registerWorldGenerator(worldgenXyniteOre, 1);
 	}
 
 	protected void registerBlocks() {
@@ -152,6 +147,13 @@ public class CommonProxy {
 		OreDictionary.registerOre("stoneBricks", stoneBricksGreen);
 		OreDictionary.registerOre("stoneBricks", stoneBricksPurple);
 		OreDictionary.registerOre("blockGlass", safeGlass);
+	}
+	
+	protected void registerWorldgen() {
+		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
+		GameRegistry.registerWorldGenerator(worldgenXyniteOre, 1);
+		GameRegistry.registerWorldGenerator(worldgenFermiteOre, 1);
+		GameRegistry.registerWorldGenerator(worldgenTanzaniteOre, 1);
 	}
 
 	protected void addFuelRegister() {
