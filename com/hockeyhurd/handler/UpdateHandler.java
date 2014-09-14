@@ -17,7 +17,7 @@ public class UpdateHandler {
 	private boolean upToDate = true;
 	
 	// NOTE: Just add build number + .jar
-	private static final String url = "http://75.68.113.97:8080/downloads/versions/ExtraTools+-1.1.";
+	private static final String url = "http://75.68.113.97:8080/downloads/extratools/versions/ExtraTools+-1.1.";
 	private String latestUrl = "";
 
 	public UpdateHandler() {
