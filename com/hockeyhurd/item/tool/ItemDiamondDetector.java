@@ -2,17 +2,8 @@ package com.hockeyhurd.item.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-import com.hockeyhurd.mod.ExtraTools;
-import com.hockeyhurd.util.ChunkHelper;
-import com.hockeyhurd.util.TimerHelper;
-import com.hockeyhurd.util.interfaces.IToolDetector;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class ItemDiamondDetector extends AbstractToolDetector {
 

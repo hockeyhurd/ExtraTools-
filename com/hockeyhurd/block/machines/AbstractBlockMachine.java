@@ -18,7 +18,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -1,9 +1,9 @@
 package com.hockeyhurd.item;
 
-import com.hockeyhurd.mod.ExtraTools;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class ItemDiamondSacrifice extends Item {
 

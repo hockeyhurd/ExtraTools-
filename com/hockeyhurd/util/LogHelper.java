@@ -2,7 +2,7 @@ package com.hockeyhurd.util;
 
 import org.apache.logging.log4j.Level;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 import cpw.mods.fml.common.FMLLog;
 

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class ArmorSetGlow extends ItemArmor {
 

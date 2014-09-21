@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.hockeyhurd.entity.throwable.EntityPuck;
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class ItemHockeyPuck extends Item {
 

@@ -1,6 +1,6 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.extratools;
 
-import static com.hockeyhurd.mod.ExtraTools.*;
+import static com.hockeyhurd.extratools.ExtraTools.*;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

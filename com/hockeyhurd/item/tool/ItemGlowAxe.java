@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class ItemGlowAxe extends ItemAxe {
 

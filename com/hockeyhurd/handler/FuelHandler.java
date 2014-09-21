@@ -2,7 +2,7 @@ package com.hockeyhurd.handler;
 
 import net.minecraft.item.ItemStack;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 import cpw.mods.fml.common.IFuelHandler;
 

@@ -2,10 +2,10 @@ package com.hockeyhurd.block;
 
 import java.util.Random;
 
-import com.hockeyhurd.mod.ExtraTools;
-
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.material.Material;
+
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class BlockSafeGlass extends BlockGlass {
 

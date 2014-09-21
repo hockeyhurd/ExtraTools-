@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.mod.ExtraTools;
 
 public class GuiGlowFurnace extends GuiContainer {
 

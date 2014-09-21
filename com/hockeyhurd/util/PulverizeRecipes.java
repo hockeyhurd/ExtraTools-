@@ -1,11 +1,5 @@
 package com.hockeyhurd.util;
 
-import static com.hockeyhurd.mod.ExtraTools.glowDust;
-import static com.hockeyhurd.mod.ExtraTools.glowOre;
-import static com.hockeyhurd.mod.ExtraTools.glowOreNether;
-import static com.hockeyhurd.mod.ExtraTools.pulverizedGold;
-import static com.hockeyhurd.mod.ExtraTools.pulverizedIron;
-
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -16,6 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import static com.hockeyhurd.extratools.ExtraTools.*;
 
 public class PulverizeRecipes {
 

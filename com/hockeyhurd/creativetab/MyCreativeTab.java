@@ -3,7 +3,7 @@ package com.hockeyhurd.creativetab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class MyCreativeTab extends CreativeTabs {
 

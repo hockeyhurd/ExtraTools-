@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.texture.IIconRegister;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 
 public class BlockGlowTorch extends BlockTorch {
 

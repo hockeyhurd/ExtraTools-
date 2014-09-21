@@ -1,16 +1,13 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.extratools;
 
+import static com.hockeyhurd.extratools.ExtraTools.glowChest;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.renderer.TileEntityGlowChestRenderer;
-import com.hockeyhurd.handler.EventHookContainer;
 import com.hockeyhurd.handler.KeyEventHandler;
-import com.hockeyhurd.handler.PacketHandler;
 import com.hockeyhurd.item.renderer.ItemRendererGlowChest;
-import static com.hockeyhurd.mod.ExtraTools.*;
 import com.hockeyhurd.util.Keybindings;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -25,8 +22,9 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	protected void registerEventHandlers() {
-		MinecraftForge.EVENT_BUS.register(new EventHookContainer());
-		PacketHandler.init();
+		// MinecraftForge.EVENT_BUS.register(new EventHookContainer());
+		// PacketHandler.init();
+		super.registerEventHandlers();
 		 // if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			Keybindings.init();
 			FMLCommonHandler.instance().bus().register(new KeyEventHandler());

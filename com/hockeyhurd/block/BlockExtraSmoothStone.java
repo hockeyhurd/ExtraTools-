@@ -1,20 +1,16 @@
 package com.hockeyhurd.block;
 
-import java.util.List;
-
-import com.hockeyhurd.mod.ExtraTools;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
+
+import com.hockeyhurd.extratools.ExtraTools;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockExtraSmoothStone extends Block {
 

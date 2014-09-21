@@ -14,12 +14,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.util.BlockHelper;
 import com.hockeyhurd.util.ChatHelper;
 import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
-import com.hockeyhurd.util.interfaces.IKeyBound;
 import com.hockeyhurd.util.interfaces.IToolToggle;
 
 public class ItemGlowExcavator extends ItemSpade implements IToolToggle {

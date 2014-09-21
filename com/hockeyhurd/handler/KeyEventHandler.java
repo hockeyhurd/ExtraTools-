@@ -3,9 +3,9 @@ package com.hockeyhurd.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 
+import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.item.tool.ItemGlowExcavator;
 import com.hockeyhurd.item.tool.ItemGlowHammer;
-import com.hockeyhurd.mod.ExtraTools;
 import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.util.interfaces.IKeyBound;
 

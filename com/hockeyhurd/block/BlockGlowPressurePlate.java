@@ -11,8 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.hockeyhurd.mod.ExtraTools;
-import com.hockeyhurd.util.LogHelper;
+import com.hockeyhurd.extratools.ExtraTools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

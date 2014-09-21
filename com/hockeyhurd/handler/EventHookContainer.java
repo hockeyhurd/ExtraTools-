@@ -1,8 +1,8 @@
 package com.hockeyhurd.handler;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +19,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.util.ChatHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

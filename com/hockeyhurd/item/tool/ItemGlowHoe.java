@@ -13,7 +13,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 import org.lwjgl.input.Keyboard;
 
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.util.Waila;
 
 public class ItemGlowHoe extends ItemHoe {

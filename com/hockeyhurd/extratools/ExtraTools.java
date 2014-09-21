@@ -1,4 +1,4 @@
-package com.hockeyhurd.mod;
+package com.hockeyhurd.extratools;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -48,7 +48,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class ExtraTools {
 
-	@SidedProxy(clientSide = "com.hockeyhurd.mod.ClientProxy", serverSide = "com.hockeyhurd.mod.CommonProxy")
+	@SidedProxy(clientSide = "com.hockeyhurd.extratools.ClientProxy", serverSide = "com.hockeyhurd.extratools.CommonProxy")
 	public static CommonProxy proxy;
 
 	// GuiHandler object(s)

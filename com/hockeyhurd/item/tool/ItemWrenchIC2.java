@@ -21,7 +21,7 @@ import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.entity.tileentity.AbstractTileEntityGlow;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
-import com.hockeyhurd.mod.ExtraTools;
+import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.util.*;
 import com.hockeyhurd.util.math.Vector4Helper;
 
