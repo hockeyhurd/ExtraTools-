@@ -451,12 +451,21 @@ public class CommonProxy {
 		toSend.setTag("input", new NBTTagCompound());
 		toSend.setTag("primaryOutput", new NBTTagCompound());
 
-		ItemStack inputStack = new ItemStack(glowOre, 1);
-		inputStack.writeToNBT(toSend.getCompoundTag("input"));
-
-		ItemStack outputStack = new ItemStack(glowDust, 2);
-		outputStack.writeToNBT(toSend.getCompoundTag("primaryOutput"));
-		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
+		final ItemStack[] inputStacks = new ItemStack[] {
+			new ItemStack(glowOre, 1), new ItemStack(xyniteOre, 1), new ItemStack(fermiteOre, 1), new ItemStack(tanzaniteOre, 1),
+			new ItemStack(glowIngot, 1), new ItemStack(xyniteIngot, 1), new ItemStack(fermiteIngot, 1), new ItemStack(tanzaniteIngot, 1),
+		};
+		
+		final ItemStack[] outputStacks = new ItemStack[] {
+				new ItemStack(glowDust, 2), new ItemStack(xyniteDust, 2), new ItemStack(fermiteDust, 2), new ItemStack(tanzaniteDust, 2),
+				new ItemStack(glowDust, 1), new ItemStack(xyniteDust, 1), new ItemStack(fermiteDust, 1), new ItemStack(tanzaniteDust, 1)
+		};
+		
+		for (int i = 0; i < inputStacks.length; i++) {
+			inputStacks[i].writeToNBT(toSend.getCompoundTag("input"));
+			outputStacks[i].writeToNBT(toSend.getCompoundTag("primaryOutput"));
+			FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
+		}
 
 	}
 
