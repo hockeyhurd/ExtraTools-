@@ -261,6 +261,7 @@ public class Waila {
 			}
 
 			else if (stack.getItem() == ExtraTools.glowHammerUnbreakable) mineArea(sideHit, xx, yy, zz);
+			else if (stack.getItem() == ExtraTools.xyniteHammer) mineArea(sideHit, xx, yy, zz);
 			else if (stack.getItem() == ExtraTools.glowExcavatorUnbreakable) mineArea(sideHit, xx, yy, zz);
 
 			// If don't place a block and player is not using a glowHoe and want to return the block being looked at?
@@ -390,7 +391,7 @@ public class Waila {
 						if (matWhiteList[i] == currentMat) contains = true;
 					}
 					
-					if ((stack.getItem() != ExtraTools.glowHammerUnbreakable && stack.getItem() != ExtraTools.glowExcavatorUnbreakable) || !contains) return;
+					if ((stack.getItem() != ExtraTools.glowHammerUnbreakable && stack.getItem() != ExtraTools.glowExcavatorUnbreakable && stack.getItem() != ExtraTools.xyniteHammer) || !contains) return;
 					else bh.destroyBlock(x, y, z, true);
 				}
 

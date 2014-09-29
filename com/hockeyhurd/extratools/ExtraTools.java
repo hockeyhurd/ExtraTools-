@@ -127,8 +127,8 @@ public class ExtraTools {
 	public static Item bottler;
 
 	// Tool materials.
-	public static final ToolMaterial toolGlow = EnumHelper.addToolMaterial("GLOW", 3, 2000, 10.0f, 5.0f, 30);
 	public static final ToolMaterial toolGlowUnbreakable = EnumHelper.addToolMaterial("GLOWUNBREAKING", 3, -1, 10.0f, 5.0f, 30);
+	public static final ToolMaterial toolXynite = EnumHelper.addToolMaterial("XYNITE", 3, 2000, 10.0f, 5.0f, 30);
 	public static final ToolMaterial toolHockey = EnumHelper.addToolMaterial("HOCKEY", 3, 500, 10.0f, 2.0f, 30);
 
 	// Tool sets
@@ -139,6 +139,14 @@ public class ExtraTools {
 	public static Item glowShovelUnbreakable;
 	public static Item glowHammerUnbreakable;
 	public static Item glowExcavatorUnbreakable;
+	
+	public static Item xynitePickaxe;
+	public static Item xyniteHoe;
+	public static Item xyniteSword;
+	public static Item xyniteAxe;
+	public static Item xyniteShovel;
+	public static Item xyniteHammer;
+	
 	public static Item hockeyStick;
 	public static Item diamondDetector;
 	public static Item itemReplacer;
@@ -260,6 +268,14 @@ public class ExtraTools {
 		glowShovelUnbreakable = new ItemGlowShovel(toolGlowUnbreakable);
 		glowHammerUnbreakable = new ItemGlowHammer(toolGlowUnbreakable);
 		glowExcavatorUnbreakable = new ItemGlowExcavator(toolGlowUnbreakable);
+		
+		xynitePickaxe = new ItemXynitePickaxe(toolXynite);
+		xyniteHoe= new ItemXyniteHoe(toolXynite);
+		xyniteSword = new ItemXyniteSword(toolXynite);
+		xyniteAxe = new ItemXyniteAxe(toolXynite);
+		xyniteShovel = new ItemXyniteShovel(toolXynite);
+		xyniteHammer = new ItemXyniteHammer(toolXynite);
+		
 		hockeyStick = new ItemHockeyStick(toolHockey);
 		diamondDetector = new ItemDiamondDetector(Blocks.diamond_ore);
 		itemReplacer = new ItemItemReplacer();

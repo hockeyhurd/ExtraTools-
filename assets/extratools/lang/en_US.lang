@@ -62,7 +62,18 @@ item.GlowAxeUnbreakable.name=Glow Axe
 item.GlowSwordUnbreakable.name=Glow Sword
 item.GlowHammerUnbreakable.name=Glow Hammer
 item.GlowExcavatorUnbreakable.name=Glow Excavator
+
+item.XynitePickaxe.name=Xynite Pickaxe
+item.XyniteShovel.name=Xynite Shovel
+item.XyniteHoe.name=Xynite Hoe
+item.XyniteAxe.name=Xynite Axe
+item.XyniteSword.name=Xynite Sword
+item.XyniteHammer.name=Xynite Hammer
+
 item.GlowHelm.name=Glow Helmet
 item.GlowChestplate.name=Glow Chestplate
 item.GlowLeggings.name=Glow Leggings
 item.GlowBoots.name=Glow Boots
+
+
+

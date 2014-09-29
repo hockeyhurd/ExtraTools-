@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import com.hockeyhurd.item.tool.ItemGlowExcavator;
 import com.hockeyhurd.item.tool.ItemGlowHammer;
+import com.hockeyhurd.item.tool.ItemXyniteHammer;
 import com.hockeyhurd.util.Keybindings;
 import com.hockeyhurd.util.interfaces.IKeyBound;
 
@@ -20,6 +21,7 @@ public class MessageTogglePressed implements IMessage, IMessageHandler<MessageTo
 		EntityPlayer player = ctx.getServerHandler().playerEntity;
 		if (player != null && player.getCurrentEquippedItem() != null) {
 			if (player.getCurrentEquippedItem().getItem() instanceof ItemGlowHammer) ((IKeyBound) player.getCurrentEquippedItem().getItem()).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
+			else if (player.getCurrentEquippedItem().getItem() instanceof ItemXyniteHammer) ((IKeyBound) player.getCurrentEquippedItem().getItem()).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
 			else if (player.getCurrentEquippedItem().getItem() instanceof ItemGlowExcavator) ((IKeyBound) player.getCurrentEquippedItem().getItem()).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
 		}
 

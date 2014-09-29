@@ -34,6 +34,12 @@ public class PulverizeRecipes {
 		// Fall back mapping
 		mapModded.put("oreGlow", "dustGlow");
 		mapModded.put("ingotGlow", "dustGlow");
+		mapModded.put("oreXynite", "dustXynite");
+		mapModded.put("ingotXynite", "dustXynite");
+		mapModded.put("oreFermite", "dustFermite");
+		mapModded.put("ingotFermite", "dustFermite");
+		mapModded.put("oreTanzanite", "dustTanzanite");
+		mapModded.put("ingotTanzanite", "dustTanzanite");
 		mapModded.put("oreCopper", "dustCopper");
 		mapModded.put("ingotCopper", "dustCopper");
 		mapModded.put("oreBronze", "dustBronze");

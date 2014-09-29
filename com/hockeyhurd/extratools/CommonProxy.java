@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
@@ -30,7 +31,7 @@ public class CommonProxy {
 
 	public boolean updateFlag = false;
 	protected HashMap<Short, String> map;
-	
+
 	public CommonProxy() {
 	}
 
@@ -65,7 +66,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(fermiteOre, "FermiteOre");
 		GameRegistry.registerBlock(tanzaniteOre, "TanzaniteOre");
 		GameRegistry.registerBlock(xyniteOre, "XyniteOre");
-		
+
 		// Other
 		GameRegistry.registerBlock(glowRock, "GlowRock");
 		GameRegistry.registerBlock(glowTorch, "GlowTorchOn");
@@ -96,7 +97,7 @@ public class CommonProxy {
 		GameRegistry.registerItem(fermiteIngot, "FermiteIngot");
 		GameRegistry.registerItem(tanzaniteIngot, "TanzaniteIngot");
 		GameRegistry.registerItem(xyniteIngot, "XyniteIngot");
-		
+
 		GameRegistry.registerItem(diamondFusedNetherStar, "DiamondFusedNetherStar");
 		GameRegistry.registerItem(netherSoulCollector, "NetherSoulCollector");
 		GameRegistry.registerItem(fireryNetherStar, "FireryNetherStar");
@@ -123,6 +124,13 @@ public class CommonProxy {
 		GameRegistry.registerItem(glowHammerUnbreakable, "GlowHammerUnbreakable");
 		GameRegistry.registerItem(glowExcavatorUnbreakable, "GlowExcavatorUnbreakable");
 
+		GameRegistry.registerItem(xynitePickaxe, "XynitePickaxe");
+		GameRegistry.registerItem(xyniteHoe, "XyniteHoe");
+		GameRegistry.registerItem(xyniteSword, "XyniteSword");
+		GameRegistry.registerItem(xyniteAxe, "XyniteAxe");
+		GameRegistry.registerItem(xyniteShovel, "XyniteShovel");
+		GameRegistry.registerItem(xyniteHammer, "XyniteHammer");
+
 		GameRegistry.registerItem(glowHelmet, "GlowHelmet");
 		GameRegistry.registerItem(glowChestplate, "GlowChestplate");
 		GameRegistry.registerItem(glowLegging, "GlowLegging");
@@ -131,9 +139,18 @@ public class CommonProxy {
 
 	protected void addOreDict() {
 		OreDictionary.registerOre("oreGlow", glowOre);
+		OreDictionary.registerOre("oreXynite", xyniteOre);
+		OreDictionary.registerOre("oreFermite", fermiteOre);
+		OreDictionary.registerOre("oreTanzanite", tanzaniteOre);
 		OreDictionary.registerOre("oreGlow", glowOreNether);
 		OreDictionary.registerOre("dustGlow", glowDust);
+		OreDictionary.registerOre("dustXynite", xyniteDust);
+		OreDictionary.registerOre("dustFermite", fermiteDust);
+		OreDictionary.registerOre("dustTanzanite", tanzaniteDust);
 		OreDictionary.registerOre("ingotGlow", glowIngot);
+		OreDictionary.registerOre("ingotXynite", xyniteIngot);
+		OreDictionary.registerOre("ingotFermite", fermiteIngot);
+		OreDictionary.registerOre("ingotTanzanite", tanzaniteIngot);
 		OreDictionary.registerOre("blockGlow", glowIngotBlock);
 		OreDictionary.registerOre("dustIron", pulverizedIron);
 		OreDictionary.registerOre("dustGold", pulverizedGold);
@@ -148,7 +165,7 @@ public class CommonProxy {
 		OreDictionary.registerOre("stoneBricks", stoneBricksPurple);
 		OreDictionary.registerOre("blockGlass", safeGlass);
 	}
-	
+
 	protected void registerWorldgen() {
 		GameRegistry.registerWorldGenerator(worldgenGlowOre, 1);
 		GameRegistry.registerWorldGenerator(worldgenXyniteOre, 1);
@@ -168,11 +185,14 @@ public class CommonProxy {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowRock, 1), "xx", "xx", 'x', "dustGlow"));
 
 		// Glow ingot recipe
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngot, 1), "xy", 'x', "ingotGold", 'y', glowDust));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(glowIngot, 1), "ingotGold", "dustGlow"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngot, 1), new Object[] {
 				"xyy", "yyy", "yyy", 'x', glowDust, 'y', "ingotIron"
 		}));
 		GameRegistry.addRecipe(new ItemStack(glowIngot, 9), "x", 'x', glowIngotBlock);
+		
+		// Crafting the xynite ingot
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(xyniteIngot, 1), "ingotIron", "dustXynite"));
 
 		// Crafting the GlowIngotBlock
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowIngotBlock, 1), new Object[] {
@@ -274,8 +294,8 @@ public class CommonProxy {
 		}));
 
 		// Crafting the 'Item Bottler'
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bottler, 1), new Object[] {
-				"xy", 'x', "dustGlow", 'y', Items.glass_bottle
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(bottler, 3), new Object[] {
+				"dustXynite", Items.glass_bottle
 		}));
 
 		// Crafting the GlowWrench
@@ -360,6 +380,36 @@ public class CommonProxy {
 				" x ", "yzy", " z ", 'x', diamondFusedNetherStar, 'y', Items.diamond, 'z', Items.blaze_rod
 		}));
 
+		// Crafting the xynite pickaxe
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xynitePickaxe), new Object[] {
+				"xxx", " y ", " y ", 'x', "ingotXynite", 'y', STICK
+		}));
+
+		// Crafting the xynite sword
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xyniteSword), new Object[] {
+				" x ", " x ", " y ", 'x', "ingotXynite", 'y', STICK
+		}));
+
+		// Crafting the xynite axe
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xyniteAxe), new Object[] {
+				"xx ", "xy ", " y ", 'x', "ingotXynite", 'y', STICK
+		}));
+
+		// Crafting the xynite hoe
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xyniteHoe), new Object[] {
+				"xx ", " y ", " y ", 'x', "ingotXynite", 'y', STICK
+		}));
+
+		// Crafting the xynite shovel
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xyniteShovel), new Object[] {
+				" x ", " y ", " y ", 'x', "ingotXynite", 'y', STICK
+		}));
+
+		// Crafting the xynite hammer
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(xyniteHammer), new Object[] {
+				"xxx", "zyz", " y ", 'x', "ingotXynite", 'y', STICK, 'z', "gemDiamond"
+		}));
+
 		// Crafting the glow boots
 		ItemStack BOOT = new ItemStack(glowBoot, 1);
 		GameRegistry.addRecipe(BOOT, new Object[] {
@@ -388,6 +438,9 @@ public class CommonProxy {
 	protected void addFurnaceRecipes() {
 		// USE: args(use what block/item from id, (get what block/item from id, how much), how much xp should the player be rewarded.
 		GameRegistry.addSmelting(glowOre, new ItemStack(glowDust, 1), 100f);
+		GameRegistry.addSmelting(xyniteOre, new ItemStack(xyniteDust, 1), 75f);
+		GameRegistry.addSmelting(fermiteOre, new ItemStack(fermiteDust, 1), 50f);
+		GameRegistry.addSmelting(tanzaniteOre, new ItemStack(tanzaniteDust, 1), 25f);
 		GameRegistry.addSmelting(pulverizedIron, new ItemStack(Items.iron_ingot, 1), 100f);
 		GameRegistry.addSmelting(pulverizedGold, new ItemStack(Items.gold_ingot, 1), 100f);
 	}
@@ -406,7 +459,7 @@ public class CommonProxy {
 		FMLInterModComms.sendMessage("ThermalExpansion", "PulverizerRecipe", toSend);
 
 	}
-	
+
 	protected void maceratorRecipes() {
 		// Recipes.macerator.addRecipe(, null, new ItemStack(glowDust, 2));
 	}
@@ -428,14 +481,14 @@ public class CommonProxy {
 	protected void registerRegisters() {
 		PulverizeRecipes.init();
 	}
-	
+
 	public void updateChecker() {
 		UpdateHandler uh = new UpdateHandler();
 		uh.check();
 		map = uh.getMap();
 		this.updateFlag = uh.getUpToDate();
 	}
-	
+
 	public Set<Entry<Short, String>> getEntry() {
 		return map.entrySet();
 	}

@@ -6,7 +6,9 @@ import net.minecraft.item.Item;
 import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.item.tool.ItemGlowExcavator;
 import com.hockeyhurd.item.tool.ItemGlowHammer;
+import com.hockeyhurd.item.tool.ItemXyniteHammer;
 import com.hockeyhurd.util.Keybindings;
+import com.hockeyhurd.util.LogHelper;
 import com.hockeyhurd.util.interfaces.IKeyBound;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -51,6 +53,11 @@ public class KeyEventHandler {
 					if (player.worldObj.isRemote) PacketHandler.instance.sendToServer(new MessageTogglePressed());
 					else ((IKeyBound) item).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
 				}
+				
+				else if (item instanceof ItemXyniteHammer) {
+					if (player.worldObj.isRemote) PacketHandler.instance.sendToServer(new MessageTogglePressed());
+					else ((IKeyBound) item).doKeyBindingAction(player, player.getCurrentEquippedItem(), Keybindings.keyValues[0]);
+				}
 
 				else if (item instanceof ItemGlowExcavator) {
 					if (player.worldObj.isRemote) PacketHandler.instance.sendToServer(new MessageTogglePressed());
@@ -58,7 +65,7 @@ public class KeyEventHandler {
 				}
 
 				else {
-					if (debug) System.out.println("No effect!");
+					if (debug) LogHelper.info("No effect!");
 					return;
 				}
 

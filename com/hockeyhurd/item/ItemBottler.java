@@ -62,7 +62,7 @@ public class ItemBottler extends Item {
 			if (player.inventory.getStackInSlot(i) == stack) slotNum = i;
 		}
 
-		// Decrease the found stack index and size by -1.
+		// Decrease the found stack index and size by 1.
 		decreaseStackSize(stack, slotNum, player);
 
 		int emptySlot = slotID = player.inventory.getFirstEmptyStack();
@@ -162,28 +162,20 @@ public class ItemBottler extends Item {
 		return entity;
 	}
 
-	private int checkInvForStack(ItemStack stack, EntityPlayer player) {
-		int slotNum = -1;
-
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				if (player.inventory.getStackInSlot(x + y) == stack) slotNum = x + y;
-			}
-		}
-
-		return slotNum;
+	private boolean setStackInSlot(ItemStack stack, EntityPlayer player) {
+		return player.inventory.addItemStackToInventory(stack);
 	}
-	
+
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
 		if (!(e instanceof EntityPlayer)) return;
-		
+
 		EntityPlayer player = (EntityPlayer) e;
 		if (this.slotID == -1 || player.inventory.getStackInSlot(this.slotID) == null || player.inventory.getStackInSlot(this.slotID).getItemDamage() < 1 || !this.updateInfo) return;
 		else {
 			ItemStack theStack = player.inventory.getStackInSlot(this.slotID);
 			theStack.stackTagCompound = new NBTTagCompound();
 			theStack.stackTagCompound.setString("Entity", this.entityName);
-			
+
 			this.updateInfo = false;
 		}
 	}
@@ -199,7 +191,7 @@ public class ItemBottler extends Item {
 		if (!effect) return;
 		NBTTagCompound tag = null;
 		if (stack.stackTagCompound != null) tag = stack.stackTagCompound;
-		
+
 		String name = tag.getString("Entity");
 		if (effect) list.add(EnumChatFormatting.GREEN + "Entity: " + name);
 	}
