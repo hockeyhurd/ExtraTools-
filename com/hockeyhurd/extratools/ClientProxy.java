@@ -1,6 +1,7 @@
 package com.hockeyhurd.extratools;
 
 import static com.hockeyhurd.extratools.ExtraTools.glowChest;
+import static com.hockeyhurd.extratools.ExtraTools.glowRock;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 
@@ -9,6 +10,7 @@ import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.renderer.TileEntityGlowChestRenderer;
 import com.hockeyhurd.handler.KeyEventHandler;
 import com.hockeyhurd.item.renderer.ItemRendererGlowChest;
+import com.hockeyhurd.item.renderer.ItemRendererGlowRock;
 import com.hockeyhurd.util.Keybindings;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -46,5 +48,6 @@ public class ClientProxy extends CommonProxy {
 		
 		glowRockRenderType = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new GlowRockRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(glowRock), new ItemRendererGlowRock());
 	}
 }
