@@ -17,6 +17,7 @@ import com.hockeyhurd.block.BlockGlowPressurePlate.Sensitivity;
 import com.hockeyhurd.block.machines.BlockGlowChest;
 import com.hockeyhurd.block.machines.BlockGlowFurnace;
 import com.hockeyhurd.block.machines.BlockGlowPulverizer;
+import com.hockeyhurd.block.machines.BlockTickTorch;
 import com.hockeyhurd.block.ores.*;
 import com.hockeyhurd.creativetab.MyCreativeTab;
 import com.hockeyhurd.gui.GuiHandler;
@@ -45,7 +46,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(modid = Reference.MOD_NAME, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:HCoreLib")
 public class ExtraTools {
 
 	@SidedProxy(clientSide = "com.hockeyhurd.extratools.ClientProxy", serverSide = "com.hockeyhurd.extratools.CommonProxy")
@@ -83,6 +84,7 @@ public class ExtraTools {
 	public static Block glowPulverizerOn;
 	public static Block glowPulverizerOff;
 	public static Block glowChest;
+	public static Block tickTorch;
 
 	// Gui stuff
 	public static final int guiIDGlowFurnace = GuiIDHandler.getNextAvailableID();
@@ -227,6 +229,7 @@ public class ExtraTools {
 		glowPulverizerOff = new BlockGlowPulverizer(Material.rock, false);
 		glowPulverizerOn = new BlockGlowPulverizer(Material.rock, true);
 		glowChest = new BlockGlowChest(Material.rock);
+		tickTorch = new BlockTickTorch();
 
 		// Ores
 		glowOre = new BlockGlowOre(Material.rock, "GlowOre");

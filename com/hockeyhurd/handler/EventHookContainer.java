@@ -218,6 +218,11 @@ public class EventHookContainer {
 				event.toolTip.add(EnumChatFormatting.GREEN + "Contents: " + EnumChatFormatting.WHITE + has + " / " + maxSize);
 			}
 		}
+		
+		else if (currentItem == Item.getItemFromBlock(ExtraTools.tickTorch)) {
+			event.toolTip.add(EnumChatFormatting.GREEN + "Ability: " + EnumChatFormatting.WHITE + "Right click to expand area.");
+			event.toolTip.add(EnumChatFormatting.WHITE + "  Shift + right click to shrink area.");
+		}
 
 		else return;
 	}

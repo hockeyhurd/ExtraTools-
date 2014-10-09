@@ -22,6 +22,7 @@ tile.XyniteOre.name=Xynite Ore
 tile.GlowFurnaceOff.name=Glow Furnace
 tile.GlowPulverizer.name=Glow Pulverizer
 tile.GlowChest.name=Glow Chest
+tile.TickTorch.name=Tick Torch
 
 container.glowpulverizer=Glow Pulverizer
 container.glowchest=Glow Chest

@@ -19,6 +19,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowChest;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowFurnace;
 import com.hockeyhurd.entity.tileentity.TileEntityGlowPulverizer;
+import com.hockeyhurd.entity.tileentity.TileEntityTickTorch;
 import com.hockeyhurd.gui.GuiHandler;
 import com.hockeyhurd.handler.*;
 import com.hockeyhurd.util.PulverizeRecipes;
@@ -76,6 +77,7 @@ public class CommonProxy {
 		GameRegistry.registerBlock(glowPulverizerOff, "GlowPulverizerOff");
 		GameRegistry.registerBlock(glowPulverizerOn, "GlowPulverizerOn");
 		GameRegistry.registerBlock(glowChest, "GlowChest");
+		GameRegistry.registerBlock(tickTorch, "TickTorch");
 		GameRegistry.registerBlock(extraSmoothStone, "ExtraSmoothStone");
 		GameRegistry.registerBlock(stoneBricksDefault, "StoneBricksDefault");
 		GameRegistry.registerBlock(stoneBricksWide, "StoneBricksWide");
@@ -190,7 +192,7 @@ public class CommonProxy {
 				"xyy", "yyy", "yyy", 'x', glowDust, 'y', "ingotIron"
 		}));
 		GameRegistry.addRecipe(new ItemStack(glowIngot, 9), "x", 'x', glowIngotBlock);
-		
+
 		// Crafting the xynite ingot
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(xyniteIngot, 1), "ingotIron", "dustXynite"));
 
@@ -311,6 +313,11 @@ public class CommonProxy {
 		// Crafting the glow coal
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glowCoal, 1), new Object[] {
 				" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
+		}));
+
+		// Crafting the time torch 
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tickTorch, 1), new Object[] {
+			"zxz", "zyz", "zzz", 'x', glowCoal, 'y', Blocks.torch, 'z', "ingotXynite"  
 		}));
 
 		// Crafting the hockey stick
@@ -452,15 +459,13 @@ public class CommonProxy {
 		toSend.setTag("primaryOutput", new NBTTagCompound());
 
 		final ItemStack[] inputStacks = new ItemStack[] {
-			new ItemStack(glowOre, 1), new ItemStack(xyniteOre, 1), new ItemStack(fermiteOre, 1), new ItemStack(tanzaniteOre, 1),
-			new ItemStack(glowIngot, 1), new ItemStack(xyniteIngot, 1), new ItemStack(fermiteIngot, 1), new ItemStack(tanzaniteIngot, 1),
+				new ItemStack(glowOre, 1), new ItemStack(xyniteOre, 1), new ItemStack(fermiteOre, 1), new ItemStack(tanzaniteOre, 1), new ItemStack(glowIngot, 1), new ItemStack(xyniteIngot, 1), new ItemStack(fermiteIngot, 1), new ItemStack(tanzaniteIngot, 1),
 		};
-		
+
 		final ItemStack[] outputStacks = new ItemStack[] {
-				new ItemStack(glowDust, 2), new ItemStack(xyniteDust, 2), new ItemStack(fermiteDust, 2), new ItemStack(tanzaniteDust, 2),
-				new ItemStack(glowDust, 1), new ItemStack(xyniteDust, 1), new ItemStack(fermiteDust, 1), new ItemStack(tanzaniteDust, 1)
+				new ItemStack(glowDust, 2), new ItemStack(xyniteDust, 2), new ItemStack(fermiteDust, 2), new ItemStack(tanzaniteDust, 2), new ItemStack(glowDust, 1), new ItemStack(xyniteDust, 1), new ItemStack(fermiteDust, 1), new ItemStack(tanzaniteDust, 1)
 		};
-		
+
 		for (int i = 0; i < inputStacks.length; i++) {
 			inputStacks[i].writeToNBT(toSend.getCompoundTag("input"));
 			outputStacks[i].writeToNBT(toSend.getCompoundTag("primaryOutput"));
@@ -477,6 +482,7 @@ public class CommonProxy {
 		GameRegistry.registerTileEntity(TileEntityGlowFurnace.class, "tileEntityGlowFurnace");
 		GameRegistry.registerTileEntity(TileEntityGlowPulverizer.class, "tileEntityGlowPulverizer");
 		GameRegistry.registerTileEntity(TileEntityGlowChest.class, "tileEntityGlowChest");
+		GameRegistry.registerTileEntity(TileEntityTickTorch.class, "tileEntityTickTorch");
 	}
 
 	protected void registerGuiHandler() {

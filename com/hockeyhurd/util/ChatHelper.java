@@ -11,8 +11,6 @@ public class ChatHelper {
 	private EntityPlayer player;
 	private EnumChatFormatting color;
 	
-	// Constructor temporarily set to deprecated until player.sendChatMessage is implemented in this class.
-	@Deprecated
 	public ChatHelper(EntityPlayer player) {
 		this.player = player;
 		this.color = EnumChatFormatting.WHITE;

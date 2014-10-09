@@ -106,7 +106,6 @@ public class ItemRendererGlowRock implements IItemRenderer {
 		tess.draw();
 
 		if (mustTranslate) GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-
 	}
 
 }
