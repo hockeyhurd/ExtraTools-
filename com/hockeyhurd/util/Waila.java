@@ -43,7 +43,7 @@ public class Waila {
 	private int sideHit = 0;
 	private int offset;
 	private int metaData;
-	private Vector4Helper vec;
+	private Vector4Helper<Integer> vec;
 	private boolean returnState = false;
 
 	// TODO: ligten the parameters for the classes use and localize some code from each caller's instance.
@@ -82,7 +82,8 @@ public class Waila {
 		this.ih = new ItemHelper(world, player);
 		this.placeBlock = placeBlock; 
 		this.shiftClick = shiftClick;
-
+		this.vec = new Vector4Helper<Integer>();
+		
 		blockBlackList = new ArrayList<Block>();
 		addBlockBlackList();
 
@@ -205,11 +206,9 @@ public class Waila {
 				int sideHit = movingObjectPos.sideHit;
 				// print("Side: " + sideHit);
 
+				setVector3I(xx, yy, zz, sideHit);
 				if (handler) placeBlockHandler(world, xx, yy, zz, sideHit);
-				else {
-					setSideHit(sideHit);
-					setVector3I(xx, yy, zz, sideHit);
-				}
+				else setSideHit(sideHit);
 			}
 
 			stack.setItemDamage(0);
@@ -283,7 +282,10 @@ public class Waila {
 	}
 	
 	private void setVector3I(int x, int y, int z, int sideHit) {
-		this.vec = new Vector4Helper(x, y, z, sideHit);
+		this.vec.setX(x);
+		this.vec.setY(y);
+		this.vec.setZ(z);
+		this.vec.setSideHit(sideHit);
 	}
 
 	public int getSideHit() {

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +24,7 @@ import com.hockeyhurd.util.interfaces.IToolToggle;
 
 public class ItemGlowHammer extends ItemPickaxe implements IToolToggle {
 
-	private final Block torch = ExtraTools.glowTorch;
+	private final Block TORCH = ExtraTools.glowTorch;
 	private Material[] mineAble;
 	private TimerHelper th;
 	private ChatHelper ch;
@@ -110,14 +111,20 @@ public class ItemGlowHammer extends ItemPickaxe implements IToolToggle {
 	}
 
 	// When player right click's, places a GlowTorch on given location.
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ) {
+		boolean used = false;
 		if (!world.isRemote) {
-			Waila waila = new Waila(itemStack, world, entityPlayer, torch, true, false);
-			waila.setOffset(1);
-			if (!th.getUse() || th.excuser()) waila.finder();
-			th.setUse(true);
+			final ItemStack TORCH_STACK = new ItemStack(TORCH, 1);
+			if (TORCH_STACK.getItem() instanceof ItemBlock) {
+				if (!th.getUse() || th.excuser()) {
+					used = TORCH_STACK.getItem().onItemUse(TORCH_STACK, player, world, x, y, z, side, clickX, clickY, clickZ);
+					th.setUse(true);
+				}
+			}
 		}
-		return itemStack;
+		
+		if (!th.getUse()) player.swingItem();
+		return used;
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
