@@ -171,6 +171,12 @@ public class CommonProxy {
 		OreDictionary.registerOre("stoneBricks", stoneBricksBlue);
 		OreDictionary.registerOre("stoneBricks", stoneBricksGreen);
 		OreDictionary.registerOre("stoneBricks", stoneBricksPurple);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsDefault);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsWide);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsRed);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsBlue);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsGreen);
+		OreDictionary.registerOre("stoneBricksStairs", stoneBricksStairsPurple);
 		OreDictionary.registerOre("blockGlass", safeGlass);
 	}
 
@@ -237,8 +243,17 @@ public class CommonProxy {
 				"xxx", "x x", "xxx", 'x', Blocks.stonebrick
 		});
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksDefault, 1), new Object[] {
-				"xy", 'x', "stoneBricks", 'y', "dyeWhite"
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksDefault, 1), new Object[] {
+				"stoneBricks", "dyeWhite"
+		}));
+
+		// Crafting the stoneBricks stairs
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsDefault, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksDefault
+		}));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksStairsDefault, 1), new Object[] {
+				"stoneBricksStairs", "dyeWhite"
 		}));
 
 		// Crafting the stoneBricks_wide
@@ -246,9 +261,23 @@ public class CommonProxy {
 				"xx", 'x', stoneBricksDefault
 		}));
 
+		// Crafting the stoneBricks stairs wide
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsWide, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksWide
+		}));
+
 		// Crafting the stoneBricks_red
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksRed, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeRed"
+		}));
+
+		// Crafting the stoneBricks stairs red
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsRed, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksRed
+		}));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksStairsRed, 1), new Object[] {
+				"stoneBricksStairs", "dyeRed"
 		}));
 
 		// Crafting the stoneBricks_blue
@@ -256,14 +285,40 @@ public class CommonProxy {
 				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeBlue"
 		}));
 
+		// Crafting the stoneBricks stairs blue
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsBlue, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksBlue
+		}));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksStairsBlue, 1), new Object[] {
+				"stoneBricksStairs", "dyeBlue"
+		}));
+
 		// Crafting the stoneBricks_green
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksGreen, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyeGreen"
 		}));
+		// Crafting the stoneBricks stairs green
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsGreen, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksGreen
+		}));
 
-		// Crafting the stoneBricks_green
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksStairsGreen, 1), new Object[] {
+				"stoneBricksStairs", "dyeGreen"
+		}));
+
+		// Crafting the stoneBricks_purple
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksPurple, 8), new Object[] {
 				"xxx", "xyx", "xxx", 'x', "stoneBricks", 'y', "dyePurple"
+		}));
+
+		// Crafting the stoneBricks stairs purple
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneBricksStairsPurple, 4), new Object[] {
+				"x  ", "xx ", "xxx", 'x', stoneBricksPurple
+		}));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stoneBricksStairsPurple, 1), new Object[] {
+				"stoneBricksStairs", "dyePurple"
 		}));
 
 		// Crafting the SafeGlass
@@ -321,9 +376,9 @@ public class CommonProxy {
 				" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
 		}));
 
-		// Crafting the time torch 
+		// Crafting the time torch
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tickTorch, 1), new Object[] {
-			"zxz", "zyz", "zzz", 'x', glowCoal, 'y', Blocks.torch, 'z', "ingotXynite"  
+				"zxz", "zyz", "zzz", 'x', glowCoal, 'y', Blocks.torch, 'z', "ingotXynite"
 		}));
 
 		// Crafting the hockey stick
