@@ -49,6 +49,7 @@ public class TileEntityTickTorch extends TileEntity {
 					if (ent != null && !(ent instanceof TileEntityTickTorch)) {
 						for (int i = 0; i < TICK_BONUS; i++) ent.updateEntity();
 					}
+					
 				}
 			}
 		}

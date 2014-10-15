@@ -6,11 +6,17 @@ tile.GlowIngotBlock.name=Block of Glow
 tile.GlowPressurePlate.name=Glow Pressure Plate
 tile.ExtraSmoothStone.name='Stone'
 tile.StoneBricksDefault.name=Bricks of Stone
+tile.BricksOfStoneStairs.name=Bricks of Stone Stairs
 tile.StoneBricksWide.name=Bricks of Stone Wide
+tile.BricksOfStoneWideStairs.name=Bricks of Stone Wide Stairs
 tile.StoneBricksRed.name=Bricks of Stone Red
+tile.BricksOfStoneRedStairs.name=Bricks of Stone Red Stairs
 tile.StoneBricksBlue.name=Bricks of Stone Blue
+tile.BricksOfStoneBlueStairs.name=Bricks of Stone Blue Stairs
 tile.StoneBricksGreen.name=Bricks of Stone Green
+tile.BricksOfStoneGreenStairs.name=Bricks of Stone Green Stairs
 tile.StoneBricksPurple.name=Bricks of Stone Purple
+tile.BricksOfStonePurpleStairs.name=Bricks of Stone Purple Stairs
 tile.SafeGlass.name='Glass'
 
 tile.GlowOre.name=Glow Ore

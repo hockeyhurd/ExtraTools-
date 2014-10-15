@@ -69,12 +69,12 @@ public class ExtraTools {
 	public static Block glowTorch;
 	public static Block glowIngotBlock;
 	public static Block extraSmoothStone;
-	public static Block stoneBricksDefault;
-	public static Block stoneBricksWide;
-	public static Block stoneBricksRed;
-	public static Block stoneBricksBlue;
-	public static Block stoneBricksGreen;
-	public static Block stoneBricksPurple;
+	public static Block stoneBricksDefault, stoneBricksStairsDefault;
+	public static Block stoneBricksWide, stoneBricksStairsWide;
+	public static Block stoneBricksRed, stoneBricksStairsRed;
+	public static Block stoneBricksBlue,stoneBricksStairsBlue ;
+	public static Block stoneBricksGreen, stoneBricksStairsGreen;
+	public static Block stoneBricksPurple, stoneBricksStairsPurple;
 	public static Block safeGlass;
 	public static Block glowPressurePlate;
 
@@ -215,11 +215,17 @@ public class ExtraTools {
 		glowIngotBlock = new BlockGlowIngot(Material.rock);
 		extraSmoothStone = new BlockExtraSmoothStone(Material.rock);
 		stoneBricksDefault = new BlockStoneBricksDefault(Material.rock);
+		stoneBricksStairsDefault = new BlockStairsMaker(stoneBricksDefault, 0);
 		stoneBricksWide = new BlockStoneBricksWide(Material.rock);
+		stoneBricksStairsWide = new BlockStairsMaker(stoneBricksWide, 0);
 		stoneBricksRed = new BlockStoneBricksRed(Material.rock);
+		stoneBricksStairsRed = new BlockStairsMaker(stoneBricksRed, 0);
 		stoneBricksBlue = new BlockStoneBricksBlue(Material.rock);
+		stoneBricksStairsBlue = new BlockStairsMaker(stoneBricksBlue, 0);
 		stoneBricksGreen = new BlockStoneBricksGreen(Material.rock);
+		stoneBricksStairsGreen = new BlockStairsMaker(stoneBricksGreen, 0);
 		stoneBricksPurple = new BlockStoneBricksPurple(Material.rock);
+		stoneBricksStairsPurple = new BlockStairsMaker(stoneBricksPurple, 0);
 		safeGlass = new BlockSafeGlass(Material.glass, false);
 		glowPressurePlate = new BlockGlowPressurePlate("glow_pressure_plate", Material.rock, Sensitivity.players);
 
