@@ -26,6 +26,9 @@ import com.hockeyhurd.extratools.ExtraTools;
 import com.hockeyhurd.util.*;
 import com.hockeyhurd.util.math.Vector4Helper;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public abstract class AbstractToolWrench extends Item {
 
 	protected TimerHelper th;
@@ -43,6 +46,7 @@ public abstract class AbstractToolWrench extends Item {
 		esh.init();
 	}
 
+	@SideOnly(Side.CLIENT)
 	public abstract void registerIcons(IIconRegister reg);
 
 	public void onUpdate(ItemStack stack, World world, Entity e, int i, boolean f) {
@@ -143,6 +147,10 @@ public abstract class AbstractToolWrench extends Item {
 
 		return stack;
 	}
+	
+	/*public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+		return true;
+	}*/
 
 	protected void handleWrenchNBT(ItemStack stackInHand, List<ItemStack> stacks, World world, EntityPlayer player) {
 		NBTTagCompound nbt = stackInHand.stackTagCompound;

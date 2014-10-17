@@ -6,6 +6,9 @@ import net.minecraft.item.ItemStack;
 
 import com.hockeyhurd.extratools.ExtraTools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemNetherStarFirery extends Item {
 
 	public ItemNetherStarFirery() {
@@ -14,6 +17,7 @@ public class ItemNetherStarFirery extends Item {
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "FireryNetherStar");
 	}

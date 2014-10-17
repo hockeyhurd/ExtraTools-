@@ -17,6 +17,7 @@ public class ItemDiamondFusedNetherStar extends Item {
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconReg){
 		itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "DiamondNetherStarIngot");
 	}

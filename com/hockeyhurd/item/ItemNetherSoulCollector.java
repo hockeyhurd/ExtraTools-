@@ -173,6 +173,7 @@ public class ItemNetherSoulCollector extends Item {
 		return itemStack;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		list.add("Right click to toggle magnet mode!");
 	}

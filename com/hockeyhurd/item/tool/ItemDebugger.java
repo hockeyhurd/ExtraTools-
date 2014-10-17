@@ -18,6 +18,9 @@ import com.hockeyhurd.util.TimerHelper;
 import com.hockeyhurd.util.Waila;
 import com.hockeyhurd.util.math.Vector4Helper;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemDebugger extends Item {
 
 	private TimerHelper th;
@@ -32,6 +35,7 @@ public class ItemDebugger extends Item {
 		this.ch = new ChatHelper();
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(Items.stick.getIcon(new ItemStack(Items.stick, 1), 0).getIconName());
 	}
@@ -55,6 +59,7 @@ public class ItemDebugger extends Item {
 		return stack;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		list.add("Creative mode item only used for debugging!");
 	}

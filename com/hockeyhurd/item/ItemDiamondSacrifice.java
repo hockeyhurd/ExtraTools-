@@ -5,6 +5,9 @@ import net.minecraft.item.Item;
 
 import com.hockeyhurd.extratools.ExtraTools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemDiamondSacrifice extends Item {
 
 	public ItemDiamondSacrifice() {
@@ -14,6 +17,7 @@ public class ItemDiamondSacrifice extends Item {
 		this.setMaxStackSize(1);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "BlackDiamond");
 	}

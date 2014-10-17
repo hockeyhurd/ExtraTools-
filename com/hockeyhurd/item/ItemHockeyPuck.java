@@ -9,6 +9,9 @@ import net.minecraft.world.World;
 import com.hockeyhurd.entity.throwable.EntityPuck;
 import com.hockeyhurd.extratools.ExtraTools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemHockeyPuck extends Item {
 
 	public ItemHockeyPuck() {
@@ -17,6 +20,7 @@ public class ItemHockeyPuck extends Item {
 		this.setCreativeTab(ExtraTools.myCreativeTab);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) {
 		itemIcon = reg.registerIcon(ExtraTools.assetsDir + "HockeyPuck");
 	}
