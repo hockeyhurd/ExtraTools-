@@ -11,6 +11,9 @@ import net.minecraft.util.EnumChatFormatting;
 
 import com.hockeyhurd.extratools.ExtraTools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ArmorSetGlow extends ItemArmor {
 
 	public ArmorMaterial material;
@@ -30,6 +33,7 @@ public class ArmorSetGlow extends ItemArmor {
 		nameToAdd = pathMat;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity e, int slot, String type) {
 		if (stack.toString().contains("leggings")) { return (ExtraTools.assetsDir + nameToAdd + "_2.png"); }
 
@@ -38,6 +42,7 @@ public class ArmorSetGlow extends ItemArmor {
 		return (ExtraTools.assetsDir + nameToAdd + "_1.png");
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconReg) {
 		if (armorType == 0) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowHelmet");
 		if (armorType == 1) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowChestplate");
@@ -45,6 +50,7 @@ public class ArmorSetGlow extends ItemArmor {
 		if (armorType == 3) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowBoot");
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		if (armorType == 0) list.add(EnumChatFormatting.DARK_RED + "Ability: Underwater vision and breathing!");
 		else if (armorType == 1) list.add(EnumChatFormatting.DARK_RED + "Ability: Protection from fire!");

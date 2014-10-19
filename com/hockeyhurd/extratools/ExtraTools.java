@@ -26,6 +26,7 @@ import com.hockeyhurd.handler.GuiIDHandler;
 import com.hockeyhurd.handler.ModsLoadedHelper;
 import com.hockeyhurd.item.*;
 import com.hockeyhurd.item.armor.ArmorSetGlow;
+import com.hockeyhurd.item.armor.ArmorSetXynite;
 import com.hockeyhurd.item.metalic.*;
 import com.hockeyhurd.item.pulverized.ItemPulverizedGold;
 import com.hockeyhurd.item.pulverized.ItemPulverizedIron;
@@ -159,13 +160,15 @@ public class ExtraTools {
 	public static final ArmorMaterial glowArmorMat = EnumHelper.addArmorMaterial("GLOWARMOR", 100, new int[] {
 			3, 8, 6, 3
 	}, 25);
+	
+	public static final ArmorMaterial xyniteArmorMat = EnumHelper.addArmorMaterial("XYNITEARMOR", 80, new int[] {
+			3, 8, 6, 3
+	}, 20);
 
 	// Armor sets.
-	public static Item glowHelmet;
-	public static Item glowChestplate;
-	public static Item glowLegging;
-	public static Item glowBoot;
-
+	public static Item glowHelmet, glowChestplate, glowLegging, glowBoot;
+	public static Item xyniteHelmet, xyniteChestplate, xyniteLegging, xyniteBoot;
+	
 	// Creative Tabs
 	public static CreativeTabs myCreativeTab = new MyCreativeTab(CreativeTabs.getNextID(), "ExtraTools+");
 
@@ -296,6 +299,10 @@ public class ExtraTools {
 		glowChestplate = new ArmorSetGlow(glowArmorMat, 0, 1, "Glow", 1).setUnlocalizedName("GlowChestplate");
 		glowLegging = new ArmorSetGlow(glowArmorMat, 0, 2, "Glow", 2).setUnlocalizedName("GlowLeggings");
 		glowBoot = new ArmorSetGlow(glowArmorMat, 0, 3, "Glow", 3).setUnlocalizedName("GlowBoots");
+		xyniteHelmet = new ArmorSetXynite(xyniteArmorMat, 0, 0, "Xynite", 0).setUnlocalizedName("XyniteHelm");
+		xyniteChestplate = new ArmorSetXynite(xyniteArmorMat, 0, 1, "Xynite", 1).setUnlocalizedName("XyniteChestplate");
+		xyniteLegging = new ArmorSetXynite(xyniteArmorMat, 0, 2, "Xynite", 2).setUnlocalizedName("XyniteLeggings");
+		xyniteBoot = new ArmorSetXynite(xyniteArmorMat, 0, 3, "Xynite", 3).setUnlocalizedName("XyniteBoots");
 
 		worldgenGlowOre = new OreGlowWorldgen();
 		worldgenXyniteOre = new OreXyniteWorldgen(xyniteOre, null, 5, -1, 4, 7, 12, 24);

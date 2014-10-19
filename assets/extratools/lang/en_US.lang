@@ -81,6 +81,10 @@ item.GlowHelm.name=Glow Helmet
 item.GlowChestplate.name=Glow Chestplate
 item.GlowLeggings.name=Glow Leggings
 item.GlowBoots.name=Glow Boots
+item.XyniteHelm.name=Xynite Helmet
+item.XyniteChestplate.name=Xynite Chestplate
+item.XyniteLeggings.name=Xynite Leggings
+item.XyniteBoots.name=Xynite Boots
 
 
 

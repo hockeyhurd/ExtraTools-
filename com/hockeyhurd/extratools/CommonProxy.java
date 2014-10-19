@@ -143,6 +143,10 @@ public class CommonProxy {
 		GameRegistry.registerItem(glowChestplate, "GlowChestplate");
 		GameRegistry.registerItem(glowLegging, "GlowLegging");
 		GameRegistry.registerItem(glowBoot, "GlowBoot");
+		GameRegistry.registerItem(xyniteHelmet, "XyniteHelmet");
+		GameRegistry.registerItem(xyniteChestplate, "XyniteChestplate");
+		GameRegistry.registerItem(xyniteLegging, "XyniteLegging");
+		GameRegistry.registerItem(xyniteBoot, "XyniteBoot");
 	}
 
 	protected void addOreDict() {
