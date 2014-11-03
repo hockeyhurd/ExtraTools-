@@ -35,6 +35,7 @@ public class ConfigHandler {
 	// Properties:
 	public boolean easyRecipes = false;
 	public boolean altFireStarRecipe = true;
+	public boolean allowTickTorch = true;
 	public boolean debugMode = false;
 
 	public ConfigHandler(FMLPreInitializationEvent event) {
@@ -81,6 +82,7 @@ public class ConfigHandler {
 
 		easyRecipes = config.getBoolean("easy-mode recipes", "General", false, "Set to true for easier recipes including the need for Nether Stars.");
 		altFireStarRecipe = config.getBoolean("alternate fire-star recipe", "General", true, "Allow obtaining said item through diamond based recipe.");
+		allowTickTorch = config.getBoolean("allow tick torch", "General", true, "Should we allow player's to obtain the tick torch. NOTE: Setting to false makes it creative item only!");
 		debugMode = config.getBoolean("debug-mode toggle,", "General", false, "Allows displaying of debugging info!");
 
 		config.save();

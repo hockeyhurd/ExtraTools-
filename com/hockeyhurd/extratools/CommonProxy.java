@@ -380,9 +380,9 @@ public class CommonProxy {
 				" x ", "xyx", " x ", 'x', glowDust, 'y', "coal"
 		}));
 
-		// Crafting the time torch
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tickTorch, 1), new Object[] {
-				"zxz", "zyz", "zzz", 'x', glowCoal, 'y', Blocks.torch, 'z', "ingotXynite"
+		// Crafting the tick torch
+		if (ExtraTools.ch.allowTickTorch) GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tickTorch, 1), new Object[] {
+				"zxz", "zyz", "zzz", 'x', ExtraTools.fireryNetherStar, 'y', Blocks.torch, 'z', "ingotXynite"
 		}));
 
 		// Crafting the hockey stick
