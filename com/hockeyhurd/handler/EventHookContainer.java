@@ -186,8 +186,8 @@ public class EventHookContainer {
 				// Output info to joining player.
 				ChatHelper helper = new ChatHelper();
 				player.addChatComponentMessage(helper.comp("[ExtraTools+] Found an update! Latest build: " + build));
-				// player.addChatComponentMessage(helper.compURL("You can get this at:", url, true));
-				player.addChatComponentMessage(helper.compURL("You can get this at:", "http://goo.gl/nYTUfU", true));
+				player.addChatComponentMessage(helper.compURL("You can get this at:", url, true));
+				// player.addChatComponentMessage(helper.compURL("You can get this at:", "http://goo.gl/nYTUfU", true));
 			}
 		}
 	}
