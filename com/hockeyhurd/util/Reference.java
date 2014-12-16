@@ -2,7 +2,7 @@ package com.hockeyhurd.util;
 
 public class Reference {
 
-	public static final short BUILD = 54;
+	public static final short BUILD = 55;
 	public static final String VERSION = "v1.1." + BUILD;
 	public static final String MOD_NAME = "ExtraTools+";
 	
