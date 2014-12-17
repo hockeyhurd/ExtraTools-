@@ -26,10 +26,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHookContainer {
 
-	private final Item helm = ExtraTools.glowHelmet;
-	private final Item chest = ExtraTools.glowChestplate;
-	private final Item leg = ExtraTools.glowLegging;
-	private final Item boot = ExtraTools.glowBoot;
+	private final Item HELM = ExtraTools.glowHelmet;
+	private final Item CHEST = ExtraTools.glowChestplate;
+	private final Item LEG = ExtraTools.glowLegging;
+	private final Item BOOT = ExtraTools.glowBoot;
 
 	private boolean bootCheck = false;
 	private boolean legCheck = false;
@@ -83,86 +83,48 @@ public class EventHookContainer {
 		else {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			if (player.capabilities.isCreativeMode) return;
-
-			Item currentHelm = null;
-			Item currentChest = null;
-			Item currentLeg = null;
-			Item currentBoot = null;
-
-			if (player.getCurrentArmor(0) != null) {
-				currentBoot = player.getCurrentArmor(0).getItem();
-			}
-
-			if (player.getCurrentArmor(1) != null) {
-				currentLeg = player.getCurrentArmor(1).getItem();
-			}
-
-			if (player.getCurrentArmor(2) != null) {
-				currentChest = player.getCurrentArmor(2).getItem();
-			}
-
-			if (player.getCurrentArmor(3) != null) {
-				currentHelm = player.getCurrentArmor(3).getItem();
-			}
-
-			/*
-			 * Checks if the user removes any part(s) of the armor set and if already airborne revove flying ability and make them fall! Ouch!
-			 */
-			else bootCheck = legCheck = chestCheck = helmCheck = false;
-
-			if (currentBoot == boot) {
+			
+			if (player.getCurrentArmor(0) != null && player.getCurrentArmor(0).getItem() == BOOT) {
 				bootCheck = true;
-				if (!player.isCollidedVertically) player.fallDistance = 0f;
+				if (!player.isCollidedVertically) player.fallDistance = 0.0f;
 			}
-
-			if (currentLeg == leg) {
+			
+			if (player.getCurrentArmor(1) != null && player.getCurrentArmor(1).getItem() == LEG) {
 				legCheck = true;
-				// player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, 0));
 				if (!player.isSneaking()) {
 					if (player.stepHeight < 1.0f) player.stepHeight = 1.0f;
-					// if (player.capabilities.getWalkSpeed() < 0.15f) player.capabilities.setPlayerWalkSpeed(0.15f);
 				}
 				
 				else {
 					if (player.stepHeight > 0.5f) player.stepHeight = 0.5f;
-					// if (player.capabilities.getWalkSpeed() > 0.1f) player.capabilities.setPlayerWalkSpeed(0.1f);
 				}
 			}
-
-			if (currentChest == chest) {
+			
+			if (player.getCurrentArmor(2) != null && player.getCurrentArmor(2).getItem() == CHEST) {
 				chestCheck = true;
-				if (!player.isBurning()) player.removePotionEffect(Potion.fireResistance.id);
-				else player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 5, 0));
+				if (player.isBurning()) player.addPotionEffect(new PotionEffect(Potion.fireResistance.id, 5, 0));
 			}
-
-			if (currentHelm == helm) {
+			
+			if (player.getCurrentArmor(3) != null && player.getCurrentArmor(3).getItem() == HELM) {
 				helmCheck = true;
 				if (player.isInWater()) {
 					player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 5, 0));
-					player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 1, 0));
-				}
-				else {
-					player.removePotionEffect(Potion.waterBreathing.id);
-					player.removePotionEffect(Potion.nightVision.id);
+					player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 5, 0));
 				}
 			}
-
+			
 			if (bootCheck && legCheck && chestCheck && helmCheck) {
 				if (!player.capabilities.allowFlying) player.capabilities.allowFlying = true;
-				setAllowedFly(true);
 			}
+			
 			else {
-				if (currentHelm == null || currentChest == null || currentLeg == null || currentBoot == null) {
-					if (player.capabilities.allowFlying) player.capabilities.allowFlying = false;
-					if (currentLeg != leg && player.stepHeight != 0.5f) player.stepHeight = 0.5f;
-				}
-				setAllowedFly(false);
-				// if (player.capabilities.getWalkSpeed() != 0.1f) player.capabilities.setPlayerWalkSpeed(0.1f);
+				if (player.capabilities.allowFlying) player.capabilities.allowFlying = false;
+				if (player.capabilities.isFlying) player.capabilities.isFlying = false;
 			}
-
+			
 			bootCheck = legCheck = chestCheck = helmCheck = false;
+			
 		}
-
 	}
 	
 	@SubscribeEvent
