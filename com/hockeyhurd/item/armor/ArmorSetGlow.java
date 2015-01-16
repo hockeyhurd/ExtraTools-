@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 
 import com.hockeyhurd.extratools.ExtraTools;
 
@@ -49,7 +50,50 @@ public class ArmorSetGlow extends ItemArmor {
 		if (armorType == 2) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowLegging");
 		if (armorType == 3) itemIcon = iconReg.registerIcon(ExtraTools.assetsDir + "GlowBoot");
 	}
-	
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		super.onArmorTick(world, player, itemStack);
+
+		if (world.getTotalWorldTime() % 20L == 0 && !player.capabilities.isCreativeMode) {
+			
+			boolean flag = true;
+			byte counter = 0;
+			
+			if (player.getCurrentArmor(0) == null || player.getCurrentArmor(0).getItem() != ExtraTools.glowBoot) {
+				flag = false;
+				counter++;
+			}
+			
+			if (player.getCurrentArmor(1) == null || player.getCurrentArmor(1).getItem() != ExtraTools.glowLegging) {
+				flag = false;
+				counter++;
+			}
+			
+			if (player.getCurrentArmor(2) == null || player.getCurrentArmor(2).getItem() != ExtraTools.glowChestplate) {
+				flag = false;
+				counter++;
+			}
+			
+			if (player.getCurrentArmor(3) == null || player.getCurrentArmor(3).getItem() != ExtraTools.glowHelmet) {
+				flag = false;
+				counter++;
+			}
+			
+			if (counter == 4) return;
+			
+			if (flag) {
+				// System.out.println("true");
+				player.capabilities.allowFlying = true;
+			}
+			
+			else {
+				// System.out.println("false");
+				player.capabilities.allowFlying = false;
+			}
+		}
+	}
+
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		if (armorType == 0) list.add(EnumChatFormatting.DARK_RED + "Ability: Underwater vision and breathing!");

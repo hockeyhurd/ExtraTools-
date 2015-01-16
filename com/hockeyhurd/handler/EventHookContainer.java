@@ -114,12 +114,12 @@ public class EventHookContainer {
 			}
 			
 			if (bootCheck && legCheck && chestCheck && helmCheck) {
-				if (!player.capabilities.allowFlying) player.capabilities.allowFlying = true;
+				// if (!player.capabilities.allowFlying) player.capabilities.allowFlying = true;
 			}
 			
 			else {
-				if (player.capabilities.allowFlying) player.capabilities.allowFlying = false;
-				if (player.capabilities.isFlying) player.capabilities.isFlying = false;
+				// if (player.capabilities.allowFlying) player.capabilities.allowFlying = false;
+				// if (player.capabilities.isFlying) player.capabilities.isFlying = false;
 			}
 			
 			bootCheck = legCheck = chestCheck = helmCheck = false;
